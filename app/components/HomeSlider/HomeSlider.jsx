@@ -2,12 +2,11 @@
 import Container from "../Container"
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 
 import "./style.css"
 import Image from "next/image";
@@ -22,7 +21,7 @@ const HomeSlider = () => {
           disableOnInteraction: false,
         }}
         navigation={true}
-        modules={[Navigation]}
+        modules={[Autoplay,Navigation]}
         className="mySwiper"
       >
         <SwiperSlide>
