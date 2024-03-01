@@ -4,12 +4,13 @@ import Button from "./Button"
 
 const Book = ({Img}) => {
   return (
+    <div className=" w-40 h-auto mx-auto">
     <Link
     href="/"
-    className="overflow-hidden bg-white border border-white" 
+    className="overflow-hidden bg-white border border-white "  
 >
    <div className=" w-40 h-48 transform duration-150 hover:scale-105">
-    <Image className=" w-full h-full object-cover" src={Img} width={1000} height={1000}  />
+    <Image alt="image not found" className=" w-full h-full object-cover" src={Img} width={1000} height={1000}  />
    </div>
 
     <div className=" text-black/[0.9]">
@@ -29,6 +30,8 @@ const Book = ({Img}) => {
         </div>
     </div>
 </Link>
+</div>
+
   )
 }
 

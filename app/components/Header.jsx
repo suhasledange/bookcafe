@@ -14,11 +14,11 @@ const Header = () => {
 
     return (
         <header className={` shadow-sm w-full h-14 bg-white md:h-20 flex items-center justify-between z-50 sticky top-0 transition-transform duration-300`}>
-            <Container className="px-3 md:px-0 h-14 flex justify-between items-center">
+            <Container className="max-w-screen-xl px-3 md:px-0 h-14 flex justify-between items-center">
 
                 <div className='flex items-center justify-center gap-2'>
 
-                    <div className='flex justify-center items-center cursor-pointer md:hidden'>
+                    {/* <div className='flex justify-center items-center cursor-pointer md:hidden'>
                         {
                             mobileMenu ? (
                                 <VscChromeClose className='text-2xl' onClick={() => setMobileMenu(false)} />
@@ -26,25 +26,24 @@ const Header = () => {
                                 <IoMenu className=' text-2xl' onClick={() => setMobileMenu(true)} />
                             )
                         }
-                    </div>
+                    </div> */}
 
                     <Link href="/">
-                        <h1 className='text-lg tracking-wider text-gray-700 '>BookCafe</h1>
+                        <h1 className='text-lg tracking-wider font-bold text-gray-700 '>BookCafe</h1>
                     </Link>
                 </div>
 
                 <div className=' flex-[0.8] flex items-center justify-between space-x-4'>
-
-                 <div className='space-x-8 text-md tracking-wide text-gray-700'>
+                
+                <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center'>
+                 <IoSearch className=' text-gray-600 text-lg' />
+                    <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
+                </div>
+                 <div className='font-medium space-x-3 md:space-x-8 tracking-wide text-gray-700'>
                     <Link href="/" >Store</Link>
                     <Link href="/" >About Us</Link>
-                    </div>   
+                 </div>   
                     
-                    <div className=' border-b-2 p-1 pb-[0.35rem] gap-2 flex flex-[0.8] items-center justify-center'>
-                        <IoSearch className=' text-gray-600 text-lg' />
-                        <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
-                    </div>
-
                 </div>
 
                 <div className='flex items-center gap-5 text-black'>
