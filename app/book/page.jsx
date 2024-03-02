@@ -51,8 +51,8 @@ export default function Home() {
         
         </div>    
 
-        <div className={`${genreMenu ? "hidden" :""} z-20 absolute top-10 left-5 w-full mt-1 `}>
-        <div onClick={()=>setGenreMenu(!genreMenu)} className='absolute top-0 left-0  w-full -z-10 h-screen'>
+        <div className={`${!genreMenu ? "hidden" :""} z-20 absolute top-10 left-5 w-full mt-1 `}>
+        <div onClick={()=>setGenreMenu(false)} className='absolute top-0 left-0  w-full -z-10 h-screen'>
         </div>
         <div className={`bg-white  w-[50%] z-20` }>
         <div className='py-3 h-screen overflow-y-scroll'>
