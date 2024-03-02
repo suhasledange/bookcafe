@@ -29,24 +29,28 @@ const Header = () => {
                     </div> */}
 
                     <Link href="/">
-                        <h1 className='text-lg tracking-wider font-bold text-gray-700 '>BookCafe</h1>
+                        <h1 className='text-md md:text-lg tracking-wider font-bold text-gray-700 '>BookCafe</h1>
                     </Link>
                 </div>
 
-                <div className=' flex-[0.8] flex items-center justify-between space-x-4'>
+                <div className='w-full flex items-center justify-between space-x-4'>
                 
-                <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center'>
+                <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center mx-auto'>
                  <IoSearch className=' text-gray-600 text-lg' />
                     <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
                 </div>
-                 <div className='font-medium space-x-3 md:space-x-8 tracking-wide text-gray-700'>
-                    <Link href="/" >Store</Link>
-                    <Link href="/" >About Us</Link>
+                 
+                 
+                 <div className='font-medium text-sm md:text-lg space-x-3 md:space-x-8 tracking-wide text-gray-700'>
+                    <Link href="/store" >Store</Link>
+                    <Link href="/about" >About Us</Link>
                  </div>   
+                    
+
                     
                 </div>
 
-                <div className='flex items-center gap-5 text-black'>
+                <div className='flex items-center gap-5 text-black ml-0 md:ml-4'>
 
                     <Link href="/cart">
                         <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
@@ -56,7 +60,7 @@ const Header = () => {
                             </div>
                         </div>
                     </Link>
-                    <Link href="" className=' flex items-center justify-center'>
+                    <Link href="/login" className='text-sm md:text-lg flex items-center justify-center'>
                       <Button text="Login"/>
                     </Link>
 

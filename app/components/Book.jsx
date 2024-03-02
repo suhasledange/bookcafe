@@ -6,7 +6,7 @@ const Book = ({Img}) => {
   return (
     <div className=" w-40 h-auto mx-auto">
     <Link
-    href="/"
+    href="/book/b1"
     className="overflow-hidden bg-white border border-white "  
 >
    <div className=" w-40 h-48 transform duration-150 hover:scale-105">
@@ -26,7 +26,6 @@ const Book = ({Img}) => {
             </p>
             </div>
             <Button text="Rent" className="py-1 px-4"/>
-
         </div>
     </div>
 </Link>

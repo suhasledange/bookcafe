@@ -1,4 +1,3 @@
-import Container  from "./components/Container";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 

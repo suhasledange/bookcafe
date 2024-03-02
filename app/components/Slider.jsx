@@ -26,12 +26,11 @@ const Slider = ({title}) => {
     <div className="mt-16">
             <div className="relative w-full border-b pb-3 text-2xl font-bold mb-6">
                 {title}
-                <div className='absolute bg-black w-[8%] h-[0.2rem] bottom-0 left-0'></div>
+                <div className='absolute bg-black w-[25%] md:w-[10%] h-[0.2rem] bottom-0 left-0'></div>
                 </div>
 
             <Carousel
                 responsive={responsive}
-                itemClass="px-[2rem]"
                 className='z-10 flex items-center justify-start'
             >
            <Book Img="/temp.webp"/>
