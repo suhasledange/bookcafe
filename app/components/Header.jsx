@@ -29,7 +29,7 @@ const Header = () => {
                     </div> */}
 
                     <Link href="/">
-                        <h1 className='text-md md:text-lg tracking-wider font-bold text-gray-700 '>BookCafe</h1>
+                        <h1 className='text-md md:text-lg tracking-wider font-bold text-gray-900 '>BookCafe</h1>
                     </Link>
                 </div>
 
