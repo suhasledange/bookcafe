@@ -70,7 +70,7 @@ const HomeSlider = () => {
             <h1 className="font-bold md:text-5xl text-3xl">The More you Read</h1>
             <h1 className="font-bold md:text-5xl text-3xl mb-3">The Less You Pay</h1>
             <p className="text-gray-700 md:text-md text-md w-[90%]">Explore our flexible reading plans and see what suits you</p>
-            <Link href="/store">
+            <Link href="/about">
             <Button className="mt-3" text="Read More" />
             </Link>
           </div>

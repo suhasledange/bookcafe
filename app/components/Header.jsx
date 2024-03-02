@@ -42,11 +42,9 @@ const Header = () => {
                  
                  
                  <div className='font-medium text-sm md:text-lg space-x-3 md:space-x-8 tracking-wide text-gray-700'>
-                    <Link href="/store" >Store</Link>
+                    <Link href="/book" >Store</Link>
                     <Link href="/about" >About Us</Link>
                  </div>   
-                    
-
                     
                 </div>
 
