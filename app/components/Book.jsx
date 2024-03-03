@@ -16,18 +16,18 @@ const Book = ({Img}) => {
     <div className=" text-black/[0.9] flex flex-col">
         <h2 className="mt-3 text-lg font-medium">The Lean Startup</h2>
         <p className="text-center mb-1 text-gray-700">Ron Chenow</p>
-        <div className="flex justify-between items-center text-black/[0.5] mt-2 mb-4">
-            <div className="flex items-center">
-            <p className="mr-2 text-lg font-semibold">
+        <div className="flex justify-center items-center text-black/[0.5] mt-2 mb-4">
+            <div className="flex items-center justify-center">
+            <p className="text-lg font-semibold ">
             &#8377;20
             </p>
-            <p className="text-base text-red-600  font-medium line-through">
+            {/* <p className="text-base text-red-600  font-medium line-through">
                  30
-            </p>
+            </p> */}
             </div>
-              <p className="text-green-700 font-medium">
+              {/* <p className="text-green-700 font-medium">
                 30%
-              </p>
+              </p> */}
         </div>
             <Button text="Add To Cart" className="py-1 px-4"/>
     </div>

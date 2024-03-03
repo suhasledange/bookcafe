@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import Container from '@/app/components/Container';
+import { conf } from '@/app/util/conf';
 
 const SignupForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -11,32 +12,32 @@ const SignupForm = () => {
     console.log(data);
     reset();
   };
-
+  
   return (
     <Container className="md:px-0 px-3 max-w-screen-xl mt-10 mb-10">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
         <div className="flex flex-col space-y-4">
           
         <div className=' space-y-2'>
-            <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
-              First Name
+            <label htmlFor="name" className="block text-md font-medium text-gray-700">
+              Name
             </label>
             <input
               type="text"
-              id="firstName"
-              {...register('firstName', { required: 'First Name is required' })}
+              id="name"
+              {...register('name', { required: 'First Name is required' })}
               className="mt-1 p-3 border rounded-sm border-gray-300 w-full"
             />
           </div>
 
           <div className=' space-y-2'>
-            <label htmlFor="lastName" className="block text-md font-medium text-gray-700">
-              Last Name
+            <label htmlFor="phone" className="block text-md font-medium text-gray-700">
+              Phone
             </label>
             <input
-              type="text"
-              id="lastName"
-              {...register('lastName', { required: 'Last Name is required' })}
+              type="tel"
+              id="phone"
+              {...register('phone', { required: 'Phone Number is required' })}
               className="mt-1 p-3 border rounded-sm border-gray-300 w-full"
             />
           </div>
