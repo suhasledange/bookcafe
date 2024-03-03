@@ -34,11 +34,8 @@ export default function Home() {
     })
   }, [])
 
-
-
   return (
     <>
-
       <HomeSlider />
       <Slider books={SelfHelp} title="Self Help" />
       <Slider books={NonFiction} title="Non-Fiction" />

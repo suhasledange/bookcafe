@@ -6,44 +6,57 @@ import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import service from '../appwrite/service';
 import Loader from '../components/Loader';
-const genres = ['Fiction', 'Non-Fiction', 'Mystery', 'Science Fiction', 'Fantasy','Arts And Crafts','Classics','Cookery','Comics','General','Geo-Politcs','Hindi','History','Health And Fitness','Kids','Marathi','Music & Movies','Science','Sports','Technical','Travel'];
+const genres = ['Self Help','Fiction', 'Business','NonFiction', 'Mystery', 'Science Fiction', 'Fantasy','Arts And Crafts','Classics','Cookery','Comics','General','Geo-Politcs','Hindi','History','Health And Fitness','Kids','Marathi','Music & Movies','Science','Sports','Technical','Travel'];
 
 export default function Home() {
 
-
-
   const [books,setBooks] = useState();
-
   const [loading,setLoading] = useState(true);
-
-
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [genreMenu,setGenreMenu] = useState(false)
+  const[filteredBooks,setFilteredBooks] = useState();
   useEffect(()=>{
        
       service.getBooks().then(res =>{
           const {documents} = res
           setBooks(documents);
+          setFilteredBooks(documents)
           setLoading(false);
        })
     },[])
 
-  const [selectedGenres, setSelectedGenres] = useState([]);
-  const [genreMenu,setGenreMenu] = useState(false)
-  const handleGenreChange = (genre) => {
-    if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-    } else {
-      setSelectedGenres([...selectedGenres, genre]);
-    }
-  };
+ 
+    const handleGenreChange = (genre) => {
+      setSelectedGenres((prevGenres) => {
+        if (prevGenres.includes(genre)) {
+          return prevGenres.filter((g) => g !== genre);
+        } else {
+          return [...prevGenres, genre];
+        }
+      });
+    };
+    
+    const changeBookData = () => {
+      if (selectedGenres.length !== 0) {
+    
+        const filteredBooks = books?.filter((book) =>
+          selectedGenres.some((selectedGenre) => book.genre.includes(selectedGenre))
+        );
+        setFilteredBooks(filteredBooks);
+      } else {
+        setFilteredBooks(books);
+      }
+    };
+
+    useEffect(() => {
+      changeBookData()
+    }, [selectedGenres]);
 
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
 
     <div className='flex gap-5'>
-       
-
         <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
-          
           <div className='space-y-4 '>
             {genres.map((genre) => (
               <div key={genre} className='space-x-3 text-md text-gray-700'>
@@ -100,7 +113,7 @@ export default function Home() {
         loading ? <Loader/> :
         <div className='grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))'}} >
           
-          {books?.map(b=>(
+          {filteredBooks?.map(b=>(
             <Book key={b.$id}
             Id={b.$id} 
             author={b.author} 
