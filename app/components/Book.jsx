@@ -19,7 +19,7 @@ const Book = ({Img}) => {
         <div className="flex justify-between items-center text-black/[0.5] mt-2 mb-4">
             <div className="flex items-center">
             <p className="mr-2 text-lg font-semibold">
-              20
+            &#8377;20
             </p>
             <p className="text-base text-red-600  font-medium line-through">
                  30

@@ -90,8 +90,8 @@ const HomeSlider = () => {
       <SwiperSlide>
         <div className="md:flex items-center ml-5 md:ml-0 space-y-6 md:space-y-0 md:justify-evenly w-full mx-auto ">
           <div className=" text-left">
-            <h1 className="font-bold md:text-5xl text-3xl w-80 ">Its's as Easy as</h1>
-            <h1 className="font-bold md:text-5xl text-3xl mb-3">1,2,3..</h1>
+            <h1 className="font-bold md:text-5xl text-3xl w-80 ">Its's as Easy </h1>
+            <h1 className="font-bold md:text-5xl text-3xl mb-3">as 1,2,3..</h1>
             <p className="text-gray-700 md:text-md text-md w-[90%]">3 steps to embark to your reading journey</p>
             <Link href="/signup">
                 <Button className="mt-3" text="Sign Up Now" />
