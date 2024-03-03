@@ -5,12 +5,11 @@ import Button from "./Button"
 const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice}) => {
 
   return (
-    <div className=" w-40  mx-auto">
     <Link
     href={`/book/${Id}`}
-    className="overflow-hidden bg-white"  
+    className="overflow-hidden w-44 bg-white mx-auto py-3"  
 >
-   <div className=" w-40 h-48 drop-shadow-xl transform duration-150 hover:scale-105">
+   <div className=" w-44 h-48 drop-shadow-xl transform duration-150 hover:scale-105 mx-auto">
           <Image alt="image not found" style={{width:"100%", height:"100%",objectFit:'contain'}} src={Img} width={1000} height={1000}  />
    </div>
 
@@ -33,7 +32,6 @@ const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice})
             <Button text="Add To Cart" className="py-1 px-4"/>
     </div>
 </Link>
-</div>
 
   )
 }

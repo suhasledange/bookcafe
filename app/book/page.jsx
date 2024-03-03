@@ -98,7 +98,7 @@ export default function Home() {
         </div>
       {
         loading ? <Loader/> :
-        <div className='grid gap-3 space-y-6' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))'}} >
+        <div className='grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))'}} >
           
           {books?.map(b=>(
             <Book key={b.$id}

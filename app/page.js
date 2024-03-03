@@ -20,14 +20,14 @@ export default function Home() {
       const { documents } = res
       setBooks(documents);
 
-      const SelfHelp = documents?.filter(b => b.genre.includes('Self Help'))
+      const SelfHelp = documents?.filter(b => b?.genre.includes('Self Help'))
       setSelfHelp(SelfHelp)
 
 
-      const NonFiction = documents?.filter(b => b.genre.includes('NonFiction'))
+      const NonFiction = documents?.filter(b => b?.genre.includes('NonFiction'))
       setNonFiction(NonFiction)
 
-      const Business = documents?.filter(b => b.genre.includes('Business'))
+      const Business = documents?.filter(b => b?.genre.includes('Business'))
       setBusiness(Business)
 
       setLoading(false);

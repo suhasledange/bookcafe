@@ -1,13 +1,10 @@
-'use client'
-import React, { useEffect, useState } from 'react'
 import Book from './Book'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Container from './Container';
-import service from '../appwrite/service';
+import Loader from './Loader';
 const Slider = ({books,title}) => {
 
-    
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -23,16 +20,18 @@ const Slider = ({books,title}) => {
         }
     };
   return (
-    <Container className="max-w-screen-xl overflow-x-hidden md:px-0 px-3 ">
+    <Container className="max-w-screen-xl md:px-0 px-3 overflow-hidden">
 
     <div className="mt-16">
             <div className="relative w-full border-b pb-3 text-2xl font-bold mb-10">
                 {title}
                 <div className='absolute bg-black w-[25%] md:w-[10%] h-[0.2rem] bottom-0 left-0'></div>
                 </div>
+           {
+            !books ? <Loader/> :
             <Carousel
                 responsive={responsive}
-                className='z-10 flex items-center justify-start'
+                className='z-10 flex py-2 items-center justify-start'
             >
           {books?.map(b=>(
             <Book key={b.$id}
@@ -48,6 +47,9 @@ const Slider = ({books,title}) => {
             />
             ))}
             </Carousel>
+           }
+
+
         </div>
     </Container>
 
