@@ -97,7 +97,7 @@ const HomeSlider = () => {
                 <Button className="mt-3" text="Sign Up Now" />
             </Link>
           </div>
-          <div className=" space-y-4 text-md text-left">
+          <div className=" space-y-2 text-md text-left">
                 <p className="text-sm md:text-lg"> <span className="text-black font-bold text-xl md:text-2xl mr-1 ">1</span> Find a book you want to read. </p>
                 <p className="text-sm md:text-lg"> <span className="text-black font-bold text-xl md:text-2xl mr-1">2</span> Get it delivered to your doorstep. </p>
                 <p className="text-sm md:text-lg"> <span className="text-black font-bold text-xl md:text-2xl mr-1">3</span> Exchange it for your next read, from the confort at your home. </p>
