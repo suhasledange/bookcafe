@@ -18,7 +18,7 @@ export default function Home() {
   };
 
   return (
-    <Container className="max-w-screen-xl mt-10 mb-10 overflow-x-hidden">
+    <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
 
     <div className='flex gap-5'>
        
@@ -41,6 +41,8 @@ export default function Home() {
           </div>
         </div>
 
+
+  {/* Mobile */}
       <div className=' md:flex-[0.8] flex-1 md:ml-5 ml-0 relative'>
             
         <div className='md:hidden'>
@@ -51,11 +53,11 @@ export default function Home() {
         
         </div>    
 
-        <div className={`${!genreMenu ? "hidden" :""} z-20 absolute top-10 left-5 w-full mt-1 `}>
+        <div className={`${!genreMenu ? "hidden" :""} z-30 absolute top-10 left-0 w-full mt-1 `}>
         <div onClick={()=>setGenreMenu(false)} className='absolute top-0 left-0  w-full -z-10 h-screen'>
         </div>
-        <div className={`bg-white  w-[50%] z-20` }>
-        <div className='py-3 h-screen overflow-y-scroll'>
+        <div className={`bg-white  w-[58%] z-20` }>
+        <div className='py-3 px-2 h-screen overflow-y-scroll'>
           
           <div className='space-y-4 '>
             {genres.map((genre) => (
