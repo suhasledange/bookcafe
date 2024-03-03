@@ -2,6 +2,8 @@ import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 
 export default function Home() {
+
+
   return (
   <>
       
