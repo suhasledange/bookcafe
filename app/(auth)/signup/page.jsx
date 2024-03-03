@@ -4,15 +4,17 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import Container from '@/app/components/Container';
 import { conf } from '@/app/util/conf';
+import authService from '@/app/appwrite/auth';
 
 const SignupForm = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const promise = authService.createAccount(data);
+    console.log(promise)
     reset();
   };
-  
+
   return (
     <Container className="md:px-0 px-3 max-w-screen-xl mt-10 mb-10">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">

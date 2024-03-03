@@ -1,11 +1,13 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Book from './Book'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Container from './Container';
-const Slider = ({title}) => {
+import service from '../appwrite/service';
+const Slider = ({books,title}) => {
 
+    
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -32,14 +34,19 @@ const Slider = ({title}) => {
                 responsive={responsive}
                 className='z-10 flex items-center justify-start'
             >
-           <Book Img="/temp.webp"/>
-           <Book Img="/temp.webp"/>
-           <Book Img="/temp2.webp"/>
-           <Book Img=""/>
-           <Book Img="/temp2.webp"/>
-           <Book Img=""/>
-           <Book Img=""/>
-           <Book Img=""/>
+          {books?.map(b=>(
+            <Book key={b.$id}
+            Id={b.$id} 
+            author={b.author} 
+            Img={b.bookImg} 
+            availability={b.availability}
+            bookName={b.bookName}
+            description={b.description}
+            genre={b.genre}
+            rentPrice={b.rentPrice}
+            
+            />
+            ))}
             </Carousel>
         </div>
     </Container>

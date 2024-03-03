@@ -1,12 +1,31 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Book from '../components/Book';
 import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import service from '../appwrite/service';
+import Loader from '../components/Loader';
 const genres = ['Fiction', 'Non-Fiction', 'Mystery', 'Science Fiction', 'Fantasy','Arts And Crafts','Classics','Cookery','Comics','General','Geo-Politcs','Hindi','History','Health And Fitness','Kids','Marathi','Music & Movies','Science','Sports','Technical','Travel'];
 
 export default function Home() {
+
+
+
+  const [books,setBooks] = useState();
+
+  const [loading,setLoading] = useState(true);
+
+
+  useEffect(()=>{
+       
+      service.getBooks().then(res =>{
+          const {documents} = res
+          setBooks(documents);
+          setLoading(false);
+       })
+    },[])
+
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [genreMenu,setGenreMenu] = useState(false)
   const handleGenreChange = (genre) => {
@@ -77,22 +96,25 @@ export default function Home() {
         </div>     
         </div>
         </div>
-      
-      <div className='grid gap-3' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))'}} >
-          <Book Img="/temp.webp"/>
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
-          <Book Img="/temp.webp" />
+      {
+        loading ? <Loader/> :
+        <div className='grid gap-3 space-y-6' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))'}} >
+          
+          {books?.map(b=>(
+            <Book key={b.$id}
+            Id={b.$id} 
+            author={b.author} 
+            Img={b.bookImg} 
+            availability={b.availability}
+            bookName={b.bookName}
+            description={b.description}
+            genre={b.genre}
+            rentPrice={b.rentPrice}
+            
+            />
+            ))}
         </div>
+    }
       </div>
     </div>
     </Container>
