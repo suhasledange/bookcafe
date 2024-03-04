@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -16,27 +18,39 @@ export default function Home() {
 
   useEffect(() => {
 
-    service.getBooks().then(res => {
-      const { documents } = res
-      setBooks(documents);
+    const fetchData = async () => {
+      try {
 
-      const SelfHelp = documents?.filter(b => b?.genre.includes('Self Help'))
-      setSelfHelp(SelfHelp)
+     const res = await service.getBooks();
+        const { documents } = res;
+        setBooks(documents);
+  
+        const SelfHelp = documents?.filter(b => b?.genre.includes('Self Help'))
+        setSelfHelp(SelfHelp)
+  
+  
+        const NonFiction = documents?.filter(b => b?.genre.includes('NonFiction'))
+        setNonFiction(NonFiction)
+  
+        const Business = documents?.filter(b => b?.genre.includes('Business'))
+        setBusiness(Business)
+  
+        setLoading(false);
+      } catch (error) {
 
+        console.error("Error fetching data from the server:", error);
+        toast.error("Error fetching data from the server. Please try again later.");
+        setLoading(false);
 
-      const NonFiction = documents?.filter(b => b?.genre.includes('NonFiction'))
-      setNonFiction(NonFiction)
-
-      const Business = documents?.filter(b => b?.genre.includes('Business'))
-      setBusiness(Business)
-
-      setLoading(false);
-    })
+      }
+    }
+    fetchData();
   }, [])
 
   return (
     <>
       <HomeSlider />
+    <ToastContainer />
       <Slider books={SelfHelp} title="Self Help" />
       <Slider books={NonFiction} title="Non-Fiction" />
       <Slider books={Business} title="Business" />
