@@ -1,5 +1,4 @@
 'use client'
-
 import service from "@/app/appwrite/service";
 import Container from "@/app/components/Container";
 import Loader from "@/app/components/Loader";
@@ -11,8 +10,6 @@ const page = ({params}) => {
   const [book,setBook] = useState(null)
   const [loading,setLoading] = useState(true)
 
-  useEffect(() => {
-   
     const fetchData = async () => {
       try {
         const res = await service.getBook(String(params.slug));
@@ -23,13 +20,10 @@ const page = ({params}) => {
         setLoading(false);
   
       }
-    };
-  
-    fetchData();
-  }, [])
+    }
+   
+    useEffect(()=>{ fetchData() },[])
 
-
-console.log(book)
   return (
     <Container className=' max-w-screen-xl mt-8  h-screen'>
 
@@ -37,7 +31,7 @@ console.log(book)
           loading ? <Loader/> :
           <>
                 <div className=" w-44 h-auto">
-                    <Image src={book?.bookImg} width={1000} height={1000}/>
+                    <Image alt='bookimg' src={book?.bookImg} width={1000} height={1000}/>
                   </div> 
                 <h1 className="text-lg font-bold">{book?.bookName}</h1>
                 <h3 className="text-md font-medium">{book?.author}</h3>

@@ -71,7 +71,7 @@ export default function Home() {
   }, [selectedGenres]);
 
   return (
-    <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
+    <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden h-screen">
   <ToastContainer position="top-center" />
       <div className='flex gap-5'>
         <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
