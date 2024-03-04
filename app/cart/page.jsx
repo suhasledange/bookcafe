@@ -56,7 +56,7 @@ const Cart = () => {
                                 </div>
 
                                 {/* BUTTON START */}
-                                <Button className='transition-transform active:scale-95 flex items-center w-full justify-center py-3 text-md' text='Checkout'
+                                <Button className='flex items-center w-full justify-center py-3 text-md' text='Checkout'
                                     // onClick={handlePayment}
                                 >
                                     Checkout
@@ -69,10 +69,6 @@ const Cart = () => {
 
 
       </>
-
-
-
-
 
 
       <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
