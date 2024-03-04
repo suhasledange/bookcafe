@@ -5,7 +5,7 @@ import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const page = ({params}) => {
+const BookCard = ({params}) => {
 
   const [book,setBook] = useState(null)
   const [loading,setLoading] = useState(true)
@@ -53,4 +53,4 @@ const page = ({params}) => {
   )
 }
 
-export default page
+export default BookCard
