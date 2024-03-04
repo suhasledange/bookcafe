@@ -30,6 +30,8 @@ const BookCard = ({params}) => {
         {
           loading ? <Loader/> :
           <>
+                
+                
                 <div className=" w-44 h-auto">
                     <Image alt='bookimg' src={book?.bookImg} width={1000} height={1000}/>
                   </div> 
@@ -38,11 +40,14 @@ const BookCard = ({params}) => {
                 <p>{book?.description}</p>
                 <p>{book?.rentPrice}</p>
                 <p>{book?.availability ? "In Stock":"Out Of Stock"}</p>
+                
                 {
                   book?.genre.map((g,i) => (
                     <p key={i}>{g}</p>
                   ))
                 }
+
+
 
           </>
         }
