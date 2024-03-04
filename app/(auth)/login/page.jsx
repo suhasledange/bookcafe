@@ -25,7 +25,7 @@ const LoginForm = () => {
             type="email"
             id="email"
             {...register('email', { required: 'Email is required' })}
-            className="mt-1 p-3 border rounded-sm border-gray-300 w-full"
+            className="mt-1 p-3 border outline-black rounded-sm border-gray-300 w-full"
           />
         </div>
 
@@ -37,7 +37,7 @@ const LoginForm = () => {
             type="password"
             id="password"
             {...register('password', { required: 'Password is required' })}
-            className="mt-1 p-3 border rounded-sm border-gray-300  w-full"
+            className="mt-1 p-3 border outline-black rounded-sm border-gray-300  w-full"
           />
         </div>
 
