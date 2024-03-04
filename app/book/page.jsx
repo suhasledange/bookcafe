@@ -19,9 +19,10 @@ export default function Home() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [genreMenu, setGenreMenu] = useState(false)
   const [filteredBooks, setFilteredBooks] = useState();
+  
+
+
   useEffect(() => {
-
-
     const fetchData = async () => {
       try {
         const res = await service.getBooks();

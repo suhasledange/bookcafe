@@ -16,11 +16,34 @@ export class Service{
 
     async getBooks(){
         try {
-            
             return this.databases.listDocuments(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE);
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getBook(DocId){
+        try {
+
+            return this.databases.getDocument(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE,DocId)
 
         } catch (error) {
             throw error
+        }
+    }
+
+    async getBooksByGenre(genre) {
+        try {
+        
+            return this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID_BOOKSTORE,[
+                    Query.equal('genre',['Self Help'])
+                ]
+               
+            );
+        } catch (error) {
+            throw error;
         }
     }
 

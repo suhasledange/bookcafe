@@ -1,13 +1,15 @@
+'use client'
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./Button"
 
 const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice}) => {
 
+
   return (
+    <div className="overflow-hidden w-44 bg-white mx-auto py-3 flex flex-col items-center justify-center">
     <Link
     href={`/book/${Id}`}
-    className="overflow-hidden w-44 bg-white mx-auto py-3"  
 >
    <div className=" w-44 h-48 drop-shadow-xl transform duration-150 hover:scale-105 mx-auto">
           <Image alt="image not found" style={{width:"100%", height:"100%",objectFit:'contain'}} src={Img} width={1000} height={1000}  />
@@ -29,9 +31,14 @@ const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice})
                 30%
               </p> */}
         </div>
-            <Button  text={availability ? "Add To Cart" : "Out of Stock"} className="py-1 px-4"/>
+            
     </div>
 </Link>
+          <div>
+            <Button text={availability ? "Add To Cart" : "Out of Stock"} className="py-1 px-4"/>
+            </div>
+</div>
+
 
   )
 }

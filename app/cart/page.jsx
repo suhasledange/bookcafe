@@ -75,7 +75,7 @@ const Cart = () => {
 
 
 
-      {/* <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
+      <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
         <Image
           alt="empty"
           src="/empty-cart.jpg"
@@ -96,7 +96,7 @@ const Cart = () => {
         >
           <Button className='mt-5 px-4 py-3 text-md' text='Rent a Book' />
         </Link>
-      </div> */}
+      </div>
     </Container>
 
   );
