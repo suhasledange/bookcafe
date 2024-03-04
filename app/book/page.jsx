@@ -71,7 +71,7 @@ export default function Home() {
 
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
-  <ToastContainer />
+  <ToastContainer position="top-center" />
       <div className='flex gap-5'>
         <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
           <div className='space-y-4 '>

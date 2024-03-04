@@ -37,11 +37,9 @@ export default function Home() {
   
         setLoading(false);
       } catch (error) {
-
         console.error("Error fetching data from the server:", error);
         toast.error("Error fetching data from the server. Please try again later.");
         setLoading(false);
-
       }
     }
     fetchData();
@@ -50,7 +48,7 @@ export default function Home() {
   return (
     <>
       <HomeSlider />
-    <ToastContainer />
+    <ToastContainer position="top-center" />
       <Slider books={SelfHelp} title="Self Help" />
       <Slider books={NonFiction} title="Non-Fiction" />
       <Slider books={Business} title="Business" />
