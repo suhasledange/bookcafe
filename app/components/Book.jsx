@@ -29,7 +29,6 @@ const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice})
                 30%
               </p> */}
         </div>
-            
             <Button  text={availability ? "Add To Cart" : "Out of Stock"} className="py-1 px-4"/>
     </div>
 </Link>
