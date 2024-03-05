@@ -12,7 +12,7 @@ const Book = ({Id,author,Img,availability,bookName,description,genre,rentPrice})
     href={`/book/${Id}`}
 >
    <div className=" w-44 h-48 drop-shadow-xl transform duration-150 hover:scale-105 mx-auto">
-          <Image priority alt="image not found" style={{width:"100%", height:"100%",objectFit:'contain'}} src={Img} width={1000} height={1000}  />
+          <Image priority={true} alt="image not found" style={{width:"100%", height:"100%",objectFit:'contain'}} src={Img} width={1000} height={1000}  />
    </div>
 
     <div className=" text-black/[0.9] flex items-center justify-center flex-col">
