@@ -40,10 +40,8 @@ const Cart = () => {
                         ))
                       }
 
-
                             </div>
                             {/* CART ITEMS END */}
-
                             {/* SUMMARY START */}
                             <div className="flex-[1]">
                                 <div className="text-lg font-bold">Summary</div>
