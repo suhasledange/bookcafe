@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 
 export const cartSlice = createSlice({
     name:'cart',
@@ -35,6 +36,8 @@ export const cartSlice = createSlice({
         removeFromCart:(state,action)=>{ state.cartItems = state.cartItems.filter((book)=> book.Id != action.payload.id ) },
     }
 })
+
+
 
 export const {addToCart,updateCart,removeFromCart} = cartSlice.actions;
 
