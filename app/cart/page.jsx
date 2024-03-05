@@ -7,11 +7,12 @@ import CartItem from "../components/CartItem";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import { useCart } from "@/store/cartSlice";
 
 const Cart = () => {
 
   const {cartItems} = useSelector((state => state.cart))
-
+  const cart = useCart()
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])

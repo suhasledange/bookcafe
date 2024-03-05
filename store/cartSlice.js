@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export const cartSlice = createSlice({
     name:'cart',
     initialState:{
-        cartItems:[],
+        cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
     },
     reducers:{
+        
         addToCart:(state,action) =>{ 
-
             const item = state.cartItems.find(
                 (b) => b.Id === action.payload.Id
             )
@@ -37,6 +38,15 @@ export const cartSlice = createSlice({
     }
 })
 
+export const useCart = () => {
+    const cart = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cart.cartItems));
+    }, [cart.cartItems]);
+
+    return cart;
+};
 
 
 export const {addToCart,updateCart,removeFromCart} = cartSlice.actions;
