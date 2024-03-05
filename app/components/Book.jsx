@@ -25,6 +25,7 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
   return (
     <>
     <div className="overflow-hidden w-44 bg-white mx-auto py-3 flex flex-col items-center justify-center">
+     <ToastContainer/>
       <Link
         href={`/book/${Id}`}
       >
