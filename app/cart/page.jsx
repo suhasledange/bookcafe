@@ -5,13 +5,18 @@ import Image from "next/image";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
 import Loader from "../components/Loader";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
 
+  const {cartItems} = useSelector((state => state.cart))
 
   return (
     <Container className="max-w-screen-xl mt-8">
-      <>
+      
+      {
+        cartItems.length > 0 && (
+          <>
         <div className="text-center max-w-3xl mx-auto mt-8 md:mt-0">
           <div className="text-2xl md:text-3xl mb-3 font-semibold leading-tight">
             Shopping Cart
@@ -24,10 +29,12 @@ const Cart = () => {
                                 <div className="text-lg font-bold">
                                     Cart Items
                                 </div>
+                      {
+                        cartItems?.map(item=>(
+                          <CartItem id={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.oneQuantityPrice} />   
+                        ))
+                      }
 
-                            <CartItem  data="A"/>   
-                            <CartItem  data="B"/>   
-                            <CartItem  data="C"/>   
 
 
                             </div>
@@ -66,10 +73,11 @@ const Cart = () => {
                             </div>
                             {/* SUMMARY END */}
                         </div>
+          </>
 
+)}
 
-      </>
-
+    { cartItems.length < 1 && (
 
       <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
         <Image
@@ -93,8 +101,8 @@ const Cart = () => {
           <Button className='mt-5 px-4 py-3 text-md' text='Rent a Book' />
         </Link>
       </div>
+    )}
     </Container>
-
   );
 }
 

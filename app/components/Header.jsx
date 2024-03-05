@@ -7,10 +7,14 @@ import { VscChromeClose } from "react-icons/vsc";
 import Link from 'next/link'
 import { IoSearch } from "react-icons/io5";
 import Button from './Button';
+import { useSelector } from 'react-redux';
+
 
 
 const Header = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
+
+    const {cartItems} = useSelector((state => state.cart))
 
     return (
         <header className={` shadow-sm w-full h-14 bg-white md:h-20 flex items-center justify-between z-50 sticky top-0 transition-transform duration-300`}>
@@ -54,7 +58,7 @@ const Header = () => {
                         <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
                             <BsCart className=' text-base md:text-xl' />
                             <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                                4
+                                {cartItems.length}
                             </div>
                         </div>
                     </Link>

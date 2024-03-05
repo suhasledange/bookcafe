@@ -1,15 +1,19 @@
 'use client'
+import { removeFromCart } from '@/store/cartSlice';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDispatch } from 'react-redux';
 
 
-const CartItem = ({data}) => {
+const CartItem = ({Id,Img,bookName,author,price}) => {
+    const dispatch = useDispatch()
+
   return (
     <div className="flex py-5 gap-3 md:gap-5 border-b">
     <div className="shrink-0 aspect-square w-14 md:w-32">
         <Image
         alt="cart item"
-            src='/temp2.webp'
+            src={Img}
             width={500}
             height={500}
         />
@@ -18,20 +22,20 @@ const CartItem = ({data}) => {
     <div className="w-full flex flex-col">
         <div className="flex flex-col md:flex-row justify-between">
             <div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
-                Book Name
+                {bookName}
             </div>
 
             <div className="text-sm md:text-md font-medium text-black/[0.5] block md:hidden">
-                Author
+                {author}
             </div>
 
             <div className="text-sm md:text-md font-bold text-black/[0.5] mt-2">
-                MRP : &#8377;1234
+                MRP : &#8377;{price}
             </div>
         </div>
 
         <div className="text-md font-medium text-black/[0.5] hidden md:block">
-                 Author
+                 {author}
         </div>
 
         <div className="flex items-center justify-between mt-4">
@@ -45,7 +49,7 @@ const CartItem = ({data}) => {
                     >
                         {Array.from({length:10},(_,i)=>i+1).map((q,i)=>(
                             <option key={i} value={q}
-                            selected={data.quantity===q}
+                            // selected={data.quantity===q}
                             >
                             {q}
                         </option>
@@ -54,7 +58,7 @@ const CartItem = ({data}) => {
                 </div>
             </div>
             <RiDeleteBin6Line
-            //    onClick={()=>dispatch(removeFromCart({id:data.id}))}
+               onClick={()=>dispatch(removeFromCart({id:Id}))}
                 className="cursor-pointer text-black/[0.5] hover:text-black text-xl md:text-2xl"
             />
         </div>
