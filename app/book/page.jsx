@@ -129,7 +129,7 @@ export default function Home() {
           </div>
           {
             loading ? <Loader className=' h-[20rem]'/> :
-              <div className='grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))' }} >
+              <div className='grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))' }} >
 
                 {filteredBooks?.map(b => (
                   <Book key={b.$id}
