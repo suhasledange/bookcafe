@@ -48,7 +48,6 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
                 30%
               </p> */}
           </div>
-
         </div>
       </Link>
       <button

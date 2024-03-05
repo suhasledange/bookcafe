@@ -7,7 +7,7 @@ export const cartSlice = createSlice({
     },
     reducers:{
         addToCart:(state,action) =>{ 
-            
+
             const item = state.cartItems.find(
                 (b) => b.Id === action.payload.Id
             )
@@ -21,7 +21,17 @@ export const cartSlice = createSlice({
             }
         
         },
-        updateCart:(state,action)=>{},
+        updateCart:(state,action)=>{
+            state.cartItems = state.cartItems.map((b) => {
+                if (b.Id === action.payload.id) {
+                    if (action.payload.key === "quantity") {
+                        b.price = b.oneQuantityPrice * action.payload.val;
+                    }
+                    return { ...b, [action.payload.key]: action.payload.val };
+                }
+                return b;
+            });
+        },
         removeFromCart:(state,action)=>{ state.cartItems = state.cartItems.filter((book)=> book.Id != action.payload.id ) },
     }
 })
