@@ -6,10 +6,15 @@ import Button from "../components/Button";
 import CartItem from "../components/CartItem";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const Cart = () => {
 
   const {cartItems} = useSelector((state => state.cart))
+
+  const subTotal = useMemo(()=>{
+    return cartItems.reduce((total,val)=>total+val.price,0)
+},[cartItems])
 
   return (
     <Container className="max-w-screen-xl mt-8">
@@ -31,10 +36,9 @@ const Cart = () => {
                                 </div>
                       {
                         cartItems?.map(item=>(
-                          <CartItem id={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.oneQuantityPrice} />   
+                          <CartItem id={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.oneQuantityPrice} quantity={item.quantity} />   
                         ))
                       }
-
 
 
                             </div>
@@ -50,7 +54,7 @@ const Cart = () => {
                                             Subtotal
                                         </div>
                                         <div className="text-md md:text-lg font-medium text-black">
-                                            &#8377;1234
+                                            &#8377;{subTotal}
                                         </div>
                                     </div>
                                     <div className="text-sm md:text-md py-5 border-t mt-5">

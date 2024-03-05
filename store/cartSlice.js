@@ -6,7 +6,21 @@ export const cartSlice = createSlice({
         cartItems:[],
     },
     reducers:{
-        addToCart:(state,action) =>{ state.cartItems.push(action.payload) },
+        addToCart:(state,action) =>{ 
+            
+            const item = state.cartItems.find(
+                (b) => b.Id === action.payload.Id
+            )
+
+            if(item){
+                item.quantity++;
+                item.price = item.oneQuantityPrice * item.quantity;
+            }
+            else{   
+                state.cartItems.push({...action.payload,quantity:1})
+            }
+        
+        },
         updateCart:(state,action)=>{},
         removeFromCart:(state,action)=>{ state.cartItems = state.cartItems.filter((book)=> book.Id != action.payload.id ) },
     }
