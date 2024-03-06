@@ -10,6 +10,7 @@ import { useMemo } from "react";
 
 const Cart = () => {
   const {cartItems} = useSelector((state => state.cart))
+ 
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])
