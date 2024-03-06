@@ -23,6 +23,7 @@ export default function Home() {
 
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         const res = await service.getBooks();

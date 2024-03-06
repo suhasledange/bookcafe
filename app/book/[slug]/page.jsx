@@ -10,19 +10,23 @@ const BookCard = ({params}) => {
   const [book,setBook] = useState(null)
   const [loading,setLoading] = useState(true)
 
-    const fetchData = async () => {
-      try {
-        const res = await service.getBook(String(params.slug));
-        setBook(res);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data from the server:", error);
-        setLoading(false);
-  
+    
+    useEffect(()=>{ 
+      
+      const fetchData = async () => {
+        try {
+          const res = await service.getBook(String(params.slug));
+          setBook(res);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching data from the server:", error);
+          setLoading(false);
+    
+        }
       }
-    }
-   
-    useEffect(()=>{ fetchData() },[])
+     
+      fetchData()   
+    },[])
 
   return (
     <Container className=' max-w-screen-xl mt-8  h-screen'>
