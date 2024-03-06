@@ -61,10 +61,11 @@ export default function Home() {
   }, [changeBookData]);
 
   return (
-    <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
+    <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden store-grid ">
       <ToastContainer/>
-      <div className='flex gap-5'>
-        <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
+      <div className='flex gap-5 h-screen'>
+      
+       <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
           <div className='space-y-4 '>
             {genres.map((genre) => (
               <div key={genre} className='space-x-3 text-md text-gray-700'>
@@ -83,9 +84,9 @@ export default function Home() {
 
 
         {/* Mobile */}
-        <div className=' md:flex-[0.8] flex-1 md:ml-5 ml-0 relative'>
+        <div className=' md:flex-[0.8] flex-1 md:ml-5 ml-0 relative  '>
 
-          <div className='md:hidden'>
+          <div className={`md:hidden`}>
 
             <div className='px-3'>
 
@@ -93,7 +94,7 @@ export default function Home() {
 
             </div>
 
-            <div className={`${!genreMenu ? "hidden" : ""} z-30 absolute top-10 left-0 w-full mt-1 `}>
+            <div className={`${!genreMenu ? "hidden" : ""} z-30 absolute top-10 left-0 w-full mt-1`}>
               <div onClick={() => setGenreMenu(false)} className='absolute top-0 left-0  w-full -z-10 h-screen'>
               </div>
               <div className={`bg-white  w-[58%] z-20`}>
@@ -119,7 +120,7 @@ export default function Home() {
           </div>
           {
             loading ? <Loader className=' h-[30rem]'/> :
-              <div className='grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))' }} >
+              <div className=' store-grid  grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))  ' }} >
 
                 {filteredBooks?.map(b => (
                   <Book key={b.$id}

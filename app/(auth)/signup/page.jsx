@@ -9,8 +9,8 @@ import authService from '@/app/appwrite/auth';
 const SignupForm = () => {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
-    const promise = authService.createAccount(data);
+  const onSubmit = async (data) => {
+    const promise = await authService.createAccount(data);
     console.log(promise)
     reset();
   };
