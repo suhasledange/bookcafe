@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Head from 'next/head';
 import Book from '../components/Book';
 import Container from '../components/Container';
@@ -9,21 +9,16 @@ import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const genres = ['Self Help', 'Fiction', 'Business', 'NonFiction', 'Mystery', 'Science Fiction', 'Fantasy', 'Arts And Crafts', 'Classics', 'Cookery', 'Comics', 'General', 'Geo-Politcs', 'Hindi', 'History', 'Health And Fitness', 'Kids', 'Marathi', 'Music & Movies', 'Science', 'Sports', 'Technical', 'Travel'];
 
 export default function Home() {
-
   const [books, setBooks] = useState();
   const [loading, setLoading] = useState(true);
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const [genreMenu, setGenreMenu] = useState(false)
+  const [genreMenu, setGenreMenu] = useState(false);
   const [filteredBooks, setFilteredBooks] = useState();
-  
-
 
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const res = await service.getBooks();
@@ -32,18 +27,14 @@ export default function Home() {
         setFilteredBooks(documents);
         setLoading(false);
       } catch (error) {
-
         console.error("Error fetching data from the server:", error);
         toast.error("Error fetching data from the server. Please try again later.");
         setLoading(false);
-
       }
     };
 
     fetchData();
-
-  }, [])
-
+  }, []);
 
   const handleGenreChange = (genre) => {
     setSelectedGenres((prevGenres) => {
@@ -55,22 +46,20 @@ export default function Home() {
     });
   };
 
-  const changeBookData = () => {
+  const changeBookData = useMemo(() => {
     if (selectedGenres.length !== 0) {
-
-      const filteredBooks = books?.filter((book) =>
+      return books?.filter((book) =>
         selectedGenres.some((selectedGenre) => book.genre.includes(selectedGenre))
       );
-      setFilteredBooks(filteredBooks);
     } else {
-      setFilteredBooks(books);
+      return books;
     }
-  };
+  }, [books, selectedGenres]);
 
   useEffect(() => {
-    changeBookData()
-  }, [selectedGenres]);
-
+    setFilteredBooks(changeBookData);
+  }, [changeBookData]);
+  
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden">
       <ToastContainer/>

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";
@@ -10,46 +10,39 @@ export default function Home() {
 
   const [books, setBooks] = useState();
   const [loading, setLoading] = useState(true);
-  const [SelfHelp,setSelfHelp] = useState();
-  const [NonFiction,setNonFiction] = useState();
-  const [Business,setBusiness] = useState();
+
+  const fetchData = async () => {
+    try {
+      const res = await service.getBooks();
+      const { documents } = res;
+      setBooks(documents);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data from the server:", error);
+      toast.error("Error fetching data from the server. Please try again later.");
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-
-    const fetchData = async () => {
-      try {
-
-     const res = await service.getBooks();
-        const { documents } = res;
-        setBooks(documents);
-  
-        const SelfHelp = documents?.filter(b => b?.genre.includes('Self Help'))
-        setSelfHelp(SelfHelp)
-  
-  
-        const NonFiction = documents?.filter(b => b?.genre.includes('NonFiction'))
-        setNonFiction(NonFiction)
-  
-        const Business = documents?.filter(b => b?.genre.includes('Business'))
-        setBusiness(Business)
-  
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data from the server:", error);
-        toast.error("Error fetching data from the server. Please try again later.");
-        setLoading(false);
-      }
-    }
     fetchData();
-  }, [])
+  }, []);
+
+  const filteredBooks = useMemo(() => {
+    return {
+      SelfHelp: books?.filter(b => b?.genre.includes('Self Help')),
+      NonFiction: books?.filter(b => b?.genre.includes('NonFiction')),
+      Business: books?.filter(b => b?.genre.includes('Business')),
+    };
+  }, [books]);
 
   return (
     <>
       <HomeSlider />
-    <ToastContainer position="top-center" />
-      <Slider books={SelfHelp} title="Self Help" />
-      <Slider books={NonFiction} title="Non-Fiction" />
-      <Slider books={Business} title="Business" />
+      <ToastContainer position="top-center" />
+      <Slider books={filteredBooks.SelfHelp} title="Self Help" />
+      <Slider books={filteredBooks.NonFiction} title="Non-Fiction" />
+      <Slider books={filteredBooks.Business} title="Business" />
     </>
   );
 }
