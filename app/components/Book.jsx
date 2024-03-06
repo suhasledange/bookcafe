@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useDispatch } from "react-redux"
 import { addToCart } from "@/store/cartSlice"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 
 const Book = ({ Id, author, Img, availability, bookName, description, genre, rentPrice }) => {
 
@@ -55,12 +55,12 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
             Img,
             bookName,
             author,
-            price:rentPrice,
+            price: rentPrice,
             oneQuantityPrice: rentPrice
           }))
           notify()
         }}
-      disabled={!availability} className={`${availability ? "transition-transform active:scale-95":" cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>{availability ? "Add To Cart" : "Out of Stock"}</button>
+        disabled={!availability} className={`${availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>{availability ? "Add To Cart" : "Out of Stock"}</button>
     </div>
   )
 }
