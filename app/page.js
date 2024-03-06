@@ -1,26 +1,22 @@
 'use client'
 import { useEffect, useState, useMemo } from "react";
-import HomeSlider from "./components/HomeSlider/HomeSlider";
-import Slider from "./components/Slider";
-import service from "./appwrite/service";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import service from "./appwrite/service";
+import { ToastContainer, toast } from "react-toastify";
+import Slider from "./components/Slider";
+import HomeSlider from "./components/HomeSlider/HomeSlider";
 
 export default function Home() {
 
-  const [books, setBooks] = useState();
-  const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState([]);
 
   const fetchData = async () => {
     try {
-      const res = await service.getBooks();
-      const { documents } = res;
+      const { documents } = await service.getBooks();
       setBooks(documents);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
       toast.error("Error fetching data from the server. Please try again later.");
-      setLoading(false);
     }
   }
 

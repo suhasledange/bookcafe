@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g id="Wheels">
+    <circle cx="40" cy="224" r="24" fill="#333333"/>
+    <circle cx="216" cy="224" r="24" fill="#333333"/>
+  </g>
+  <g id="Base">
+    <path d="M40 160h176v64a24 24 0 0 1-24 24H64a24 24 0 0 1-24-24V160z" fill="#F2F2F2"/>
+  </g>
+  <g id="Handle" transform="translate(112 80)">
+    <path d="M0 0h48v80a16 16 0 0 0 16 16h48v-80z" fill="#F2F2F2"/>
+  </g>
+  <g id="Face" transform="translate(96 128)">
+    <circle cx="0" cy="0" r="16" fill="#333333"/>
+    <circle cx="32" cy="0" r="16" fill="#333333"/>
+    <path d="M8 24c4 4 8 4 12 0z" fill="#FFFFFF"/>
+    <path d="M36 24c-4 4-8 4-12 0z" fill="#FFFFFF"/>
+    <path d="M16 44c0-4 4-4 4 0z" fill="#F2F2F2"/>
+  </g>
+</svg>
