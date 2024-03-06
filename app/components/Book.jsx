@@ -10,7 +10,7 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
   const dispatch = useDispatch();
 
   const notify = () => {
-    toast.success('Item Added To Cart', {
+    toast.success('Book Added To Cart', {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
