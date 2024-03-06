@@ -18,7 +18,6 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "dark",
     });
   }
 
