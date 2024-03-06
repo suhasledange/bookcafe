@@ -34,6 +34,7 @@ const Slider = ({books,title}) => {
                 className='z-10 flex py-2 items-center justify-start'
             >
           {books?.map(b=>(
+            
             <Book key={b.$id}
             Id={b.$id} 
             author={b.author} 
@@ -45,6 +46,7 @@ const Slider = ({books,title}) => {
             rentPrice={b.rentPrice}
             
             />
+            
             ))}
             </Carousel>
            }
