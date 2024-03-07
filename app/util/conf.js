@@ -4,5 +4,5 @@ export const conf = {
     DATABASE_ID:String(process.env.NEXT_PUBLIC_DATABASE_ID),
     COLLECTION_ID_BOOKSTORE:String(process.env.NEXT_PUBLIC_COLLECTION_ID_BOOKSTORE),
     BUCKET_ID_IMG:String(process.env.NEXT_PUBLIC_BUCKET_ID_IMG),
-    BUCKET_ID_USER:String(process.env.NEXT_PUBLIC_BUCKET_ID_USER)
+    BUCKET_ID_USER:String(process.env.NEXT_PUBLIC_BUCKET_ID_USER),
 }

@@ -5,6 +5,8 @@ import Container from './Container';
 import Loader from './Loader';
 const Slider = ({books,title}) => {
 
+
+
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },

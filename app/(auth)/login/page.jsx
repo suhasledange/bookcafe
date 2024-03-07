@@ -3,18 +3,60 @@
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import Container from '@/app/components/Container';
+import authService from '@/app/appwrite/auth';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Loader from '@/app/components/Loader';
+import { useDispatch } from 'react-redux';
+import { loginSlice, logoutSlice } from '@/store/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginForm = () => {
-  const { register, handleSubmit, reset } = useForm();
+  
+  const dispatch = useDispatch()
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const [loading,setLoading] = useState(false)
+  const { register, handleSubmit, reset, formState: {errors} } = useForm();
+  const router = useRouter()
+
+
+  const notify = ()=>{
+    toast.error('Invalid Credentials', {
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        progress: undefined,
+      });
+}
+
+  const onSubmit = async (data) => {
+
+    setLoading(true)
+
+    try {
+      const userData = await authService.loginAccount(data);
+
+      if (userData) {
+        dispatch(loginSlice({ userData }));
+        router.push('/');
+      } else {
+        dispatch(logoutSlice());
+        router.push('/login');
+      }
+    } catch (error) {
+        notify()
+    } finally {
+      reset();
+      setLoading(false);
+    }
+    
   };
-
 
   return (
     <Container className="md:px-0 px-3 max-w-screen-xl mt-10 mb-10">
+    <ToastContainer position="top-center" />
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
       <div className="flex flex-col space-y-4">
         <div className=' space-y-2'>
@@ -24,9 +66,12 @@ const LoginForm = () => {
           <input
             type="email"
             id="email"
-            {...register('email', { required: 'Email is required' })}
+            {...register('email', { required: true })}
             className="mt-1 p-3 border outline-black rounded-sm border-gray-300 w-full"
           />
+          {errors.email?.type === "required" && (
+              <p role="alert" className='text-sm text-red-800 font-light'>Email is required</p>
+            )}
         </div>
 
         <div className=' space-y-2'>
@@ -36,9 +81,12 @@ const LoginForm = () => {
           <input
             type="password"
             id="password"
-            {...register('password', { required: 'Password is required' })}
+            {...register('password', { required: true })}
             className="mt-1 p-3 border outline-black rounded-sm border-gray-300  w-full"
           />
+          {errors.password?.type === "required" && (
+              <p role="alert" className='text-sm text-red-800 font-light'>Password is required</p>
+            )}
         </div>
 
         <div className="text-left">
@@ -50,9 +98,9 @@ const LoginForm = () => {
         <div>
           <button
             type="submit"
-            className="text-lg bg-black text-white p-3 rounded-sm w-full hover:bg-black/[0.9] transition duration-150"
+            className="text-lg gap-3 flex items-center justify-center bg-black text-white p-3 rounded-sm w-full hover:bg-black/[0.9] transition duration-150"
           >
-            Login
+            Login {loading ? <Loader className1="border-white w-6 h-6 "/> :""}
           </button>
         </div>
         <div>

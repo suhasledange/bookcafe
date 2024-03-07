@@ -12,8 +12,12 @@ import "./style.css"
 import Image from "next/image";
 import Button from "../Button";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const HomeSlider = () => {
+  
+  const status = useSelector( state=> state.auth.status)
+  
   return (
     <Container className='max-w-full h-[25rem] md:h-[20rem]'>
       <Swiper
@@ -46,8 +50,8 @@ const HomeSlider = () => {
             <h1 className="font-bold md:text-5xl text-3xl">India's Online</h1>
             <h1 className="font-bold md:text-5xl text-3xl mb-3">Book Rental Service</h1>
             <p className="text-gray-700 md:text-md text-md">Start Readig with BookCafe</p>
-            <Link href="/signup">
-            <Button className="mt-3" text="Sign Up Now" />
+            <Link  href={` ${status ? '/book' : '/signup'}  `}>
+            <Button className="mt-3" text={` ${status ? 'Go To Store' : 'Sign Up Now'}  `} />
             </Link> 
           </div>
           <div className=" space-y-4 text-md text-left">
@@ -93,9 +97,9 @@ const HomeSlider = () => {
             <h1 className="font-bold md:text-5xl text-3xl w-80 ">Its's as Easy </h1>
             <h1 className="font-bold md:text-5xl text-3xl mb-3">as 1,2,3..</h1>
             <p className="text-gray-700 md:text-md text-md w-[90%]">3 steps to embark to your reading journey</p>
-            <Link href="/signup">
-                <Button className="mt-3" text="Sign Up Now" />
-            </Link>
+            <Link  href={` ${status ? '/book' : '/signup'}  `}>
+            <Button className="mt-3" text={` ${status ? 'Go To Store' : 'Sign Up Now'}  `} />
+            </Link> 
           </div>
           <div className=" space-y-2 text-md text-left">
                 <p className="text-sm md:text-lg"> <span className="text-black font-bold text-xl md:text-2xl mr-1 ">1</span> Find a book you want to read. </p>

@@ -9,24 +9,22 @@ export class AuthService{
     constructor(){
         this.client
             .setEndpoint(conf.APPWRITE_URL)
-            .setProject(conf.PROJECT_ID);
-        
+            .setProject(conf.PROJECT_ID)
+            
         this.account = new Account(this.client);
+
         }
 
-    async createAccount({email,password,name,phone}){
+    async createAccount({email,name,password,phone}){
+
         try {
-            
-           const userAccount = await this.account.create(ID.unique(),email,password,name,phone)
-        
+            const userAccount = await this.account.create(ID.unique(),email,password,name)
            if(userAccount){
-                // return userAccount
-                return this.loginAccount({email,password});
-
-           }else{
-            return userAccount;
+               const user = await this.loginAccount({email,password})
+                await this.account.updatePhone(phone,password)
+                return userAccount
            }
-
+                        
         } catch (error){
             throw error;
         }
@@ -34,9 +32,7 @@ export class AuthService{
 
     async loginAccount({email,password}){
         try {
-            
-            return await this.account.createEmailPasswordSession(email,password);
-
+            return await this.account.createEmailSession(email,password);
         } catch (error) {
             throw error;
         }

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useContext } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";
@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Home() {
 
   const [books, setBooks] = useState();
+
   const fetchData = async () => {
     try {
       const {documents} = await service.getBooks();
