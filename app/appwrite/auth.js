@@ -16,7 +16,7 @@ export class AuthService{
         }
     
     async LoginWithGoogle(){
-        return this.account.createOAuth2Session("google","http://localhost:3000/","http://localhost:3000/login")
+        return this.account.createOAuth2Session("google","https://bookcafee.vercel.app/","https://bookcafee.vercel.app/login")
     }
 
     async getSesssion(){
