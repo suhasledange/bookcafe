@@ -24,7 +24,7 @@ const UserProvider = ({children}) => {
                 }
             })
             .catch((error) => {
-                console.error("Error fetching user:", error)
+                console.log("User Not Found")
                 })
             .finally(() => {
                 setLoading(false)

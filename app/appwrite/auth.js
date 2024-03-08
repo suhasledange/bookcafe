@@ -20,8 +20,7 @@ export class AuthService{
     }
 
     async getSesssion(){
-        // return await this.account.getSession('current')
-        return await this.account.get()
+        return await this.account.getSession('current')
     }
 
     async verifyEmail({id,secret}){
