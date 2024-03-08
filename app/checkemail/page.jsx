@@ -6,7 +6,7 @@ import { useDispatch, useSelector} from "react-redux"
 import { setPending } from "@/store/authSlice"
 import { useRouter } from "next/navigation"
 
-const page = () => {
+const Checkemail = () => {
 
     const dispatch = useDispatch()
     const router = useRouter()
@@ -30,4 +30,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Checkemail
