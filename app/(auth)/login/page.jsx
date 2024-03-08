@@ -7,7 +7,7 @@ import authService from '@/app/appwrite/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Loader from '@/app/components/Loader';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice, logoutSlice } from '@/store/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,11 +15,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const LoginForm = () => {
   
   const dispatch = useDispatch()
+  const status = useSelector(state => state.auth.status)
+  
 
   const [loading,setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
   const router = useRouter()
 
+  if(status) router.push('/')
 
   const notify = ()=>{
     toast.error('Invalid Credentials', {

@@ -7,6 +7,7 @@ import authService from '@/app/appwrite/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Loader from '@/app/components/Loader';
+import { useSelector } from 'react-redux';
 
 const SignupForm = () => {
 
@@ -15,6 +16,9 @@ const SignupForm = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const router = useRouter();
 
+  const status = useSelector(state => state.auth.status)
+  if(status) router.push('/')
+
   const onSubmit = async (data) => {
 
     data.phone = `+91${data.phone}`
@@ -22,8 +26,8 @@ const SignupForm = () => {
     setLoading(true)
 
     try {
-        const promise = await authService.createAccount(data);
-        console.log(promise)
+        const {userId} = await authService.createAccount(data);
+        if(userId) router.push('/checkemail')
 
     } catch (error) {
       console.log('invalid')
@@ -126,7 +130,7 @@ const SignupForm = () => {
           <div>
             <button
               type="submit"
-              className="text-lg flex items-center justify-center  bg-black text-white p-3 rounded-sm w-full hover:bg-black/[0.9] transition duration-150"
+              className="text-lg gap-3 flex items-center justify-center  bg-black text-white p-3 rounded-sm w-full hover:bg-black/[0.9] transition duration-150"
             >
               Sign Up {loading ? <Loader className1="border-white w-6 h-6 "/> :""}
             </button>

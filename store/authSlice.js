@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     status:false,
+    verify:"none",
     userData:null
 }
 
@@ -18,6 +19,12 @@ const authSlice = createSlice({
             state.status = false,
             state.userData=null;
         },
+        setPending:(state)=>{
+            state.verify = "pending"
+        },
+        setVerified:(state)=>{
+            state.verify = "verified"
+        }
     }
 })
 

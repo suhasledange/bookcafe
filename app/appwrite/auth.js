@@ -14,15 +14,19 @@ export class AuthService{
         this.account = new Account(this.client);
 
         }
+    
+    async verifyEmail({id,secret}){
+       return await this.account.updateVerification(id,secret)
+    }
 
     async createAccount({email,name,password,phone}){
 
         try {
             const userAccount = await this.account.create(ID.unique(),email,password,name)
            if(userAccount){
-               const user = await this.loginAccount({email,password})
+                await this.loginAccount({email,password})
                 await this.account.updatePhone(phone,password)
-                return userAccount
+                return await this.account.createVerification("https://bookcafee.vercel.app/verify")
            }
                         
         } catch (error){
