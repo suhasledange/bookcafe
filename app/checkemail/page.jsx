@@ -12,7 +12,7 @@ const Checkemail = () => {
     const router = useRouter()
     const verify = useSelector(state=> state.auth.verify)
     if(verify === 'verified') router.push('/')
-
+    
     useEffect(()=>{
 
         const getUser = async()=>{

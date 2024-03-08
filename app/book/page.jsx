@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState, useMemo } from 'react';
-import Head from 'next/head';
 import Book from '../components/Book';
 import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
