@@ -15,6 +15,15 @@ export class AuthService{
 
         }
     
+    async LoginWithGoogle(){
+        return this.account.createOAuth2Session("google","http://localhost:3000/","http://localhost:3000/login")
+    }
+
+    async getSesssion(){
+        // return await this.account.getSession('current')
+        return await this.account.get()
+    }
+
     async verifyEmail({id,secret}){
        return await this.account.updateVerification(id,secret)
     }

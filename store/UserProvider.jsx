@@ -11,6 +11,7 @@ const UserProvider = ({children}) => {
     const [loading,setLoading] = useState(true)
 
     useEffect(() => {
+
         authService.getCurrentUser()
             .then((data) => {
                 if (data) {

@@ -36,7 +36,7 @@ const LoginForm = () => {
 }
 
   const LoginWithGoogle = async()=>{
-        
+       await authService.LoginWithGoogle()
   }
 
   const onSubmit = async (data) => {
@@ -126,7 +126,7 @@ const LoginForm = () => {
             <div className='flex-[0.45] bg-gray-500 h-[1.4px]'></div>
             </div>
             <div className='flex items-center justify-center'>
-                  <div className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
+                  <div onClick={LoginWithGoogle} className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
                     <FcGoogle className='text-3xl'/>
                     <span className='text-md text-gray-700'>Google</span>
                   </div>

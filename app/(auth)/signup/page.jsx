@@ -13,6 +13,7 @@ import { FcGoogle } from 'react-icons/fc';
 const SignupForm = () => {
 
 
+
   const [loading,setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const router = useRouter();
@@ -39,6 +40,9 @@ const SignupForm = () => {
     reset();
   };
 
+  const LoginWithGoogle = async()=>{
+    await authService.LoginWithGoogle()
+}
 
   return (
     <Container className="md:px-0 px-3 max-w-screen-xl mt-10 mb-10">
@@ -149,7 +153,7 @@ const SignupForm = () => {
             </div>
             
             <div className='flex items-center justify-center'>
-                  <div className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
+                  <div onClick={LoginWithGoogle} className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
                     <FcGoogle className='text-3xl'/>
                     <span className='text-md text-gray-700'>Google</span>
                   </div>
