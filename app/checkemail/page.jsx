@@ -29,9 +29,3 @@ const Checkemail = () => {
     </Container>
   )
 }
-
-<<<<<<< HEAD
-export default Checkemail 
-=======
-export default Checkemail
->>>>>>> 18958007066fbd96bd3b45453d34a42882271426
