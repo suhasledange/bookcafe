@@ -1,9 +1,8 @@
 'use client'
-
 import authService from "@/app/appwrite/auth"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { loginSlice, logoutSlice } from "./authSlice"
+import { loginSlice, logoutSlice, setVerified } from "./authSlice"
 import Loader from "@/app/components/Loader"
 
 const UserProvider = ({children}) => {
@@ -13,11 +12,14 @@ const UserProvider = ({children}) => {
 
     useEffect(() => {
         authService.getCurrentUser()
-            .then((userData) => {
-                if (userData) {
-                    dispatch(loginSlice({ userData }))
+            .then((data) => {
+                if (data) {
+                    if(data.emailVerification){
+                        dispatch(loginSlice({ data }))
+                    }  
                 } else {
                     dispatch(logoutSlice())
+                    authService.logoutAccount()
                 }
             })
             .catch((error) => {

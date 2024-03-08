@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Container from './Container'
 import { BsCart } from "react-icons/bs";
 import { IoMenu } from "react-icons/io5";
@@ -18,7 +18,7 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
-    // const {userData} = useSelector( state=>state.auth.userData )
+    const userData = useSelector( state=>state.auth.userData )
 
     const handleLogout = async () => {
         await authService.logoutAccount()
@@ -88,24 +88,27 @@ const Header = () => {
                                     <Button text="Login" />
                                 </Link>
                                 :
-                                <div className='relative'>
+                                <div className=''>
                                     <div onClick={()=>setProfileMenu(!profileMenu)} className=' w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer'>
                                         <Image src="/DefaultProfile.svg" alt="noimg" width={500} height={500} />
                                 </div>
                                 {
-                                    profileMenu ? 
-                                    <div className='w-52 absolute top-0 mt-[4.7rem] right-0 bg-white py-4 shadow-xl'>
+                                    profileMenu === true ? 
+                                    <div>
+                                    <div onClick={()=> setProfileMenu(false)} className='absolute top-0 left-0 bg-transparent w-full h-screen'>
+                                    </div>
+                                    <div className='w-60 absolute top-0 md:top-4 mt-[4.7rem] right-4 bg-white py-4 shadow-xl'>
                                         <div className=' flex items-center justify-center flex-col text-center'>
                                             <div className='w-12 h-12 flex items-center justify-center mb-5'>
                                                 <Image src="/DefaultProfile.svg" alt="X" width={500} height={500} />
                                             </div>
                                             <div className=' space-y-5 w-full '>
-                                                <div>
-                                                    <h1 className='text-lg font-bold'>Name</h1>
-                                                    <h3 className='text-sm'>Email</h3>
+                                                <div className=''>
+                                                    <h1 className='text-lg font-bold'>{userData?.name}</h1>
+                                                    <h3 className='text-sm font-thin'>{userData?.email}</h3>
                                                 </div>
                                                 <div className='py-1 border-t text-md border-b w-full text-md hover:bg-black/[0.03]'>
-                                                    <Link href="/">Profile</Link>
+                                                    <Link onClick={()=>setProfileMenu(false)} href="/profile">Profile</Link>
                                                 </div>
 
                                             </div>
@@ -113,6 +116,7 @@ const Header = () => {
                                                 <Button text="Logout" />
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                     : ""
                                 }

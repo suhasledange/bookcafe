@@ -12,12 +12,13 @@ const authSlice = createSlice({
     reducers:{
         loginSlice:(state,action)=>{
             state.status = true,
-            state.userData = action.payload.userData;
-            
+            state.verify="verified",
+            state.userData = action.payload.data;
         },
         logoutSlice:(state)=>{
             state.status = false,
-            state.userData=null;
+            state.userData=null,
+            state.verify="none";
         },
         setPending:(state)=>{
             state.verify = "pending"
@@ -28,6 +29,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {loginSlice,logoutSlice} = authSlice.actions
+export const {loginSlice,logoutSlice,setPending,setVerified} = authSlice.actions
 
 export default authSlice.reducer

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Loader from '@/app/components/Loader';
 import { useSelector } from 'react-redux';
+import { FcGoogle } from 'react-icons/fc';
 
 const SignupForm = () => {
 
@@ -36,7 +37,6 @@ const SignupForm = () => {
       setLoading(false);
     }
     reset();
-    // router.push('/')
   };
 
 
@@ -139,6 +139,24 @@ const SignupForm = () => {
             <h2 className=' text-gray-700'>Already have an account? <Link href='/login' className='hover:text-gray-900 duration-100 underline underline-offset-2'>Login</Link></h2>
           </div>
         </div>
+
+        <div className='mt-8 mb-5 space-y-8'>
+            
+            <div className='flex items-center justify-center gap-5'>
+            <div className='flex-[0.45] bg-gray-500 h-[1.4px]'></div>
+            <span className='text-gray-600'>or login with</span>
+            <div className='flex-[0.45] bg-gray-500 h-[1.4px]'></div>
+            </div>
+            
+            <div className='flex items-center justify-center'>
+                  <div className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
+                    <FcGoogle className='text-3xl'/>
+                    <span className='text-md text-gray-700'>Google</span>
+                  </div>
+            </div>
+
+          </div>
+
       </form>
     </Container>
   );

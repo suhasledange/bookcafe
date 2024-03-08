@@ -1,6 +1,7 @@
 // LoginForm.js
 'use client'
 import { useForm } from 'react-hook-form';
+import { FcGoogle } from "react-icons/fc";
 import Link from 'next/link';
 import Container from '@/app/components/Container';
 import authService from '@/app/appwrite/auth';
@@ -34,19 +35,26 @@ const LoginForm = () => {
       });
 }
 
+  const LoginWithGoogle = async()=>{
+    
+  }
+
   const onSubmit = async (data) => {
 
     setLoading(true)
 
     try {
       const userData = await authService.loginAccount(data);
-
-      if (userData) {
-        dispatch(loginSlice({ userData }));
-        router.push('/');
-      } else {
-        dispatch(logoutSlice());
-        router.push('/login');
+      if(userData){
+          const data = await authService.getCurrentUser()
+        if (data.emailVerification) {
+          dispatch(loginSlice({ data }));
+          router.replace('/');
+        } else {
+          dispatch(logoutSlice());
+          const {userId} = await authService.createEmailVerification()
+          if(userId) router.push('/checkemail')
+        }
       }
     } catch (error) {
         notify()
@@ -110,6 +118,22 @@ const LoginForm = () => {
             <h2 className=' text-gray-700'>Don't have an account yet ? <Link href='/signup' className='hover:text-gray-900 duration-100 underline underline-offset-2'>Create account</Link> </h2>
         </div>
       </div>
+         
+          <div className='mt-8 mb-5 space-y-8'>
+            <div className='flex items-center justify-center gap-5'>
+            <div className='flex-[0.45] bg-gray-500 h-[1.4px]'></div>
+            <span className='text-gray-600'>or login with</span>
+            <div className='flex-[0.45] bg-gray-500 h-[1.4px]'></div>
+            </div>
+            <div className='flex items-center justify-center'>
+                  <div className='transition-transform active:scale-95 hover:bg-black/[0.03] cursor-pointer flex items-center justify-center gap-2 border py-2 px-4 shadow-sm'>
+                    <FcGoogle className='text-3xl'/>
+                    <span className='text-md text-gray-700'>Google</span>
+                  </div>
+            </div>
+
+          </div>
+         
     </form>
     </Container>
 

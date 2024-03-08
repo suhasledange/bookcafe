@@ -18,7 +18,9 @@ export class AuthService{
     async verifyEmail({id,secret}){
        return await this.account.updateVerification(id,secret)
     }
-
+    async createEmailVerification (){
+        return await this.account.createVerification("http://localhost:3000/verify")
+    }
     async createAccount({email,name,password,phone}){
 
         try {
@@ -26,7 +28,7 @@ export class AuthService{
            if(userAccount){
                 await this.loginAccount({email,password})
                 await this.account.updatePhone(phone,password)
-                return await this.account.createVerification("https://bookcafee.vercel.app/verify")
+                return await this.account.createVerification("http://localhost:3000/verify")
            }
                         
         } catch (error){
