@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-const page = () => {
+const Profile = () => {
     
     const userData = useSelector(state=>state.auth.userData)
     const router = useRouter()
@@ -19,4 +19,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Profile
