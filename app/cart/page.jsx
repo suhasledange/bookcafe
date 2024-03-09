@@ -82,6 +82,8 @@ const Cart = () => {
 
       <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
         <Image
+        placeholder="blur"
+        blurDataURL="/empty-cart.jpg"
           alt="empty"
           src="/empty-cart.jpg"
           width={300}
