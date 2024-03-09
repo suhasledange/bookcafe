@@ -12,8 +12,6 @@ import { FcGoogle } from 'react-icons/fc';
 
 const SignupForm = () => {
 
-
-
   const [loading,setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const router = useRouter();
