@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";

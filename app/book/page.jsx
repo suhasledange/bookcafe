@@ -28,7 +28,7 @@ export default function Home() {
       toast.error("Error fetching data from the server. Please try again later.");
       setLoading(false);
     }
-  },[]);
+  },[])
 
   useEffect(() => {
       fetchData();

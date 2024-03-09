@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from "react-redux"
 import { loginSlice, logoutSlice, setGData } from "./authSlice"
 import Loader from "@/app/components/Loader"

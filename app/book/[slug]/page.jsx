@@ -26,7 +26,6 @@ const BookCard = ({ params }) => {
   useEffect(() => {
     const fetchDataFunction = fetchData(); 
     fetchDataFunction.then(); 
-
   }, [fetchData]);
 
   return (
