@@ -7,6 +7,7 @@ import service from '../appwrite/service';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BookSkeleton from '../components/BookSkeleton';
 
 const genres = ['Self Help', 'Fiction', 'Business', 'NonFiction', 'Mystery', 'Science Fiction', 'Fantasy', 'Arts And Crafts', 'Classics', 'Cookery', 'Comics', 'General', 'Geo-Politcs', 'Hindi', 'History', 'Health And Fitness', 'Kids', 'Marathi', 'Music & Movies', 'Science', 'Sports', 'Technical', 'Travel'];
 
@@ -117,11 +118,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {
-            loading ? <Loader className=' h-[30rem]'/> :
               <div className=' store-grid  grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))  ' }} >
+                {
 
-                {filteredBooks?.map(b => (
+                loading ? 
+                Array.from({ length: 10 }).map((_, index) => (
+                  <BookSkeleton key={index} />
+                )) :
+                filteredBooks?.map(b => (
                   <Book key={b.$id}
                     Id={b.$id}
                     author={b.author}
@@ -135,7 +139,6 @@ export default function Home() {
                   />
                 ))}
               </div>
-          }
         </div>
       </div>
     </Container>

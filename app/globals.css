@@ -42,3 +42,19 @@
     box-sizing: border-box;
     letter-spacing: 1px;
 }
+
+.custom-pulse {
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }

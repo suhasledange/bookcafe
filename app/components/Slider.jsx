@@ -3,9 +3,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Container from './Container';
 import Loader from './Loader';
+import BookSkeleton from './BookSkeleton';
+
 const Slider = ({books,title}) => {
-
-
 
     const responsive = {
         desktop: {
@@ -30,7 +30,16 @@ const Slider = ({books,title}) => {
                 <div className='absolute bg-black w-[25%] md:w-[10%] h-[0.2rem] bottom-0 left-0'></div>
                 </div>
            {
-            !books ? <Loader/> :
+            !books ? 
+            <Carousel
+            responsive={responsive}
+            className="z-10 flex py-2 items-center justify-start"
+          >
+            {Array.from({ length: 6 }).map((_, index) => (
+              <BookSkeleton key={index} />
+            ))}
+          </Carousel>
+            :
             <Carousel
                 responsive={responsive}
                 className='z-10 flex py-2 items-center justify-start'

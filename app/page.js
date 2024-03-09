@@ -20,8 +20,8 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    fetchData();
+    useEffect(() => {
+        fetchData();  
   }, []);
 
   const filteredBooks = useMemo(() => {
