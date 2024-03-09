@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Book from '../components/Book';
 import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -18,25 +18,23 @@ export default function Home() {
   const [genreMenu, setGenreMenu] = useState(false);
   const [filteredBooks, setFilteredBooks] = useState();
 
+
+  const fetchData = useCallback(async () => {
+    try {
+      const { documents } = await service.getBooks();
+      setBooks(documents);
+      setFilteredBooks(documents);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data from the server:", error);
+      toast.error("Error fetching data from the server. Please try again later.");
+      setLoading(false);
+    }
+  },[]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await service.getBooks();
-        const { documents } = res;
-        setBooks(documents);
-        setFilteredBooks(documents);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data from the server:", error);
-        toast.error("Error fetching data from the server. Please try again later.");
-        setLoading(false);
-      }
-    };
-    const timeout = setTimeout(()=>{
       fetchData();
-    },1000)
-    return ()=> clearTimeout(timeout)
-  }, []);
+  }, [fetchData]);
 
   const handleGenreChange = (genre) => {
     setSelectedGenres((prevGenres) => {

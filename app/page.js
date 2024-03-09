@@ -8,21 +8,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
 
-  const [books, setBooks] = useState();
+  const [books, setBooks] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const {documents} = await service.getBooks();
+      const { documents } = await service.getBooks();
       setBooks(documents);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
       toast.error("Error fetching data from the server. Please try again later.");
     }
-  }
-
-    useEffect(() => {
-        fetchData();  
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const filteredBooks = useMemo(() => {
     return {
