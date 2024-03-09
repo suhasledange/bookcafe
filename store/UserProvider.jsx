@@ -1,9 +1,9 @@
 'use client'
-import { getSesssion, getCurrentUser, logoutAccount } from "@/app/appwrite/auth";
 import { useCallback, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { loginSlice, logoutSlice, setGData } from "./authSlice"
 import Loader from "@/app/components/Loader"
+import authService from "@/app/appwrite/auth"
 
 const UserProvider = ({children}) => {
 
@@ -13,7 +13,7 @@ const UserProvider = ({children}) => {
 
     const fetchData = useCallback(async () => {
 
-      const data = await getSesssion();
+      const data = await authService.getSesssion();
       if(data){
         try {
           const response = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos,names,emailAddresses,phoneNumbers', {
@@ -41,7 +41,7 @@ const UserProvider = ({children}) => {
   
     
       const getNormalUser = useCallback(async ()=>{
-        await getCurrentUser()
+        await authService.getCurrentUser()
         .then((data) => {
             if (data) {
                 if(data.emailVerification){
@@ -50,7 +50,7 @@ const UserProvider = ({children}) => {
                 }  
             } else {
                 dispatch(logoutSlice())
-                logoutAccount()
+                authService.logoutAccount()
             }
         })
         .catch((error) => {

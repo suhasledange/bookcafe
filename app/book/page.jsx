@@ -18,7 +18,6 @@ export default function Home() {
   const [genreMenu, setGenreMenu] = useState(false);
   const [filteredBooks, setFilteredBooks] = useState();
 
-
   const fetchData = useCallback(async () => {
     try {
       const { documents } = await service.getBooks();
