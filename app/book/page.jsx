@@ -4,7 +4,6 @@ import Book from '../components/Book';
 import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import service from '../appwrite/service';
-import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BookSkeleton from '../components/BookSkeleton';
