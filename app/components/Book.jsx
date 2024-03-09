@@ -31,7 +31,7 @@ const Book = ({ Id, author, Img, availability, bookName, description, genre, ren
         </div>
 
         <div className=" text-black/[0.9] flex items-center justify-center flex-col">
-          <h2 className="mt-3 text-sm font-medium">{bookName?.slice(0, 15)}...</h2>
+          <h2 className="mt-3 text-sm font-medium">{bookName.length > 14 ? bookName?.slice(0, 15)+"..." : bookName } </h2>
           <p className="text-center mb-1 text-gray-700">{author?.slice(0, 16)}</p>
           <div className="flex justify-center items-center text-black/[0.7] mt-2 mb-4">
             <div className="flex items-center justify-center">
