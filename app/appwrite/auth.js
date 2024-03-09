@@ -37,7 +37,6 @@ export class AuthService{
            if(userAccount){
                 await this.loginAccount({email,password})
                 await this.account.updatePhone(phone,password)
-                // return await this.account.createVerification("http://localhost:3000/verify")
                 return await this.account.createVerification("https://bookcafee.vercel.app/verify")
            }
                         
