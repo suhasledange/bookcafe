@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     status:false,
     verify:"none",
+    Gdata:null,
     userData:null
 }
 
@@ -10,6 +11,9 @@ const authSlice = createSlice({
     name:'auth',
     initialState:initialState,
     reducers:{
+        setGData:(state,action)=>{
+            state.Gdata = action.payload.userData;
+        },
         loginSlice:(state,action)=>{
             state.status = true,
             state.verify="verified",
@@ -29,6 +33,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {loginSlice,logoutSlice,setPending,setVerified} = authSlice.actions
+export const {loginSlice,logoutSlice,setPending,setVerified,setGData} = authSlice.actions
 
 export default authSlice.reducer

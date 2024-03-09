@@ -12,13 +12,16 @@ import authService from '../appwrite/auth';
 import { logoutSlice } from '@/store/authSlice';
 import Image from 'next/image';
 
-
-
 const Header = () => {
 
     const dispatch = useDispatch()
 
     const userData = useSelector( state=>state.auth.userData )
+    const GData = useSelector( state=>state.auth.Gdata )
+
+    const email = GData?.emailAddresses[0]?.value;
+    const name =  GData?.names[0]?.displayName;
+    const photo =  GData?.photos[0]?.url;
 
     const handleLogout = async () => {
         await authService.logoutAccount()
@@ -89,8 +92,8 @@ const Header = () => {
                                 </Link>
                                 :
                                 <div className=''>
-                                    <div onClick={()=>setProfileMenu(!profileMenu)} className=' w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer'>
-                                        <Image src="/DefaultProfile.svg" alt="noimg" width={500} height={500} />
+                                    <div onClick={()=>setProfileMenu(!profileMenu)} className=' w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer rounded-full'>
+                                        <Image className='rounded-full' src={GData ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
                                 </div>
                                 {
                                     profileMenu === true ? 
@@ -100,12 +103,12 @@ const Header = () => {
                                     <div className='w-60 absolute top-0 md:top-4 mt-[4.7rem] right-4 bg-white py-4 shadow-xl'>
                                         <div className=' flex items-center justify-center flex-col text-center'>
                                             <div className='w-12 h-12 flex items-center justify-center mb-5'>
-                                                <Image src="/DefaultProfile.svg" alt="X" width={500} height={500} />
+                                            <Image className='rounded-full' src={GData ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
                                             </div>
                                             <div className=' space-y-5 w-full '>
                                                 <div className=''>
-                                                    <h1 className='text-lg font-bold'>{userData?.name}</h1>
-                                                    <h3 className='text-sm font-thin'>{userData?.email}</h3>
+                                                    <h1 className='text-lg font-bold'>{GData ? name : userData?.name}</h1>
+                                                    <h3 className='text-sm font-thin'>{GData ? email : userData?.email}</h3>
                                                 </div>
                                                 <div className='py-1 border-t text-md border-b w-full text-md hover:bg-black/[0.03]'>
                                                     <Link onClick={()=>setProfileMenu(false)} href="/profile">Profile</Link>
