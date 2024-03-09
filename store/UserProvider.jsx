@@ -16,7 +16,7 @@ const UserProvider = ({children}) => {
             const data = await authService.getSesssion();
 
           try {
-            const response = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos,names,emailAddresses', {
+            const response = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos,names,emailAddresses,phoneNumbers', {
               method: 'GET',
               headers: {
                 Authorization: `Bearer ${data?.providerAccessToken}`,
@@ -24,7 +24,7 @@ const UserProvider = ({children}) => {
             });
     
             if (!response.ok) {
-              throw new Error('Failed to fetch user data from Google People API');
+              throw new Error('Failed to fetch user data');
             }
     
             const userData = await response.json();
