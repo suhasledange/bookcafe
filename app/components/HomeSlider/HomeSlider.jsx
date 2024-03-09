@@ -57,7 +57,7 @@ const HomeSlider = () => {
           <div className=" space-y-4 text-md text-left">
              
           <div className="md:block hidden w-72 h-72 ">
-            <Image style={{
+            <Image blurDataURL='/HomeSlide1.svg' placeholder = "blur" style={{
               width: '100%',
               objectFit: 'contain',
               height: '100%',
@@ -81,7 +81,7 @@ const HomeSlider = () => {
           <div className=" space-y-4 text-md text-left">
              
           <div className="md:block hidden w-72 h-72 ">
-            <Image style={{
+            <Image blurDataURL='/HomeSlide2.svg'  placeholder = "blur" style={{
               width: '100%',
               objectFit: 'contain',
               height: '100%',
