@@ -32,8 +32,10 @@ export default function Home() {
         setLoading(false);
       }
     };
-
-    fetchData();
+    const timeout = setTimeout(()=>{
+      fetchData();
+    },1000)
+    return ()=> clearTimeout(timeout)
   }, []);
 
   const handleGenreChange = (genre) => {

@@ -6,7 +6,7 @@ const BookSkeleton = () => {
     <SkeletonTheme  baseColor="#D7DBE0" highlightColor="#ffffff">
     <div className="overflow-hidden w-44 bg-white mx-auto py-3 flex flex-col items-center justify-center custom-pulse">
       <div className="mx-auto">
-          <Skeleton width={176} height={192} />
+          <Skeleton width={158} height={192} />
       </div>
       <div className=" flex items-center justify-center flex-col">
         <h2 className="mt-3 text-sm ">
