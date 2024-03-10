@@ -51,20 +51,19 @@ const Header = () => {
                         }
                     </div> */}
 
-                    <Link href="/" onClick={()=>setProfileMenu(false)}>
+                    <Link href="/">
                         <h1 className='text-md md:text-lg tracking-wider font-bold text-gray-900 '>BookCafe</h1>
                     </Link>
                 </div>
 
                 <div className='w-full flex items-center justify-between space-x-4'>
 
-                    <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center mx-auto'  onClick={()=>setProfileMenu(false)}>
+                    <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center mx-auto' >
                         <IoSearch className=' text-gray-600 text-lg' />
                         <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
                     </div>
 
-
-                    <div className='font-medium text-sm md:text-lg space-x-3 md:space-x-8 tracking-wide text-gray-700' onClick={()=>setProfileMenu(false)}>
+                    <div className='font-medium text-sm md:text-lg space-x-3 md:space-x-8 tracking-wide text-gray-700'>
                         <Link href="/book" >Store</Link>
                         <Link href="/about" >About Us</Link>
                     </div>
