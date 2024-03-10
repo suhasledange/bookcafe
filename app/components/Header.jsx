@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import authService from '../appwrite/auth';
 import { logoutSlice } from '@/store/authSlice';
 import Image from 'next/image';
+import { FaStore } from "react-icons/fa";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 const Header = () => {
 
@@ -31,48 +33,92 @@ const Header = () => {
 
     const status = useSelector(state => state.auth.status)
 
-    const [mobileMenu, setMobileMenu] = useState(false);
+    const [mobileMenu, setMobileMenu] = useState(true);
 
     const { cartItems } = useSelector((state => state.cart))
+    const [search,setSearch] = useState(false)
+
+    const links = [
+        {id:1,text:"Store",href:'/book',icon:<FaStore className='text-xl'/>},
+        {id:2,text:"About Us",href:'/about',icon:<IoMdInformationCircleOutline className='text-xl'/>},
+    ]
 
     return (
-        <header className={` shadow-sm w-full h-14 bg-white md:h-20 flex items-center justify-between z-50 sticky top-0 transition-transform duration-300`} >
-            <Container className="max-w-screen-xl px-3 md:px-0 h-14 flex justify-between items-center">
+        <>
+        <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-2 bg-white flex flex-col items-center  z-50 sticky top-0 transition-transform`} >
+            
+            <Container className="bg-white z-50 max-w-screen-xl px-3 md:px-0 flex justify-between h-full items-center md:py-0 relative">
+
 
                 <div className='flex items-center justify-center gap-2'>
 
-                    {/* <div className='flex justify-center items-center cursor-pointer md:hidden'>
+                    <div className='flex justify-center items-center cursor-pointer md:hidden'>
                         {
                             mobileMenu ? (
-                                <VscChromeClose className='text-2xl' onClick={() => setMobileMenu(false)} />
+                                <VscChromeClose className='text-xl' onClick={() => setMobileMenu(false)} />
                             ) : (
-                                <IoMenu className=' text-2xl' onClick={() => setMobileMenu(true)} />
+                                <IoMenu className=' text-xl' onClick={() => setMobileMenu(true)} />
                             )
                         }
-                    </div> */}
+                    </div>
 
                     <Link href="/">
                         <h1 className='text-md md:text-lg tracking-wider font-bold text-gray-900 '>BookCafe</h1>
                     </Link>
                 </div>
 
-                <div className='w-full flex items-center justify-between space-x-4'>
 
-                    <div className='hidden border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center mx-auto' >
+{/* mobile */}
+
+
+                <div className={`md:hidden transform duration-200 ${mobileMenu ?  "translate-x-0" : " -translate-x-full "  } absolute top-[100%] mt-3 w-4/6 left-0 h-screen ` }>
+                        
+                     <div className='h-screen z-50 bg-white flex flex-col pt-5 border-t px-4 items-start justify-start font-medium text-md tracking-wide text-gray-700 space-y-5'>
+
+                     {
+                            links.map(link => (
+                                <div className='group w-full'>
+                                 <Link onClick={()=>setMobileMenu(false)} className=' flex items-center justify-start gap-2  border-b w-full py-2' key={link.id} href={link.href} >{link.icon} {link.text}</Link>
+                                 <div className=' animate-bounce duration-300 group-hover:w-[91%] w-[0%] bg-black h-[2.5px] absolute'></div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+
+               <div onClick={()=>setMobileMenu(false)} className={`md:hidden ${mobileMenu ? "w-full" : "w-0"} h-screen absolute top-[100%] left-0 bg-transparent -z-50`}>
+               </div>
+
+
+                <div className='hidden w-full md:flex items-center justify-between'>
+
+                    <div className=' border-b-2 p-1 pb-[0.35rem] gap-2 md:flex flex-[0.8] items-center justify-center mx-auto' >
                         <IoSearch className=' text-gray-600 text-lg' />
                         <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
                     </div>
 
-                    <div className='font-medium text-sm md:text-lg space-x-3 md:space-x-8 tracking-wide text-gray-700'>
-                        <Link href="/book" >Store</Link>
-                        <Link href="/about" >About Us</Link>
+                    <div className='font-medium text-md flex gap-5  tracking-wide text-gray-700'>
+                        {
+                            links.map(link => (
+                                 <Link className='flex items-center gap-2' key={link.id} href={link.href} >{link.icon} {link.text}</Link>
+                                 
+                            ))
+                        }
+                   
                     </div>
 
                 </div>
 
-                <div className='flex items-center gap-5 text-black ml-0 md:ml-4'>
 
-                    <Link href="/cart">
+
+
+
+
+                <div className='flex items-center gap-2 text-black ml-0 md:ml-4'>
+
+                    <IoSearch onClick={()=>setSearch(!search)} className=' text-gray-600 text-lg cursor-pointer md:hidden' />
+
+                    <Link href="/cart" className='mr-2'>
                         <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
                             <BsCart className=' text-base md:text-xl' />
 
@@ -129,10 +175,18 @@ const Header = () => {
 
                 </div>
 
-
-
             </Container>
+           
+            <div className={`${search ? "block": "hidden"} md:hidden border-2 mx-auto rounded-md px-2 py-1 mb-2 gap-2 flex w-[96%] items-center justify-center`}>
+            <IoSearch className=' text-gray-600 text-lg' />
+         <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
+            </div>
+
         </header>
+
+        
+      
+    </>
     )
 }
 
