@@ -14,7 +14,6 @@ const Profile = () => {
   const router = useRouter()
   if (!userData) router.push('/')
 
-
   const [selectedLink, setSelectedLink] = useState(1);
 
   const handleLinkClick = (link) => {

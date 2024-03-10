@@ -37,10 +37,10 @@ export class Service{
         
             return this.databases.listDocuments(
                 conf.DATABASE_ID,
-                conf.COLLECTION_ID_BOOKSTORE,[
-                    Query.equal('genre',['Self Help'])
+                conf.COLLECTION_ID_BOOKSTORE,
+                [
+                    Query.search('genre',genre)
                 ]
-               
             );
         } catch (error) {
             throw error;

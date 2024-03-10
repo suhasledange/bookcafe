@@ -6,6 +6,8 @@ import BookSkeleton from './BookSkeleton';
 
 const Slider = ({books,title,loading}) => {
 
+  books = books.documents;
+  
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
