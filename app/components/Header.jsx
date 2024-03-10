@@ -38,6 +38,8 @@ const Header = () => {
     const { cartItems } = useSelector((state => state.cart))
     const [search,setSearch] = useState(false)
 
+    const [searchResult,setSearchResult] = useState([])
+
     const links = [
         {id:1,text:"Store",href:'/book',icon:<FaStore className='text-xl'/>},
         {id:2,text:"About Us",href:'/about',icon:<IoMdInformationCircleOutline className='text-xl'/>},
@@ -45,7 +47,7 @@ const Header = () => {
 
     return (
         <>
-        <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-2 bg-white flex flex-col items-center  z-50 sticky top-0 transition-transform`} >
+        <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-3 bg-white flex flex-col items-center  z-50 sticky top-0 transition-transform`} >
             
             <Container className="bg-white z-50 max-w-screen-xl px-3 md:px-0 flex justify-between h-full items-center md:py-0 relative">
 
@@ -77,8 +79,8 @@ const Header = () => {
 
                      {
                             links.map(link => (
-                                <div className='group w-full'>
-                                 <Link onClick={()=>setMobileMenu(false)} className=' flex items-center justify-start gap-2  border-b w-full py-2' key={link.id} href={link.href} >{link.icon} {link.text}</Link>
+                                <div key={link.id} className='group w-full'>
+                                 <Link onClick={()=>setMobileMenu(false)} className=' flex items-center justify-start gap-2  border-b w-full py-2'  href={link.href} >{link.icon} {link.text}</Link>
                                  <div className=' animate-bounce duration-300 group-hover:w-[91%] w-[0%] bg-black h-[2.5px] absolute'></div>
                                 </div>
                             ))
@@ -177,7 +179,7 @@ const Header = () => {
 
             </Container>
            
-            <div className={`${search ? "block": "hidden"} md:hidden border-2 mx-auto rounded-md px-2 py-1 mb-2 gap-2 flex w-[96%] items-center justify-center`}>
+            <div className={`${search ? "block": "hidden"} md:hidden border-2 mx-auto rounded-md px-2 py-1 gap-2 flex w-[96%] items-center justify-center`}>
             <IoSearch className=' text-gray-600 text-lg' />
          <input placeholder='Search' className='text-md w-full bg-transparent outline-none' />
             </div>
