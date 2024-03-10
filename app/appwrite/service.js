@@ -46,6 +46,19 @@ export class Service{
             throw error;
         }
     }
+    async getBooksBySearch(res){
+        try {
+            return this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID_BOOKSTORE,
+                [
+                    Query.search('bookName',res)
+                ]
+            );
+        } catch (error) {
+            throw error;
+        }
+    }
 
 }
 const service = new Service()
