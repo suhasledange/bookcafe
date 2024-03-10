@@ -128,6 +128,8 @@ const Header = () => {
 
 
 
+                    {/* desktop search */}
+
 
                     <div className='hidden w-full md:flex items-center justify-between'>
 
@@ -135,23 +137,24 @@ const Header = () => {
                             <IoSearch className=' text-gray-600 text-lg' />
                             <input ref={ref1} onChange={(e) => setInputSearch(e.target.value)} placeholder='Search' className='text-md w-full bg-transparent outline-none' />
                             {
+                                inputSearch.trim() !== "" && (
+                                    loading ? <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white space-y-2'>
+                                        <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
+                                        <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
+                                    </div> :
+                                        searchResult.length ?
+                                            <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white'>
+                                                {
+                                                    searchResult?.map(res => (
+                                                        <Link key={res.$id} onClick={clearSearch} className='flex items-center justify-start gap-2 w-full text-sm text-gray-700 p-2 hover:bg-gray-100' href={`/book/${res.$id}`}>
 
-                                loading ? <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white space-y-2'>
-                                    <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
-                                    <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
-                                </div> :
-                                    searchResult.length ?
-                                        <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white'>
-                                            {
-                                                searchResult?.map(res => (
-                                                    <Link key={res.$id} onClick={clearSearch} className='flex items-center justify-start gap-2 w-full text-sm text-gray-700 p-2 hover:bg-gray-100' href={`/book/${res.$id}`}>
+                                                            <IoSearch className=' shrink-0 text-md' /> {res.bookName} by {res.author}
 
-                                                        <IoSearch className=' shrink-0 text-md' /> {res.bookName} by {res.author}
-
-                                                    </Link>
-                                                ))
-                                            }
-                                        </div> : ""
+                                                        </Link>
+                                                    ))
+                                                }
+                                            </div> : ""
+                                )
                             }
 
                         </div>
@@ -187,6 +190,10 @@ const Header = () => {
 
                             </div>
                         </Link>
+
+
+
+                    {/* profile /login  */}
 
                         <div className='text-sm md:text-lg flex items-center justify-center'>
                             {
@@ -236,33 +243,35 @@ const Header = () => {
 
                 </Container>
 
+
+                            {/* mobile search */}
+
                 <div className={`${search ? "block" : "hidden"} md:hidden border-2 mx-auto rounded-md px-2 py-1 gap-2 flex w-[96%] items-center justify-center relative`}>
                     <IoSearch className=' text-gray-600 text-lg' />
                     <input ref={ref} onChange={(e) => setInputSearch(e.target.value)} placeholder='Search' className='text-md w-full bg-transparent outline-none' />
                     {
-                         loading ? <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white space-y-2'>
-                         <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
-                         <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
-                        </div> :
-                        searchResult.length ?
-                            <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 bg-white shadow-xl'>
-                                {
-                                    searchResult?.map(res => (
-                                        <Link key={res.$id} onClick={clearSearch} className=' flex items-center justify-start gap-2 w-full text-sm text-gray-700 p-2 hover:bg-gray-100' href={`/book/${res.$id}`}>
+                        inputSearch.trim() !== "" && (
+                            loading ? <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 shadow-xl bg-white space-y-2'>
+                                <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
+                                <div className='w-full h-full animate-pulse bg-gray-200'> <Skeleton /> </div>
+                            </div> :
+                                searchResult.length ?
+                                    <div className='z-50 absolute w-full top-12 mt-1 rounded-md p-4 left-0 bg-white shadow-xl'>
+                                        {
+                                            searchResult?.map(res => (
+                                                <Link key={res.$id} onClick={clearSearch} className=' flex items-center justify-start gap-2 w-full text-sm text-gray-700 p-2 hover:bg-gray-100' href={`/book/${res.$id}`}>
 
-                                            <IoSearch className='text-md shrink-0' /> {res.bookName} by {res.author}
+                                                    <IoSearch className='text-md shrink-0' /> {res.bookName} by {res.author}
 
-                                        </Link>
-                                    ))
-                                }
-                            </div> : ""
+                                                </Link>
+                                            ))
+                                        }
+                                    </div> : ""
+                        )
                     }
                 </div>
 
             </header>
-
-
-
         </>
     )
 }
