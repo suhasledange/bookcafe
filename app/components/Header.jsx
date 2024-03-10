@@ -110,7 +110,7 @@ const Header = () => {
                                                     <h1 className='text-lg font-bold'>{GData ? name : userData?.name}</h1>
                                                     <h3 className='text-sm font-thin'>{GData ? email : userData?.email}</h3>
                                                 </div>
-                                                <div className='py-1 border-t text-md border-b w-full text-md hover:bg-black/[0.03]'>
+                                                <div className='py-1 border-t border-b w-full text-lg hover:bg-black/[0.03]'>
                                                     <Link onClick={()=>setProfileMenu(false)} href="/profile">Profile</Link>
                                                 </div>
 

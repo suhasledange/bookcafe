@@ -44,7 +44,6 @@ const UserProvider = ({children}) => {
         .then((data) => {
             if (data) {
                 if(data.emailVerification){
-
                     dispatch(loginSlice({ data }))
                 }  
             } else {
