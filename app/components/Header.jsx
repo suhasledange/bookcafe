@@ -33,7 +33,7 @@ const Header = () => {
 
     const status = useSelector(state => state.auth.status)
 
-    const [mobileMenu, setMobileMenu] = useState(true);
+    const [mobileMenu, setMobileMenu] = useState(false);
 
     const { cartItems } = useSelector((state => state.cart))
     const [search,setSearch] = useState(false)
