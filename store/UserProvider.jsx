@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { loginSlice, logoutSlice, setGData } from "./authSlice"
 import Loader from "@/app/components/Loader"
 import authService from "@/app/appwrite/auth"
+import Image from 'next/image';
 
 const UserProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.log('Error getting user data:', error);
-      setError('User data not found. Please try again later.');
+      setError('Cannot fetch data from the server. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -74,8 +75,11 @@ const UserProvider = ({ children }) => {
   return (
     <>
       {error ? (
-        <div className="w-full h-screen flex items-center justify-center">
-          <p>{error}</p>
+        <div className="w-full h-screen flex-col flex items-center justify-center">
+          <div className=' w-60 h-60'>
+            <Image style={{width:"100%",height:"100%", objectFit:"contain"}} src='/serverdown.svg' width={500} height={500}/>
+          </div>
+          <p className='mt-8 text-gray-700 font-bold text-xl'>{error}</p>
         </div>
       ) : !loading ? (
         <div>{children}</div>
