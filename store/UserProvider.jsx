@@ -74,14 +74,7 @@ const UserProvider = ({ children }) => {
 
   return (
     <>
-      {error ? (
-        <div className="w-full h-screen flex-col flex items-center justify-center">
-          <div className=' w-60 h-60'>
-            <Image style={{width:"100%",height:"100%", objectFit:"contain"}} src='/serverdown.svg' width={500} height={500}/>
-          </div>
-          <p className='mt-8 text-gray-700 font-bold text-xl text-center'>{error}</p>
-        </div>
-      ) : !loading ? (
+      { !loading ? (
         <div>{children}</div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center">
