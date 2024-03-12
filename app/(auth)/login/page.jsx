@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice, logoutSlice } from '@/store/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import service from '@/app/appwrite/service';
 
 const LoginForm = () => {
   
@@ -37,7 +38,8 @@ const LoginForm = () => {
 
   const LoginWithGoogle = async()=>{
        await authService.LoginWithGoogle()
-  }
+      }
+
 
   const onSubmit = async (data) => {
 
@@ -47,7 +49,14 @@ const LoginForm = () => {
       const userData = await authService.loginAccount(data);
       if(userData){
           const data = await authService.getCurrentUser()
-        if (data.emailVerification) {
+          if (data.emailVerification) {
+
+            const {$id} = data
+            const {documents} = await service.getUserById(String($id))
+            if(!documents.length){
+                  await service.createUser(data)
+            }
+
           dispatch(loginSlice({ data }));
           router.replace('/');
         } else {

@@ -46,6 +46,7 @@ export class Service{
             throw error;
         }
     }
+
     async getBooksBySearch(res){
         try {
             return this.databases.listDocuments(
@@ -53,6 +54,40 @@ export class Service{
                 conf.COLLECTION_ID_BOOKSTORE,
                 [
                     Query.search('bookName',res)
+                ]
+            );
+        } catch (error) {
+            throw error;
+        }
+    }
+    async createUser(data){
+        try {
+            const UserId = data.$id
+            const phone = data.phone || ""
+            const email = data.email
+            const name = data.name
+            const address=[]
+            const orders=[]
+            
+               return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,ID.unique(),{
+                    UserId,
+                    email,
+                    address,
+                    orders,
+                    name,
+                    phone,
+               })
+        } catch (error) {   
+            console.log("error creating user",error)
+        }
+    }
+    async getUserById(userid){
+        try {
+            return this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID_USERDETAILS,
+                [
+                    Query.search('UserId',userid)
                 ]
             );
         } catch (error) {
