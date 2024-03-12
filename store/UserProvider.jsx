@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { loginSlice, logoutSlice, setGData } from "./authSlice"
 import Loader from "@/app/components/Loader"
 import authService from "@/app/appwrite/auth"
-import Image from 'next/image';
 import service from '@/app/appwrite/service';
 
 const UserProvider = ({ children }) => {
@@ -81,7 +80,7 @@ const UserProvider = ({ children }) => {
 
   return (
     <>
-    { !loading ? (
+      { !loading ? (
         <div>{children}</div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center">
