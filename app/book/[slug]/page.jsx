@@ -177,7 +177,7 @@ const BookCard = ({ params }) => {
                 </div>
 
                 <div
-                  className="grid grid-cols-5 gap-2 mb-8"
+                  className="grid md:grid-cols-5 grid-cols-3 gap-2 mb-8"
                 >
 
                   {book?.genre.map((genre, i) => (
