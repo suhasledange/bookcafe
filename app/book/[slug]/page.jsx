@@ -20,12 +20,9 @@ const getBookbygenre = useCallback(async () => {
        const res = await service.getBooksByGenre(String(book?.genre[0]));
 
     setSimilarBooks(res);
-    setLoading(false);
-
   } catch (error) {
     console.error("Error fetching data from the server:", error);
     toast.error("Error fetching data from the server. Please try again later.");
-    setLoading(false);
   }
 }, [book?.genre, service]);
 
@@ -74,7 +71,7 @@ useEffect(() => {
               {/* left */}
               <div className="flex-[1] w-full  md:max-w-[300px] mx-auto lg:mx-0 ">
 
-                <div className="space-y-8 w-full">
+                <div className="space-y-8 w-full drop-shadow-md">
 
                   <Image alt='bookimg' style={{ width: "100%", height: "100%", objectFit: "contain" }} src={book?.bookImg} width={1000} height={1000} />
 
