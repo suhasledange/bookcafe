@@ -3,7 +3,6 @@ import Orders from './Orders';
 import Account from './Account';
 
 const RightSection = ({ selectedLink, className }) => {
-    console.log(selectedLink)
     return (
     <div className={`  ${className || ""} `}>
         <div className='p-3'>

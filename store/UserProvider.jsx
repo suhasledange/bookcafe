@@ -47,11 +47,9 @@ const UserProvider = ({ children }) => {
   }, [fetchData]);
 
 
-
-
   const getNormalUser = useCallback(async () => {
     try {
-      const data = await authService.getCurrentUser();
+      let data = await authService.getCurrentUser();
       if (data) {
         if (data.emailVerification) {
 
@@ -60,7 +58,7 @@ const UserProvider = ({ children }) => {
           if(!documents.length){
                 await service.createUser(data)
           }
-
+          data = documents[0]
           dispatch(loginSlice({ data }));
         }
       } else {

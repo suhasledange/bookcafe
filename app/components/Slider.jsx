@@ -4,9 +4,8 @@ import 'react-multi-carousel/lib/styles.css';
 import Container from './Container';
 import BookSkeleton from './BookSkeleton';
 
-const Slider = ({books,title,loading}) => {
-
-  books = books.documents;
+const Slider = ({books,title="",loading}) => {
+  books = books?.documents;
   
     const responsive = {
         desktop: {

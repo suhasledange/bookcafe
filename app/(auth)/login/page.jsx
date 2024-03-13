@@ -48,7 +48,7 @@ const LoginForm = () => {
     try {
       const userData = await authService.loginAccount(data);
       if(userData){
-          const data = await authService.getCurrentUser()
+          let data = await authService.getCurrentUser()
           if (data.emailVerification) {
 
             const {$id} = data
@@ -56,7 +56,7 @@ const LoginForm = () => {
             if(!documents.length){
                   await service.createUser(data)
             }
-
+            data = documents[0]
           dispatch(loginSlice({ data }));
           router.replace('/');
         } else {

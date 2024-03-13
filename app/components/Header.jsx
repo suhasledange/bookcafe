@@ -12,7 +12,7 @@ import authService from '../appwrite/auth';
 import { logoutSlice } from '@/store/authSlice';
 import Image from 'next/image';
 import { FaStore } from "react-icons/fa";
-import { IoMdInformationCircleOutline } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty, IoMdInformationCircleOutline } from "react-icons/io";
 import { useDebounce } from '../hooks/hook';
 import service from '../appwrite/service';
 import Skeleton from 'react-loading-skeleton';
@@ -180,6 +180,17 @@ const Header = () => {
 
                         <IoSearch onClick={handleClick} className=' text-gray-600 text-lg cursor-pointer md:hidden' />
 
+                        <Link href="/cart">
+                            <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
+                                <IoMdHeartEmpty onClick={() => setMobileMenu(false)} className=' text-xl md:text-2xl' />
+
+                                <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                                    0
+                                </div>
+
+                            </div>
+                        </Link>
+
                         <Link href="/cart" className='mr-2'>
                             <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
                                 <BsCart onClick={() => setMobileMenu(false)} className=' text-base md:text-xl' />
@@ -218,8 +229,8 @@ const Header = () => {
                                                             </div>
                                                             <div className=' space-y-5 w-full '>
                                                                 <div className=''>
-                                                                    <h1 className='text-lg font-bold'>{GData ? name : userData?.name}</h1>
-                                                                    <h3 className='text-sm font-thin'>{GData ? email : userData?.email}</h3>
+                                                                    <h1 className='text-lg font-bold'>{userData?.name}</h1>
+                                                                    <h3 className='text-sm font-thin'>{userData?.email}</h3>
                                                                 </div>
                                                                 <div className='py-1 border-t border-b w-full text-lg hover:bg-black/[0.03]'>
                                                                     <Link onClick={() => setProfileMenu(false)} href="/profile">Profile</Link>
