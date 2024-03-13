@@ -7,29 +7,16 @@ import Image from "next/image";
 import Slider from "@/app/components/Slider";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Button from "@/app/components/Button";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
 
   const [similarbooks, setSimilarBooks] = useState();
   const [loading, setLoading] = useState(true);
+  const [Sliderloading, setSliderLoading] = useState(true);
 
-const getBookbygenre = useCallback(async () => {
-  
-  try {
-       const res = await service.getBooksByGenre(String(book?.genre[0]));
-
-    setSimilarBooks(res);
-  } catch (error) {
-    console.error("Error fetching data from the server:", error);
-    toast.error("Error fetching data from the server. Please try again later.");
-  }
-}, [book?.genre, service]);
-
-
-useEffect(() => {
-  getBookbygenre();
-}, [getBookbygenre]);
 
   const fetchData = useMemo(
     () => async () => {
@@ -48,9 +35,38 @@ useEffect(() => {
     const fetchDataFunction = fetchData();
     fetchDataFunction.then();
   }, [fetchData]);
+  
 
+  const getBookbygenre = useCallback(async () => {
+    try {
+        const res = await service.getBooksByGenre(String(book?.genre[0]));
+        setSimilarBooks(res);
+        setSliderLoading(false)
+    } catch (error) {
+      console.error("Error fetching data from the server:", error);
+      toast.error("Error fetching data from the server. Please try again later.");
+    }
+  }, [book?.genre, service]);
+  
+  
+  useEffect(() => {
 
+    getBookbygenre();
+  }, [getBookbygenre]);
+  
+  const dispatch = useDispatch();
 
+  const notify = () => {
+    toast.success('Book Added To Cart', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
 
   return (
@@ -62,7 +78,6 @@ useEffect(() => {
         
       ) : (
         <Container className=" max-w-screen-xl mt-12">
-
 
           <Container className=' max-w-screen-lg'>
 
@@ -190,7 +205,7 @@ useEffect(() => {
             </div>
 
           </Container>
-            <Slider books={similarbooks} title="Similar Books" loading={loading}/>
+              <Slider books={similarbooks} title="Similar Books" loading={Sliderloading}/>
         </Container>
 
       )}
