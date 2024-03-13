@@ -46,7 +46,7 @@ const BookCard = ({ params }) => {
       console.error("Error fetching data from the server:", error);
       toast.error("Error fetching data from the server. Please try again later.");
     }
-  }, [book?.genre, service]);
+  }, [book?.genre]);
   
   
   useEffect(() => {
