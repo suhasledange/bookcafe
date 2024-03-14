@@ -130,10 +130,7 @@ export default function Home() {
                     Img={b.bookImg}
                     availability={b.availability}
                     bookName={b.bookName}
-                    description={b.description}
-                    genre={b.genre}
                     rentPrice={b.rentPrice}
-
                   />
                 ))}
               </div>

@@ -51,10 +51,7 @@ const Slider = ({books,title="",loading}) => {
             Img={b.bookImg} 
             availability={b.availability}
             bookName={b.bookName}
-            description={b.description}
-            genre={b.genre}
             rentPrice={b.rentPrice}
-            
             />
             
             ))}

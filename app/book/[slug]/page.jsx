@@ -6,9 +6,10 @@ import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import Slider from "@/app/components/Slider";
 import { IoMdHeartEmpty } from "react-icons/io";
-import Button from "@/app/components/Button";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { addToWish } from "@/store/wishSlice";
+import { addToCart } from "@/store/cartSlice";
 
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
@@ -35,7 +36,7 @@ const BookCard = ({ params }) => {
     const fetchDataFunction = fetchData();
     fetchDataFunction.then();
   }, [fetchData]);
-  
+
 
   const getBookbygenre = useCallback(async () => {
     try {
@@ -67,7 +68,17 @@ const BookCard = ({ params }) => {
       progress: undefined,
     });
   }
-
+  const notify1 = () => {
+    toast.success('Book Added To Wishlist', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
   return (
     <>
@@ -78,7 +89,7 @@ const BookCard = ({ params }) => {
         
       ) : (
         <Container className=" max-w-screen-xl mt-12">
-
+          <ToastContainer/>
           <Container className=' max-w-screen-lg'>
 
             <div className="flex flex-col lg:flex-row md:px-10 gap-10 lg:gap-32 w-full mx-auto ">
@@ -94,17 +105,17 @@ const BookCard = ({ params }) => {
                     
                     <div className="flex-[0.5]">
                        <button
-                      //  onClick={() => {
-                      //    dispatch(addToCart({
-                      //      Id,
-                      //      Img,
-                      //      bookName,
-                      //      author,
-                      //      price: rentPrice,
-                      //      oneQuantityPrice: rentPrice
-                      //    }))
-                      //    notify()
-                      //  }}
+                       onClick={() => {
+                         dispatch(addToCart({
+                           Id:book.$id,
+                           Img:book.bookImg,
+                           bookName:book.bookName,
+                           author:book.author,
+                           price: book.rentPrice,
+                           oneQuantityPrice: book.rentPrice
+                         }))
+                         notify()
+                       }}
                        disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
                     
                     </div>
@@ -112,17 +123,17 @@ const BookCard = ({ params }) => {
 
 
                     <button
-                      //  onClick={() => {
-                      //    dispatch(addToCart({
-                      //      Id,
-                      //      Img,
-                      //      bookName,
-                      //      author,
-                      //      price: rentPrice,
-                      //      oneQuantityPrice: rentPrice
-                      //    }))
-                      //    notify()
-                      //  }}
+                       onClick={() => {
+                         dispatch(addToWish({
+                          Id:book.$id,
+                          Img:book.bookImg,
+                          bookName:book.bookName,
+                          author:book.author,
+                          availability:book.availability,
+                          price: book.rentPrice,
+                         }))
+                         notify1()
+                       }}
                        className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl"/> Whislist</button>
                     
                     

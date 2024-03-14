@@ -4,7 +4,6 @@ import Container from "../components/Container";
 import Image from "next/image";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
-import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 

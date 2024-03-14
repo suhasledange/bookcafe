@@ -1,29 +1,34 @@
 'use client'
-import { removeFromCart, updateCart } from '@/store/cartSlice';
+
+import { addToCart } from '@/store/cartSlice';
+import { removeFromWish } from '@/store/wishSlice';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
-const CartItem = ({ Id, Img, bookName, author, price, quantity }) => {
+const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
     const dispatch = useDispatch()
 
-    const updateCartItem = (e, key) => {
-        let payload = {
-            key,
-            val: key === 'quantity' ? parseInt(e.target.value) : e.target.value,
-            id: Id
-        }
-        dispatch(updateCart(payload))
-    }
-
+    const notify = () => {
+        toast.success('Book Added To Cart', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
 
     return (
         <div className="flex py-5 gap-3 md:gap-5 border-b">
             <div className="shrink-0 aspect-square w-14 md:w-32">
                 <Image
-                className=' drop-shadow-lg'
-                    alt="cart item"
+                className='drop-shadow-lg'
+                    alt="wish item"
                     src={Img}
                     width={500}
                     height={500}
@@ -53,22 +58,29 @@ const CartItem = ({ Id, Img, bookName, author, price, quantity }) => {
                     <div className="flex items-center gap-2 md:gap-10 text-black/[0.5] text-sm md:text-md">
 
                         <div className="flex items-center gap-1">
-                            <div className="font-semibold">Quantity:</div>
-                            <select
-                                className="hover:text-black"
-                                onChange={(e) => updateCartItem(e, "quantity")}
-                                value={quantity}
-                            >
-                                {Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => (
-                                    <option key={i} value={q}>
-                                        {q}
-                                    </option>
-                                ))}
-                            </select>
+                            {
+                                availability ?
+                                <button
+                                onClick={() => {
+                                    dispatch(addToCart({
+                                        Id,
+                                        Img,
+                                        bookName,
+                                        author,
+                                        price: price,
+                                        oneQuantityPrice: price
+                                    }))
+                                    notify()
+                                }}
+                                className={` transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>Add To Cart</button>
+
+                               : <h1 className='text-red-700 text-lg font-semibold'>Out of Stock</h1> 
+                            }
+
                         </div>
                     </div>
                     <RiDeleteBin6Line
-                        onClick={() => dispatch(removeFromCart({ id: Id }))}
+                        onClick={() => dispatch(removeFromWish({ id: Id }))}
                         className="cursor-pointer text-black/[0.5] hover:text-black text-xl md:text-2xl"
                     />
                 </div>
@@ -77,4 +89,4 @@ const CartItem = ({ Id, Img, bookName, author, price, quantity }) => {
     )
 }
 
-export default CartItem
+export default WishlistItem
