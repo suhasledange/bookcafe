@@ -34,7 +34,7 @@ const Slider = ({books,title="",loading}) => {
             responsive={responsive}
             className="z-10 flex py-2 items-center justify-start"
           >
-            {Array.from({ length: 6 }).map((_, index) => (
+            {Array.from({ length: 7 }).map((_, index) => (
               <BookSkeleton key={index} />
             ))}
           </Carousel>

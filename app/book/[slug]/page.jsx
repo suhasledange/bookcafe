@@ -185,11 +185,11 @@ const handleShare = () => {
                           Rent Price : &#8377;{book?.rentPrice}
                         </p>
                       </div>
-                      <div className="text-md font-medium text-black/[0.5]">
+                      {/* <div className="text-md font-medium text-black/[0.5]">
                         incl. of taxes
-                      </div>
-                      <div className="text-md font-medium text-black/[0.5] mb-8">
-                        {`(Also includes all applicable duties)`}
+                      </div> */}
+                      <div className="text-md font-medium text-red-700/[0.8] mb-8">
+                        {`(14 days of return period)`}
                       </div>
                     </div>
                   ) : (
