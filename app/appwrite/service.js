@@ -62,22 +62,32 @@ export class Service{
     }
     async createUser(data){
         try {
-            const UserId = data.$id
-            const phone = data.phone || ""
-            const email = data.email
-            const name = data.name
-            const address=[]
-            const orders=[]
             
                return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,ID.unique(),{
-                    UserId,
-                    email,
-                    address,
-                    orders,
-                    name,
-                    phone,
+                    UserId:data.$id,
+                    email:data.phone,
+                    address:[],
+                    orders:[],
+                    name:data.name,
+                    phone:data.phone || "",
                })
         } catch (error) {   
+            console.log("error creating user",error)
+        }
+    }
+    async updateUserData(data){
+        try {
+
+            return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,data.collectionId,{
+                UserId:data.userId,
+                email:data.email,
+                address:data.address,
+                orders:data.orders,
+                name:data.name,
+                phone:data.phone
+            });
+
+        } catch (error) {
             console.log("error creating user",error)
         }
     }
