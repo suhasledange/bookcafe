@@ -107,7 +107,7 @@ const handleShare = () => {
           <ToastContainer/>
           <Container className=' max-w-screen-lg'>
 
-            <div className="flex flex-col lg:flex-row md:px-10 gap-10 lg:gap-32 w-full mx-auto ">
+            <div className="flex flex-col md:flex-row md:px-10 gap-10 md:gap-32 w-full mx-auto ">
 
               {/* left */}
               <div className="flex-[1] w-full  md:max-w-[300px] mx-auto lg:mx-0 ">

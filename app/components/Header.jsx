@@ -128,8 +128,6 @@ const Header = () => {
                     <div onClick={() => setMobileMenu(false)} className={`md:hidden ${mobileMenu ? "w-full" : "w-0"} h-screen absolute top-[100%] left-0 bg-transparent -z-50`}>
                     </div>
 
-
-
                     {/* desktop search */}
 
 
