@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { addToWish } from "@/store/wishSlice";
 import { addToCart } from "@/store/cartSlice";
-import { FaRegShareSquare } from "react-icons/fa";
+import { FiShare2 } from "react-icons/fi";
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
 
@@ -167,7 +167,7 @@ const handleShare = () => {
                 </div>
                 
                 <div className="cursor-pointer hover:bg-black/[0.05] p-[0.68rem] rounded-full duration-150" onClick={handleShare}>
-                    <FaRegShareSquare className="text-2xl "/>
+                    <FiShare2 className="text-2xl "/>
                 </div>
 
                 </div>
