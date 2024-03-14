@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { addToWish } from "@/store/wishSlice";
 import { addToCart } from "@/store/cartSlice";
-
+import { FaRegShareSquare } from "react-icons/fa";
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
 
@@ -80,6 +80,21 @@ const BookCard = ({ params }) => {
     });
   }
 
+
+const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: book.bookName,
+        text: book.description,
+        url: window.location.href,
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+      console.log("Web Share API not supported.");
+    }
+};
+
   return (
     <>
       {loading ? (
@@ -97,13 +112,15 @@ const BookCard = ({ params }) => {
               {/* left */}
               <div className="flex-[1] w-full  md:max-w-[300px] mx-auto lg:mx-0 ">
 
-                <div className="space-y-8 w-full drop-shadow-md">
+                <div className="space-y-8 w-[80%] mx-auto md:w-full drop-shadow-md">
 
-                  <Image alt='bookimg' style={{ width: "100%", height: "100%", objectFit: "contain" }} src={book?.bookImg} width={1000} height={1000} />
-
-                  <div className="flex item-center justify-center gap-5">
+                <div className="h-full w-full mx-auto">
+                  <Image priority={true} alt='bookimg' style={{ width: "100%", height: "100%", objectFit: "contain" }} src={book?.bookImg} width={1000} height={1000} />
+                </div>
                     
-                    <div className="flex-[0.5]">
+                  <div className="flex item-center justify-center gap-2">
+                    
+                    <div className="w-full">
                        <button
                        onClick={() => {
                          dispatch(addToCart({
@@ -119,9 +136,7 @@ const BookCard = ({ params }) => {
                        disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
                     
                     </div>
-                    <div className="flex-[0.5]">
-
-
+                    <div className="w-full ">
                     <button
                        onClick={() => {
                          dispatch(addToWish({
@@ -136,9 +151,7 @@ const BookCard = ({ params }) => {
                        }}
                        className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl"/> Whislist</button>
                     
-                    
                     </div>
-
                   </div>
 
                 </div>
@@ -146,18 +159,24 @@ const BookCard = ({ params }) => {
               </div>
 
               {/* right */}
-              <div className="flex-[1]">
+              <div className="flex-[1] justify-between items-center">
+                
+                <div className=" flex items-start justify-between">
                 <div className="text-[34px] font-semibold mb-2 leading-tight">
                   {book?.bookName}
                 </div>
+                
+                <div className="cursor-pointer hover:bg-black/[0.05] p-[0.68rem] rounded-full duration-150" onClick={handleShare}>
+                    <FaRegShareSquare className="text-2xl "/>
+                </div>
 
-                {/* PRODUCT SUBTITLE */}
+                </div>
+
                 <div className="text-lg font-semibold mb-8">
                   {book?.author}
                 </div>
 
 
-                {/* PRODUCT PRICE */}
                 {
                   book?.availability ? (
                     <div>
@@ -179,7 +198,6 @@ const BookCard = ({ params }) => {
                 }
 
                 <div className="mb-5">
-                  {/* HEADING START */}
                   <div className="flex justify-between">
                     <div className="text-md font-semibold">
                       Genres
