@@ -52,13 +52,14 @@ const UserProvider = ({ children }) => {
       let data = await authService.getCurrentUser();
       if (data) {
         if (data.emailVerification) {
-
           const {$id} = data
           const {documents} = await service.getUserById(String($id))
           if(!documents.length){
                 await service.createUser(data)
           }
+
           data = documents[0]
+          console.log(data)
           dispatch(loginSlice({ data }));
         }
       } else {

@@ -62,10 +62,9 @@ export class Service{
     }
     async createUser(data){
         try {
-            
                return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,ID.unique(),{
                     UserId:data.$id,
-                    email:data.phone,
+                    email:data.email,
                     address:[],
                     orders:[],
                     name:data.name,
