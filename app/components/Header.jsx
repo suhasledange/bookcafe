@@ -12,7 +12,7 @@ import authService from '../appwrite/auth';
 import { logoutSlice } from '@/store/authSlice';
 import Image from 'next/image';
 import { FaStore } from "react-icons/fa";
-import { IoMdHeart, IoMdHeartEmpty, IoMdInformationCircleOutline } from "react-icons/io";
+import {  IoMdHeartEmpty, IoMdInformationCircleOutline } from "react-icons/io";
 import { useDebounce } from '../hooks/hook';
 import service from '../appwrite/service';
 import Skeleton from 'react-loading-skeleton';

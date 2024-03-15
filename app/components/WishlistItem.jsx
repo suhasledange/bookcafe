@@ -4,6 +4,7 @@ import { ToastContext } from '@/context/ToastContext';
 import { addToCart } from '@/store/cartSlice';
 import { removeFromWish } from '@/store/wishSlice';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useContext } from 'react';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
@@ -16,15 +17,17 @@ const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
 
     return (
         <div className="flex py-5 gap-3 md:gap-5 border-b">
-            <div className="shrink-0 aspect-square w-14 md:w-32">
+            <Link href={`/book/${Id}`}>
+            <div className="shrink-0 hover:scale-105 duration-200 aspect-square w-14 md:w-32">
                 <Image
                 className='drop-shadow-lg'
-                    alt="wish item"
-                    src={Img}
-                    width={500}
-                    height={500}
+                alt="wish item"
+                src={Img}
+                width={500}
+                height={500}
                 />
             </div>
+        </Link>
 
             <div className="w-full flex flex-col">
                 <div className="flex flex-col md:flex-row justify-between">
