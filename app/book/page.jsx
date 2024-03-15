@@ -61,7 +61,7 @@ export default function Home() {
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden store-grid ">
       <ToastContainer/>
-      <div className={`flex gap-5 ${filteredBooks.length ? "h-full" : "h-screen"} `}>
+      <div className={`flex gap-5 ${filteredBooks?.length ? "h-full" : "h-screen"} `}>
       
        <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
           <div className='space-y-4 '>
