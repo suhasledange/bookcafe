@@ -13,6 +13,7 @@ const authSlice = createSlice({
     reducers:{
         setGData:(state,action)=>{
             state.Gdata = action.payload.userData;
+            state.status = true;
         },
         loginSlice:(state,action)=>{
             state.status = true,

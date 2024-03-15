@@ -58,7 +58,7 @@ const LoginForm = () => {
             }
             data = documents[0]
           dispatch(loginSlice({ data }));
-          router.replace('/');
+          router.push('/');
         } else {
           dispatch(logoutSlice());
           const {userId} = await authService.createEmailVerification()

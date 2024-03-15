@@ -55,10 +55,12 @@ const UserProvider = ({ children }) => {
           const {$id} = data
           const {documents} = await service.getUserById(String($id))
           if(!documents.length){
-                await service.createUser(data)
+              const res = await service.createUser(data)
+              data = res  
           }
-
-          data = documents[0]
+         else{
+           data = documents[0]
+          }
           dispatch(loginSlice({ data }));
         }
       } else {

@@ -23,9 +23,6 @@ const Header = () => {
 
     const userData = useSelector(state => state.auth.userData)
     const GData = useSelector(state => state.auth.Gdata)
-
-    const email = GData?.emailAddresses[0]?.value;
-    const name = GData?.names[0]?.displayName;
     const photo = GData?.photos[0]?.url;
 
     const handleLogout = async () => {
