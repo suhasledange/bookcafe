@@ -189,17 +189,18 @@ const BookCard = ({ params }) => {
                 </div>
 
                 <div
-                  className="grid md:grid-cols-5 grid-cols-3 gap-2 mb-8"
+                  className="flex items-center gap-3 flex-wrap mb-8"
                 >
 
                   {book?.genre.map((genre, i) => (
                     <div
                       key={i}
-                      className={`border  rounded-md text-gray-700 bg-gray-50 text-sm text-center py-2 cursor-pointer font-medium`}
+                      className={`border px-4 rounded-md text-gray-700 bg-gray-50 text-sm text-center py-2 cursor-pointer font-medium`}
                     >
                       {genre}
                     </div>
                   ))}
+                  
 
                 </div>
 
