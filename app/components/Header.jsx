@@ -83,7 +83,7 @@ const Header = () => {
         <>
             <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-3 bg-white flex flex-col items-center  z-50 sticky top-0 transition-transform`} >
 
-                <Container className="bg-white z-50 max-w-screen-xl px-3 md:px-0 flex justify-between h-full items-center md:py-0 relative">
+                <Container className="bg-white z-50 max-w-screen-xl flex justify-between h-full items-center md:py-0 relative">
 
 
                     <div className='flex items-center justify-center gap-2'>

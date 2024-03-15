@@ -1,10 +1,12 @@
 import React from 'react'
+import Container from '../components/Container'
 
 const About = () => {
   return (
-    <div>
+    <Container className="max-w-screen-xl ">
+
       about
-    </div>
+    </Container>
   )
 }
 

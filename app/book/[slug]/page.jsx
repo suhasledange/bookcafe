@@ -222,7 +222,7 @@ const handleShare = () => {
 
                 <div>
                   <div className="text-lg font-bold mb-5">Description</div>
-                  <div className="text-sm text-gray-800 mb-5 h-[15rem] overflow-y-scroll pl-1 pr-3 py-1 text-justify">
+                  <div className="text-sm text-gray-800 mb-5 h-[15rem] overflow-y-auto pl-1 pr-3 py-1 text-justify">
                     {book?.description}
                   </div>
 
