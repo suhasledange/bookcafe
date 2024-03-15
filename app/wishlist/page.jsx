@@ -5,18 +5,17 @@ import Image from "next/image";
 import Button from "../components/Button";
 import { useSelector } from "react-redux";
 import WishlistItem from "../components/WishlistItem";
-import { ToastContainer } from "react-toastify";
 
 const Wishlist = () => {
   const {wishItems} = useSelector((state => state.wish))
- 
+  
+
   return (
     <Container className="max-w-screen-lg mt-8">
       
       {
         wishItems.length > 0 && (
           <>
-          <ToastContainer/>
         <div className="text-center max-w-3xl mx-auto mt-8 md:mt-0">
           <div className="text-2xl md:text-3xl mb-3 font-semibold leading-tight">
             Your Wishlist

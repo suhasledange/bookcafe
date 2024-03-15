@@ -1,27 +1,18 @@
 'use client'
 
+import { ToastContext } from '@/context/ToastContext';
 import { addToCart } from '@/store/cartSlice';
 import { removeFromWish } from '@/store/wishSlice';
 import Image from 'next/image';
+import { useContext } from 'react';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
 
 const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
     const dispatch = useDispatch()
 
-    const notify = () => {
-        toast.success('Book Added To Cart', {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
+  const { notifyCart} = useContext(ToastContext)
 
     return (
         <div className="flex py-5 gap-3 md:gap-5 border-b">
@@ -70,7 +61,7 @@ const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
                                         price: price,
                                         oneQuantityPrice: price
                                     }))
-                                    notify()
+                                    notifyCart()
                                 }}
                                 className={` transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>Add To Cart</button>
 

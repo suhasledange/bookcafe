@@ -6,19 +6,18 @@ import Link from 'next/link';
 import Container from '@/app/components/Container';
 import authService from '@/app/appwrite/auth';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Loader from '@/app/components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice, logoutSlice } from '@/store/authSlice';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import service from '@/app/appwrite/service';
+import { ToastContext } from '@/context/ToastContext';
 
 const LoginForm = () => {
   
   const dispatch = useDispatch()
   const status = useSelector(state => state.auth.status)
-  
+  const { notifyCrendentials} = useContext(ToastContext)
 
   const [loading,setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
@@ -26,15 +25,6 @@ const LoginForm = () => {
 
   if(status) router.push('/')
 
-  const notify = ()=>{
-    toast.error('Invalid Credentials', {
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        progress: undefined,
-      });
-}
 
   const LoginWithGoogle = async()=>{
        await authService.LoginWithGoogle()
@@ -66,7 +56,7 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-        notify()
+        notifyCrendentials()
     } finally {
       reset();
       setLoading(false);
@@ -76,7 +66,6 @@ const LoginForm = () => {
 
   return (
     <Container className="md:px-0 px-3 max-w-screen-xl mt-10 mb-10">
-    <ToastContainer position="top-center" />
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
       <div className="flex flex-col space-y-4">
         <div className=' space-y-2'>

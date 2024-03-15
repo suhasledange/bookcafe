@@ -1,22 +1,28 @@
 'use client';
 import service from "@/app/appwrite/service";
-import { useMemo, useEffect, useState, useCallback } from "react";
+import { useMemo, useEffect, useState, useCallback, useContext } from "react";
 import Container from "@/app/components/Container";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import Slider from "@/app/components/Slider";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
 import { addToWish } from "@/store/wishSlice";
 import { addToCart } from "@/store/cartSlice";
 import { FiShare2 } from "react-icons/fi";
+import { ToastContext } from "@/context/ToastContext";
+
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
 
   const [similarbooks, setSimilarBooks] = useState();
   const [loading, setLoading] = useState(true);
   const [Sliderloading, setSliderLoading] = useState(true);
+  
+
+  const {notifyCart,
+    notifyWish,
+    notifyError} = useContext(ToastContext)
 
 
   const fetchData = useMemo(
@@ -40,48 +46,26 @@ const BookCard = ({ params }) => {
 
   const getBookbygenre = useCallback(async () => {
     try {
-        const res = await service.getBooksByGenre(String(book?.genre[0]));
-        setSimilarBooks(res);
-        setSliderLoading(false)
+      const res = await service.getBooksByGenre(String(book?.genre[0]));
+      setSimilarBooks(res);
+      setSliderLoading(false)
     } catch (error) {
+      notifyError()
       console.error("Error fetching data from the server:", error);
-      toast.error("Error fetching data from the server. Please try again later.");
+      
     }
   }, [book?.genre]);
-  
-  
+
+
   useEffect(() => {
 
     getBookbygenre();
   }, [getBookbygenre]);
-  
+
   const dispatch = useDispatch();
 
-  const notify = () => {
-    toast.success('Book Added To Cart', {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-  const notify1 = () => {
-    toast.success('Book Added To Wishlist', {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
 
-
-const handleShare = () => {
+  const handleShare = () => {
     if (navigator.share) {
       navigator.share({
         title: book.bookName,
@@ -93,18 +77,17 @@ const handleShare = () => {
     } else {
       console.log("Web Share API not supported.");
     }
-};
+  };
 
   return (
     <>
       {loading ? (
         <Container className="h-[35rem] flex items-center justify-center max-w-screen-xl">
-            <Loader/>
+          <Loader />
         </Container>
-        
+
       ) : (
         <Container className=" max-w-screen-xl mt-12">
-          <ToastContainer/>
           <Container className=' max-w-screen-lg'>
 
             <div className="flex flex-col md:flex-row md:px-10 gap-10 md:gap-32 w-full mx-auto ">
@@ -114,43 +97,43 @@ const handleShare = () => {
 
                 <div className="space-y-8 w-[80%] mx-auto md:w-full drop-shadow-md">
 
-                <div className="h-full w-full mx-auto">
-                  <Image priority={true} alt='bookimg' style={{ width: "100%", height: "100%", objectFit: "contain" }} src={book?.bookImg} width={1000} height={1000} />
-                </div>
-                    
+                  <div className="h-full w-full mx-auto">
+                    <Image priority={true} alt='bookimg' style={{ width: "100%", height: "100%", objectFit: "contain" }} src={book?.bookImg} width={1000} height={1000} />
+                  </div>
+
                   <div className="flex item-center justify-center gap-2">
-                    
+
                     <div className="w-full">
-                       <button
-                       onClick={() => {
-                         dispatch(addToCart({
-                           Id:book.$id,
-                           Img:book.bookImg,
-                           bookName:book.bookName,
-                           author:book.author,
-                           price: book.rentPrice,
-                           oneQuantityPrice: book.rentPrice
-                         }))
-                         notify()
-                       }}
-                       disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
-                    
+                      <button
+                        onClick={() => {
+                          dispatch(addToCart({
+                            Id: book.$id,
+                            Img: book.bookImg,
+                            bookName: book.bookName,
+                            author: book.author,
+                            price: book.rentPrice,
+                            oneQuantityPrice: book.rentPrice
+                          }))
+                          notifyCart()
+                        }}
+                        disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
+
                     </div>
                     <div className="w-full ">
-                    <button
-                       onClick={() => {
-                         dispatch(addToWish({
-                          Id:book.$id,
-                          Img:book.bookImg,
-                          bookName:book.bookName,
-                          author:book.author,
-                          availability:book.availability,
-                          price: book.rentPrice,
-                         }))
-                         notify1()
-                       }}
-                       className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl"/> Whislist</button>
-                    
+                      <button
+                        onClick={() => {
+                          dispatch(addToWish({
+                            Id: book.$id,
+                            Img: book.bookImg,
+                            bookName: book.bookName,
+                            author: book.author,
+                            availability: book.availability,
+                            price: book.rentPrice,
+                          }))
+                          notifyWish()
+                        }}
+                        className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl" /> Whislist</button>
+
                     </div>
                   </div>
 
@@ -160,15 +143,15 @@ const handleShare = () => {
 
               {/* right */}
               <div className="flex-[1] justify-between items-center">
-                
+
                 <div className=" flex items-start justify-between">
-                <div className="text-[34px] font-semibold mb-2 leading-tight">
-                  {book?.bookName}
-                </div>
-                
-                <div className="cursor-pointer hover:bg-black/[0.05] p-[0.68rem] rounded-full duration-150" onClick={handleShare}>
-                    <FiShare2 className="text-2xl "/>
-                </div>
+                  <div className="text-[34px] font-semibold mb-2 leading-tight">
+                    {book?.bookName}
+                  </div>
+
+                  <div className="cursor-pointer hover:bg-black/[0.05] p-[0.68rem] rounded-full duration-150" onClick={handleShare}>
+                    <FiShare2 className="text-2xl " />
+                  </div>
 
                 </div>
 
@@ -234,7 +217,7 @@ const handleShare = () => {
             </div>
 
           </Container>
-              <Slider books={similarbooks} title="Similar Books" loading={Sliderloading}/>
+          <Slider books={similarbooks} title="Similar Books" loading={Sliderloading} />
         </Container>
 
       )}

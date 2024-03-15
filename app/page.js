@@ -3,17 +3,18 @@ import { useEffect, useState, useCallback } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Toast from "./components/Toast";
 
 export default function Home() {
 
   const [loading, setLoading] = useState(true);
+
   const [books, setBooks] = useState({
     SelfHelp: [],
     NonFiction: [],
     Business: [],
   });
+
 
   const getBookbygenre = useCallback(async () => {
     try {
@@ -33,7 +34,6 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
-      toast.error("Error fetching data from the server. Please try again later.");
       setLoading(false);
     }
   }, []);
@@ -42,11 +42,9 @@ export default function Home() {
     getBookbygenre();
   }, [getBookbygenre]);
 
-  
   return (
     <>
       <HomeSlider />
-      <ToastContainer position="top-center" />
       <Slider loading={loading} books={books.SelfHelp} title="Self Help" />
       <Slider loading={loading} books={books.NonFiction} title="Non-Fiction" />
       <Slider loading={loading} books={books.Business} title="Business" />

@@ -4,8 +4,6 @@ import Book from '../components/Book';
 import Container from '../components/Container';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import service from '../appwrite/service';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import BookSkeleton from '../components/BookSkeleton';
 
 const genres = ['Self Help', 'Fiction', 'Business', 'NonFiction', 'Mystery', 'Science Fiction', 'Fantasy', 'Arts And Crafts', 'Classics', 'Cookery', 'Comics', 'General', 'Geo-Politcs', 'Hindi', 'History', 'Health And Fitness', 'Kids', 'Marathi', 'Music & Movies', 'Science', 'Sports', 'Technical', 'Travel'];
@@ -25,7 +23,6 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
-      toast.error("Error fetching data from the server. Please try again later.");
       setLoading(false);
     }
   },[])
@@ -60,7 +57,6 @@ export default function Home() {
 
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden store-grid ">
-      <ToastContainer/>
       <div className={`flex gap-5 ${filteredBooks?.length ? "h-full" : "h-screen"} `}>
       
        <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
