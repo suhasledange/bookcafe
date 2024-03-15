@@ -59,7 +59,6 @@ const UserProvider = ({ children }) => {
           }
 
           data = documents[0]
-          console.log(data)
           dispatch(loginSlice({ data }));
         }
       } else {
