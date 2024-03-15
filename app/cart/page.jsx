@@ -5,14 +5,35 @@ import Image from "next/image";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { ToastContext } from "@/context/ToastContext";
 
 const Cart = () => {
   const {cartItems} = useSelector((state => state.cart))
- 
+  const userData = useSelector(state => state.auth.userData)
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])
+  const router = useRouter()
+
+  const {notifyLogin,notifyProfile} = useContext(ToastContext)
+const handleNavigate = async ()=>{
+  
+  if(userData){
+      if(userData.phone!=="" && userData.address.length!==0){  
+        router.push('/checkout')
+      }
+      else{
+            await notifyProfile()
+            router.push('/profile')
+      }
+  }
+  else{
+      await notifyLogin()
+      router.push('/login')
+  }
+}
 
   return (
     <Container className="max-w-screen-xl mt-8">
@@ -61,17 +82,13 @@ const Cart = () => {
                                         international transaction fees.
                                     </div>
                                 </div>
-
-                                {/* BUTTON START */}
+                                <div onClick={handleNavigate}>
                                 <Button className='flex items-center w-full justify-center py-3 text-md' text='Checkout'
-                                    // onClick={handlePayment}
                                 >
                                     Checkout
-                                     {/* <Loader /> */}
                                 </Button>
-                                {/* BUTTON END */}
+                                  </div>
                             </div>
-                            {/* SUMMARY END */}
                         </div>
           </>
 

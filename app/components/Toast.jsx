@@ -13,7 +13,7 @@ const Toast = ({ message,time=1000 }) => {
 
   return (
     <div
-      className={` z-50 fixed bottom-6 left-1/2 transform -translate-x-1/2 p-3 bg-black text-white rounded-sm duration-200 transition-transform ${
+      className={`w-[90%] md:w-auto text-center z-50 fixed bottom-6 left-1/2 transform -translate-x-1/2 p-3 mx-auto bg-black text-white rounded-sm duration-200 transition-transform ${
           show ? '' : 'translate-y-full'
         }`}
         >
