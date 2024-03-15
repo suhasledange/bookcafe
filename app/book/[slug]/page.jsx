@@ -102,7 +102,6 @@ const BookCard = ({ params }) => {
                   </div>
 
                   <div className="flex item-center justify-center gap-2">
-
                     <div className="w-full">
                       <button
                         onClick={() => {

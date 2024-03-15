@@ -56,8 +56,8 @@ export const ContextProvider = ({ children }) => {
       errorMsg
     }}>
       {children}
-        {showToastCart && <Toast message="Item Added to Cart" />}
-        {showToastWish && <Toast message="Item Added to Wishlist" />}
+        {showToastCart && <Toast message="Book added to cart" />}
+        {showToastWish && <Toast message="Book added to wishlist" />}
         {showToastCredentials &&  <Toast time={2000} message="Invalid Crendentials" />}
         {showLogin &&  <Toast time={2000} message="Please Login to proceed" />}
         {showprofile &&  <Toast time={2500} message="Please update your profile to proceed" />}
