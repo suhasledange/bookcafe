@@ -167,18 +167,18 @@ const Checkout = () => {
                             cartItems?.map(book => (
                                 <div key={book?.Id} className="border-b-2 p-1 pb-2 space-y-1 mb-4">
 
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3 justify-between">
                                         <h1 className="text-md text-gray-800 font-semibold">{book?.bookName}<span className="font-medium text-sm"> x{book?.quantity}</span> </h1>
                                         <h2 className="text-sm">&#8377;{book?.price}</h2>
                                     </div>
+
+                                    
                                     <div>
                                         <p className="text-sm text-gray-700">{book?.author}</p>
                                     </div>
 
                                 </div>
                             ))
-
-
 
                         }
 
@@ -216,7 +216,7 @@ const Checkout = () => {
 
                         </div>
                     </div>
-
+                    
                     <Button className="py-2 w-full" text='Continue'/>
 
                 </div>
