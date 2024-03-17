@@ -70,6 +70,7 @@ const Account = ({ selectedLink}) => {
         <div className=" p-2">
           <h1 className="text-xl font-bold text-gray-700 mb-8">Contact Details</h1>
           <div>
+       
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-md">
         <div className="flex flex-col space-y-5 ">
 

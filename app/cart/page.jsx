@@ -12,22 +12,28 @@ import { ToastContext } from "@/context/ToastContext";
 const Cart = () => {
   const {cartItems} = useSelector((state => state.cart))
   const userData = useSelector(state => state.auth.userData)
+
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])
+
+
   const router = useRouter()
 
   const {notifyLogin,notifyProfile} = useContext(ToastContext)
-const handleNavigate = async ()=>{
-  
+  const handleNavigate = async ()=>{
+   
+
   if(userData){
       if(userData.phone!=="" && userData.address.length!==0){  
         router.push('/checkout')
+        
       }
       else{
             await notifyProfile()
             router.push('/profile')
-      }
+
+          }
   }
   else{
       await notifyLogin()
@@ -83,10 +89,12 @@ const handleNavigate = async ()=>{
                                     </div>
                                 </div>
                                 <div onClick={handleNavigate}>
+
                                 <Button className='flex items-center w-full justify-center py-3 text-md' text='Checkout'
                                 >
-                                    Checkout
+                                    Checkout 
                                 </Button>
+
                                   </div>
                             </div>
                         </div>
