@@ -5,7 +5,7 @@ import Account from './Account';
 const RightSection = ({ selectedLink, className }) => {
     return (
     <div className={`  ${className || ""} `}>
-        <div className='p-3'>
+        <div className=''>
             <Account selectedLink={selectedLink}/>
 
             <Orders selectedLink={selectedLink}/>

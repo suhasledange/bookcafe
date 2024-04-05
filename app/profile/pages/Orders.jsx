@@ -1,5 +1,6 @@
 'use client'
 import service from "@/app/appwrite/service";
+import OrderItem from "@/app/components/OrderItem";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux"
@@ -28,13 +29,17 @@ const Orders = ({ selectedLink }) => {
     setLoading(true)
     fetchData();
   }, [fetchData]);
-  console.log(OrderList)
 
   return (
     selectedLink === 2 &&
    
     <div>
      
+      {
+        OrderList?.map(b => (
+          <OrderItem key={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} />
+        ))
+      }
     </div>
   )
 }
