@@ -111,7 +111,9 @@ const BookCard = ({ params }) => {
                             bookName: book.bookName,
                             author: book.author,
                             price: book.rentPrice,
-                            oneQuantityPrice: book.rentPrice
+                            availability:book.availability,
+                            oneQuantityPrice: book.rentPrice,
+                            bookQuantity:bookQuantity,
                           }))
                           notifyCart()
                         }}

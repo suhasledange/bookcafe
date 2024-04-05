@@ -36,9 +36,13 @@ export const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((book) => book.Id !== action.payload.id);
             Cookies.set("cartItems", JSON.stringify(state.cartItems));
         },
+        clearCart:(state)=>{
+            state.cartItems = []
+            Cookies.set("cartItems", JSON.stringify(state.cartItems));
+        },
     },
 });
 
-export const { addToCart, updateCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, updateCart, removeFromCart,clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

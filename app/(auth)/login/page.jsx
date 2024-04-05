@@ -23,7 +23,7 @@ const LoginForm = () => {
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
   const router = useRouter()
 
-  if(status) router.push('/')
+  if(status) router.replace('/')
 
 
   const LoginWithGoogle = async()=>{
@@ -48,7 +48,7 @@ const LoginForm = () => {
             }
             data = documents[0]
           dispatch(loginSlice({ data }));
-          router.push('/');
+          router.replace('/');
         } else {
           dispatch(logoutSlice());
           const {userId} = await authService.createEmailVerification()

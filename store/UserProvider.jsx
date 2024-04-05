@@ -10,6 +10,7 @@ const UserProvider = ({ children }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
+
   const fetchData = useCallback(async () => {
     try {
       const data = await authService.getSesssion();

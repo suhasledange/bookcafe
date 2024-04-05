@@ -6,7 +6,7 @@ import { addToCart } from "@/store/cartSlice"
 import { useContext } from "react"
 import { ToastContext } from "@/context/ToastContext"
 
-const Book = ({ Id, author, Img, availability, bookName, rentPrice }) => {
+const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity }) => {
 
   const dispatch = useDispatch();
 
@@ -50,7 +50,9 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice }) => {
             bookName,
             author,
             price: rentPrice,
-            oneQuantityPrice: rentPrice
+            availability,
+            oneQuantityPrice: rentPrice,
+            bookQuantity:bookQuantity,
           }))
           notifyCart()
         }}

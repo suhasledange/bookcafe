@@ -52,6 +52,7 @@ const Slider = ({books,title="",loading}) => {
             availability={b.availability}
             bookName={b.bookName}
             rentPrice={b.rentPrice}
+            bookQuantity={b.bookQuantity}
             />
             
             ))}

@@ -25,10 +25,10 @@ export default function Home() {
       console.error("Error fetching data from the server:", error);
       setLoading(false);
     }
-  },[])
+  }, [])
 
   useEffect(() => {
-      fetchData();
+    fetchData();
   }, [fetchData]);
 
   const handleGenreChange = (genre) => {
@@ -58,8 +58,8 @@ export default function Home() {
   return (
     <Container className="max-w-screen-xl mt-5 md:mt-10 mb-10 overflow-x-hidden store-grid ">
       <div className={`flex gap-5 ${filteredBooks?.length ? "h-full" : "h-screen"} `}>
-      
-       <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
+
+        <div className='hidden md:flex flex-[0.2] py-3 h-screen overflow-y-scroll'>
           <div className='space-y-4 '>
             {genres.map((genre) => (
               <div key={genre} className='space-x-3 text-md text-gray-700'>
@@ -112,10 +112,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-              <div className=' store-grid  grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))  ' }} >
-                {
+          <div className=' store-grid  grid gap-x-2 gap-y-10' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))  ' }} >
+            {
 
-                loading ? 
+              loading ?
                 Array.from({ length: 10 }).map((_, index) => (
                   <BookSkeleton key={index} />
                 )) :
@@ -127,9 +127,10 @@ export default function Home() {
                     availability={b.availability}
                     bookName={b.bookName}
                     rentPrice={b.rentPrice}
+                    bookQuantity={b.bookQuantity}
                   />
                 ))}
-              </div>
+          </div>
         </div>
       </div>
     </Container>

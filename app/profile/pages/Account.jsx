@@ -126,7 +126,7 @@ const Account = ({ selectedLink}) => {
                 <p className="text-xs text-gray-500">You cannot change your email.</p>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 text-sm">
                   <label
                     htmlFor="address"
                     className="block text-md font-medium text-gray-700"

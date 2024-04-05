@@ -1,5 +1,5 @@
 'use client'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Container from "../components/Container"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
@@ -8,13 +8,16 @@ import Link from "next/link"
 import Button from "../components/Button"
 import { BsCart } from "react-icons/bs"
 import './checkout.css'
+import service from "../appwrite/service"
+
 const Checkout = () => {
 
     const { cartItems } = useSelector((state => state.cart))
     const userData = useSelector(state => state.auth.userData)
     const router = useRouter()
-
+    const [loading,setLoading] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('payOnline');
+
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
@@ -27,6 +30,9 @@ const Checkout = () => {
 
     if (cartItems.length === 0 || userData === null) router.push("/")
     const [selectedAddress, setSelectedAddress] = useState(userData?.address ? userData.address[0] : null);
+   
+   
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
             userId: userData?.UserId,
@@ -36,24 +42,48 @@ const Checkout = () => {
             email: userData?.email || '',
             address: userData?.address,
             paymentMethod:"",
-            totalPrice:subTotal,
-            cartItems:cartItems
+            price:"",
+            bookId:"",
+            payment:"pending",
+            status:"IN_TRANSIT",
         },
     });
 
     const handleAddressChange = (address) => {
         setSelectedAddress(address);
     };
-    const onSubmit = async (formdata) => {
-        formdata.address = selectedAddress;
-        formdata.paymentMethod = paymentMethod; 
-        try {
-            console.log(formdata)
 
+    const onSubmit = async (data) => {
+
+
+        data.address = selectedAddress;
+        data.paymentMethod = paymentMethod;
+        
+        try {
+            setLoading(true)
+            if (paymentMethod === 'payOnline') {
+
+            } else if (paymentMethod === 'cashOnDelivery') {
+               
+                for (const book of cartItems) {
+                    const newData = { ...data };
+                    newData.price = book.oneQuantityPrice;
+                    newData.bookId = book.Id;
+                    newData.bookQuantity = book.bookQuantity;
+                    newData.availability= book.availability;
+                    await service.createOrder(newData);
+                    await service.updateBookQuantity(newData)
+                }
+                 setLoading(false)
+                 router.replace('/successOrder');
+            }
         } catch (error) {
-            console.log('invalid')
-        } finally {
+            console.log('Error:', error);
         }
+        finally{
+            setLoading(false)
+        }
+        
     }
 
     return (
@@ -217,7 +247,7 @@ const Checkout = () => {
                         </div>
                     </div>
                     
-                    <Button className="py-2 w-full" text='Continue'/>
+                    <Button className="py-2 w-full" text='Continue' loading={loading}/>
 
                 </div>
 
