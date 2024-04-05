@@ -37,7 +37,8 @@ const Orders = ({ selectedLink }) => {
      
       {
         OrderList?.map(b => (
-          <OrderItem key={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} />
+          <OrderItem key={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate}
+          />
         ))
       }
     </div>
