@@ -67,8 +67,9 @@ const Checkout = () => {
                
                 for (const book of cartItems) {
                     const newData = { ...data };
-                    newData.price = book.oneQuantityPrice;
+                    newData.price = book.price;
                     newData.bookId = book.Id;
+                    newData.quantity = book.quantity;
                     newData.bookQuantity = book.bookQuantity;
                     newData.availability= book.availability;
                     await service.createOrder(newData);

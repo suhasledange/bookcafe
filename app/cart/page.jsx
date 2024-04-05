@@ -61,7 +61,7 @@ const Cart = () => {
                                 </div>
                       {
                         cartItems?.map(item=>(
-                          <CartItem key={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.price} quantity={item.quantity} />   
+                          <CartItem key={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.price} bookQuantity={item.bookQuantity} quantity={item.quantity} />   
                         ))
                       }
 

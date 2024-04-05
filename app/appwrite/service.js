@@ -64,7 +64,8 @@ export class Service{
         }
     }
     async updateBookQuantity(data){
-        const bookQuantity = data.bookQuantity-1;
+        
+        const bookQuantity = data.bookQuantity - data.quantity;
         if(bookQuantity === 0){
             data.availability = false;
         }
@@ -113,6 +114,7 @@ export class Service{
                 payment:data.payment,
                 status:data.status,
                 DeliveredDate:null,
+                quantity:data.quantity,
             });
     
             return order;

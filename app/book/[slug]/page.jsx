@@ -113,7 +113,7 @@ const BookCard = ({ params }) => {
                             price: book.rentPrice,
                             availability:book.availability,
                             oneQuantityPrice: book.rentPrice,
-                            bookQuantity:bookQuantity,
+                            bookQuantity:book.bookQuantity,
                           }))
                           notifyCart()
                         }}

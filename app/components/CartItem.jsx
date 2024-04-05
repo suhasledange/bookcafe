@@ -6,7 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 
 
-const CartItem = ({ Id, Img, bookName, author, price, quantity }) => {
+const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) => {
     const dispatch = useDispatch()
 
     const updateCartItem = (e, key) => {
@@ -62,7 +62,7 @@ const CartItem = ({ Id, Img, bookName, author, price, quantity }) => {
                                 onChange={(e) => updateCartItem(e, "quantity")}
                                 value={quantity}
                             >
-                                {Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => (
+                                {Array.from({ length: bookQuantity }, (_, i) => i + 1).map((q, i) => (
                                     <option key={i} value={q}>
                                         {q}
                                     </option>
