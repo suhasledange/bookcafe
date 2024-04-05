@@ -35,10 +35,9 @@ const OrderItem = ({ bookId, payment, paymentMethod, price, quantity, status, Da
         [bookId]
     );
     useEffect(() => {
-
             const fetchDataFunction = fetchData();
             fetchDataFunction.then();
-    
+
     }, [fetchData]);
 
     if (loading) return <div>
