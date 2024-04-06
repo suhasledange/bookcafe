@@ -8,9 +8,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 const Account = ({ selectedLink}) => {
-  const GData = useSelector(state => state.auth.Gdata)
   const userData = useSelector(state => state.auth.userData)
-  const photo = GData?.photos[0]?.url;
+  const photo = userData.Img;
   const [loading,setLoading] = useState(false)
   const [addresses, setAddresses] = useState(userData?.address || [""]);
   const dispatch = useDispatch()
@@ -53,13 +52,13 @@ const Account = ({ selectedLink}) => {
       const data = await service.updateUserData(formData)
       dispatch(loginSlice({ data }));
 
+
   } catch (error) {
     console.log('invalid')
   } finally {
     setLoading(false);
   }
 }
-
 
   return (
     selectedLink === 1 &&

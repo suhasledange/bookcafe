@@ -28,13 +28,13 @@ const UserProvider = ({ children }) => {
           if (!response.ok) {
             throw new Error('Failed to fetch from google');
           }
-
+          if(response.ok){
           const userData = await response.json();
           if (userData && userData.photos && userData.photos.length > 0 && userData.photos[0].url) {
             const image = userData.photos[0].url;
-            dispatch(setGData({ userData }));
-            if(image) dispatch(setImage({ image }));
+            dispatch(setImage({ image }));
           }
+        }
         } catch (error) {
           console.error('Error fetching user data:', error);
         }

@@ -42,7 +42,6 @@ const Orders = ({ selectedLink }) => {
         
       }
       setOrderList(orders);
-      console.log(orders)
     } catch (error) {
       console.error("Error fetching data from the server:", error);
     }

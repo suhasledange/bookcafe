@@ -22,7 +22,6 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const userData = useSelector(state => state.auth.userData)
-    const GData = useSelector(state => state.auth.Gdata)
     const photo = userData?.Img;
 
     const handleLogout = async () => {
