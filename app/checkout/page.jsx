@@ -94,6 +94,8 @@ const Checkout = () => {
             setLoading(true)
             if (paymentMethod === 'payOnline') {
 
+                alert("Online payment not available yet")
+
             } else if (paymentMethod === 'cashOnDelivery') {
                
                 for (const book of cartItems) {
@@ -114,8 +116,8 @@ const Checkout = () => {
                    }
 
                 }
-                 setLoading(false)
-                 router.replace('/successOrder');
+                router.replace('/successOrder');
+                setLoading(false)
             }
         } catch (error) {
             console.log('Error:', error);
