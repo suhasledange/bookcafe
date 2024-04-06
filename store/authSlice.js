@@ -15,6 +15,9 @@ const authSlice = createSlice({
             state.Gdata = action.payload.userData;
             state.status = true;
         },
+        setImage:(state,action)=>{
+            state.userData.Img = action.payload.image;
+        },
         loginSlice:(state,action)=>{
             state.status = true,
             state.verify="verified",
@@ -34,6 +37,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {loginSlice,logoutSlice,setPending,setVerified,setGData} = authSlice.actions
+export const {loginSlice,logoutSlice,setPending,setVerified,setGData,setImage} = authSlice.actions
 
 export default authSlice.reducer

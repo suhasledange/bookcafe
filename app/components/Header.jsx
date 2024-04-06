@@ -23,7 +23,7 @@ const Header = () => {
 
     const userData = useSelector(state => state.auth.userData)
     const GData = useSelector(state => state.auth.Gdata)
-    const photo = GData?.photos[0]?.url;
+    const photo = userData?.Img;
 
     const handleLogout = async () => {
         await authService.logoutAccount()
@@ -212,7 +212,7 @@ const Header = () => {
                                     :
                                     <div className=''>
                                         <div onClick={() => setProfileMenu(!profileMenu)} className=' w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer rounded-full'>
-                                            <Image className='rounded-full' src={GData ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
+                                            <Image className='rounded-full' src={photo ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
                                         </div>
                                         {
                                             profileMenu === true ?
@@ -222,7 +222,7 @@ const Header = () => {
                                                     <div className='w-60 absolute top-0 md:top-4 mt-[4.7rem] right-4 bg-white py-4 shadow-xl'>
                                                         <div className=' flex items-center justify-center flex-col text-center'>
                                                             <div className='w-12 h-12 flex items-center justify-center mb-5'>
-                                                                <Image className='rounded-full' src={GData ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
+                                                                <Image className='rounded-full' src={photo ? `${photo}` : '/DefaultProfile.svg'} alt="noimg" width={500} height={500} />
                                                             </div>
                                                             <div className=' space-y-5 w-full '>
                                                                 <div className=''>

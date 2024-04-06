@@ -1,7 +1,7 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from "react-redux"
-import { loginSlice, logoutSlice, setGData } from "./authSlice"
+import { loginSlice, logoutSlice, setGData, setImage } from "./authSlice"
 import Loader from "@/app/components/Loader"
 import authService from "@/app/appwrite/auth"
 import service from '@/app/appwrite/service';
@@ -9,7 +9,6 @@ import service from '@/app/appwrite/service';
 const UserProvider = ({ children }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
 
   const fetchData = useCallback(async () => {
     try {
@@ -31,7 +30,11 @@ const UserProvider = ({ children }) => {
           }
 
           const userData = await response.json();
-          dispatch(setGData({ userData }));
+          if (userData && userData.photos && userData.photos.length > 0 && userData.photos[0].url) {
+            const image = userData.photos[0].url;
+            dispatch(setGData({ userData }));
+            dispatch(setImage({ image }));
+          }
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
