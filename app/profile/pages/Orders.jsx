@@ -16,15 +16,11 @@ const Orders = ({ selectedLink }) => {
   const [cancel, setCancel] = useState(false);
   const [extend, setExtend] = useState(false);
 
-
   const [OrderList, setOrderList] = useState();
-  const [Loading, setLoading] = useState(false)
-  const [sortBox,setSortBox] = useState(false);
   const [sortBy, setSortBy] = useState("dateAsc");
   
   const fetchData = useCallback(async () => {
     try {
-      setLoading(true);
       let ordersResponse = await service.getOrders(userData.UserId);
       let orders = Array.from(ordersResponse.documents);
       switch (sortBy) {
@@ -47,21 +43,20 @@ const Orders = ({ selectedLink }) => {
       }
       setOrderList(orders);
       console.log(orders)
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
-      setLoading(false);
     }
   }, [cancel,extend,sortBy])
 
   useEffect(() => {
-    setLoading(true)
     fetchData();
   }, [fetchData,cancel,extend,sortBy]);
 
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
   };
+
+  const [box,setBox] = useState(false)
 
   const options = [
     {id:1,value:"dateAsc",text:"Sort by Date (Asc)"},
@@ -84,17 +79,25 @@ const Orders = ({ selectedLink }) => {
                 Your Orders
               </h1>
               
+              <div className="relative z-50">
           <select
+           onClick={()=>setBox(prev => !prev)}
            value={sortBy}
            onChange={handleSortChange}
-            className="p-2 z-50 bg-black text-white hover:bg-gray-800 duration-200 cursor-pointer hover:text-white border outline-none md:text-md text-sm border-gray-300 rounded-sm "
+            className="p-2 z-50 bg-black pr-8 text-white hover:bg-gray-800 duration-200 cursor-pointer hover:text-white border outline-none md:text-md text-sm border-gray-300 rounded-sm appearance-none"
           >
             {options.map(option => (
               <option className="bg-black/[0.6]  hover:text-purple-700" key={option.id} value={option.value}>{option.text}</option>
             ))}
-
+            
           </select>
-           
+          
+          {   box ?
+             <IoIosArrowDown className="absolute right-2 top-1/2 transform -translate-y-1/2    pointer-events-none text-white" />
+              :
+            <IoIosArrowUp className="absolute right-2 top-1/2 transform -translate-y-1/2    pointer-events-none text-white" />
+          } 
+          </div>
         </div>
        
     </div>
