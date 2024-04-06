@@ -148,7 +148,8 @@ export class Service{
     async getOrders(userId){
         try {
             return await this.databases.listDocuments(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,[
-                Query.search('UserId',userId)
+                Query.search('UserId',userId),
+                Query.orderDesc("DateOfOrder")
             ])
         } catch (error) {
             console.log('error getting order list',error)
