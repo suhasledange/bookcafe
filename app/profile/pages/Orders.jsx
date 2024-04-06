@@ -14,9 +14,6 @@ const Orders = ({ selectedLink }) => {
   const [cancel, setCancel] = useState(false);
   const [extend, setExtend] = useState(false);
 
-  const [cancelLoading,setCancelLoading] =useState(false);
-  const [extendLoading,setExtendLoading] =useState(false);
-
 
   const [OrderList, setOrderList] = useState();
   const [Loading, setLoading] = useState(false)
@@ -26,8 +23,6 @@ const Orders = ({ selectedLink }) => {
       const { documents } = await service.getOrders(userData.UserId)
       setOrderList(documents)
       setLoading(false);
-      setCancelLoading(false);
-      setExtendLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
       setLoading(false);
@@ -48,7 +43,7 @@ const Orders = ({ selectedLink }) => {
       {
         OrderList && OrderList.length > 0 ?
         OrderList?.map(b => (
-          <OrderItem setExtend={setExtend} extendLoading={extendLoading} setExtendLoading={setExtendLoading} setCancelLoading={setCancelLoading} cancelLoading={cancelLoading} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate}
+          <OrderItem setExtend={setExtend} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate}
           />
         )):(
           <div className="w-full flex items-center flex-col justify-center h-screen -translate-y-20">

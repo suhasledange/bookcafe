@@ -1,6 +1,5 @@
 const { conf } = require("../util/conf");
 import { Client, Databases,ID,Query } from "appwrite";
-import { addDays, format } from "date-fns";
 
 export class Service{
 
@@ -95,12 +94,22 @@ export class Service{
         }
     }
 
-    async cancelOrder(Id){
+    async cancelOrder(Id,bookId){
         try {
-            return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+            
+            this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
                 payment:"cancel",
                 status:"Cancelled"
             });
+            const {availability,bookQuantity} = await this.getBook(bookId);
+            let newStatus = availability
+            if(bookQuantity === 0) newStatus=true
+
+            this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE,bookId,{
+                availability:newStatus,
+                bookQuantity:bookQuantity+1,
+            })
+
         } catch (error) {
             console.log('error creating order', error);
             

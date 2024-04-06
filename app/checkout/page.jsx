@@ -1,5 +1,5 @@
 'use client'
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import Container from "../components/Container"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
@@ -9,7 +9,8 @@ import Button from "../components/Button"
 import { BsCart } from "react-icons/bs"
 import './checkout.css'
 import service from "../appwrite/service"
-
+import { NEXT_BODY_SUFFIX } from "next/dist/lib/constants"
+import formatDate from "../util/formatDate"
 const Checkout = () => {
 
     const { cartItems } = useSelector((state => state.cart))
@@ -53,6 +54,36 @@ const Checkout = () => {
         setSelectedAddress(address);
     };
 
+
+    const sendMail = async(res,data)=>{
+        const subject = "Order Placed Successfuly!!!"
+        const orderId = res.$id
+        const orderDate = formatDate(res.DateOfOrder)
+        const bookName = data.bookName
+        const author = data.author
+        const address = res.address
+        const email = res.email
+        const name = res.name
+        
+        const response = await fetch('/api/sendEmail',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({
+                subject,
+                email,
+                orderId,
+                bookName,
+                author,
+                address,
+                name,
+                orderDate
+            })
+        })
+        console.log( await response.json())
+    }
+
     const onSubmit = async (data) => {
 
 
@@ -72,8 +103,16 @@ const Checkout = () => {
                     newData.quantity = book.quantity;
                     newData.bookQuantity = book.bookQuantity;
                     newData.availability= book.availability;
-                    await service.createOrder(newData);
-                    await service.updateBookQuantity(newData)
+                    newData.bookName = book.bookName;
+                    newData.author = book.author;
+
+                       const res = await service.createOrder(newData);
+                       if(res){
+                            await service.updateBookQuantity(newData)
+                           await sendMail(res,newData)
+                        
+                   }
+
                 }
                  setLoading(false)
                  router.replace('/successOrder');

@@ -5,16 +5,18 @@ import React, { useEffect, useMemo, useState } from 'react'
 import service from '../appwrite/service'
 import OrderSkeleton from './OrderSkeleton'
 import Loader from './Loader'
+import formatDate from '../util/formatDate'
 
-const OrderItem = ({setExtend,extendLoading,setExtendLoading,setCancelLoading,cancelLoading,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
+const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
 
     const [book, setBook] = useState(null);
 
     const [loading, setLoading] = useState(true);
-
+    const [cancelLoading,setCancelLoading] =useState(false);
+    const [extendLoading,setExtendLoading] =useState(false);
     const ExtendOrder = async (data)=>{
         
-            
+
     }
 
     const CancelOrder = async () => {
@@ -22,19 +24,10 @@ const OrderItem = ({setExtend,extendLoading,setExtendLoading,setCancelLoading,ca
 
         if (res) {
             setCancelLoading(true)
-            await service.cancelOrder(Id);
-            setCancel(prevCancel => !prevCancel); 
+            await service.cancelOrder(Id,bookId);
+            await setCancel(prevCancel => !prevCancel); 
+            setCancelLoading(false)
         }
-    }
-
-    function formatDate(dateString) {
-
-        const dateObject = new Date(dateString);
-        const day = dateObject.getDate();
-        const month = dateObject.getMonth() + 1;
-        const year = dateObject.getFullYear();
-        const formattedDate = `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`;
-        return formattedDate;
     }
 
     const fetchData = useMemo(
