@@ -95,14 +95,25 @@ export class Service{
         }
     }
 
+    async cancelOrder(Id){
+        try {
+            return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+                payment:"cancel",
+                status:"Cancelled"
+            });
+        } catch (error) {
+            console.log('error creating order', error);
+            
+        }
+    }
+
     async createOrder(data) {
         try {
             const currentDate = new Date();
-            const dueDate = addDays(currentDate, 11); 
 
             const order = await this.databases.createDocument(conf.DATABASE_ID, conf.COLLECTION_ID_ORDERLIST, ID.unique(), {
                 DateOfOrder: currentDate, 
-                DueDate: dueDate, 
+                DueDate: null, 
                 UserId: data.userId,
                 phone: data.phone,
                 paymentMethod: data.paymentMethod,

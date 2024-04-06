@@ -5,14 +5,27 @@ import React, { useEffect, useMemo, useState } from 'react'
 import service from '../appwrite/service'
 import OrderSkeleton from './OrderSkeleton'
 
-const OrderItem = ({ bookId, payment, paymentMethod, price, quantity, status, DateOfOrder ,DeliveredDate}) => {
+const OrderItem = ({ Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
 
     const [book, setBook] = useState(null);
 
     const [loading, setLoading] = useState(true);
 
 
+    const ExtendOrder = async (data)=>{
+        console.log(data)
+    }
+
+    const CancelOrder = async () => {
+        const res = confirm("Do you want to cancel")
+        if (res) {
+            await service.cancelOrder(Id)
+            fetchData()
+        }
+    }
+
     function formatDate(dateString) {
+
         const dateObject = new Date(dateString);
         const day = dateObject.getDate();
         const month = dateObject.getMonth() + 1;
@@ -35,25 +48,32 @@ const OrderItem = ({ bookId, payment, paymentMethod, price, quantity, status, Da
         [bookId]
     );
     useEffect(() => {
-            const fetchDataFunction = fetchData();
-            fetchDataFunction.then();
+        const fetchDataFunction = fetchData();
+        fetchDataFunction.then();
 
     }, [fetchData]);
 
     if (loading) return <div>
-            <OrderSkeleton/>
-        </div>
+        <OrderSkeleton />
+    </div>
     else return (
         <div className='border mb-5 p-3 md:p-5'>
 
             <div className='flex justify-between mb-4'>
                 <div className='text-md font-semibold text-gray-700'>Order Date : <span className=' font-medium'>{formatDate(DateOfOrder)}</span> </div>
-              
-                <div className='md:block hidden text-gray-700 font-semibold'>Payment : <span className={`font-medium ${payment ==='complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
 
-                <button className='md:hidden block bg-black text-white px-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
-                
-              
+                {payment === 'cancel' ? ""
+                    :
+                    <div className='md:block hidden text-gray-700 font-semibold'>Payment : <span className={`font-medium ${payment === 'complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
+                } 
+
+                {
+                    status === 'IN_TRANSIT' ?
+                        <button onClick={CancelOrder} className='md:hidden block bg-black text-white px-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Cancel</button>
+                    : status === 'DELIVERED' ?
+                        <button className='md:hidden block bg-black text-white px-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
+                    :""
+                }
 
             </div>
 
@@ -84,36 +104,51 @@ const OrderItem = ({ bookId, payment, paymentMethod, price, quantity, status, Da
                     </div>
 
                     <div className="text-sm md:text-md font-bold text-black/[0.8] mt-2">
-                            MRP : &#8377;{price}
-                        </div>
+                        MRP : &#8377;{price}
+                    </div>
 
                     <div className="flex items-center justify-between mt-4">
                         <div className="flex items-center gap-2 md:gap-10 text-black/[0.5] text-sm md:text-md">
 
                             <div className="flex flex-col gap-1">
-                               {
-                                status === "IN_TRANSIT" ?
-                               <div className="text-red-600 font-semibold">{status}</div>
-                                   
-                               :
-                               <div className='text-gray-700 font-semibold text-md'> Due Date : <span className='text-red-600 font-medium'> {formatDate(DeliveredDate)} </span></div>
-                               
-                            }
-                            <div className='md:hidden text-gray-700 font-semibold'>Payment : <span className={`font-medium ${payment ==='complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
+                                {
+                                    status === "Cancelled" || status === 'IN_TRANSIT' ?
+                                            <div className="text-red-600 font-semibold">{status}</div>
+                                        :
+                                        <div>
+                                            <div className='text-gray-700 font-semibold text-md'> Delivered Date : <span className='text-red-600 font-medium'> {formatDate(DeliveredDate)} </span></div>
+
+                                            <div className='text-gray-700 font-semibold text-md'> Due Date : <span className='text-red-600 font-medium'> {formatDate(DueDate)} </span></div>
+
+                                        </div>
+                                }
+                                {
+                                    payment === 'cancel' ? ""
+                                        : <div className='md:hidden text-gray-700 font-semibold'>Payment  <span className={`font-medium ${payment === 'complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
+                                        
+                                }
                             </div>
 
                         </div>
                     </div>
                 </div>
-            
-            
-             <div className='relative md:block hidden'>
-              
-                <button className='absolute bottom-0 right-0 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
-                
-                </div>     
+
+
+                <div className='relative md:block hidden'>
+                    {
+                        status === 'IN_TRANSIT' ?
+                            <button onClick={CancelOrder} className='absolute bottom-0 right-0 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Cancel
+
+                            </button>
+                            : status === 'DELIVERED' ?
+                                <button className='absolute bottom-0 right-0 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
+                                : ""
+                    }
+                </div>
+
+
             </div>
-           
+
         </div>
 
     )
