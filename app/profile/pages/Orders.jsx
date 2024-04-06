@@ -79,12 +79,12 @@ const Orders = ({ selectedLink }) => {
                 Your Orders
               </h1>
               
-              <div className="relative z-50">
+              <div className="relative z-30">
           <select
            onClick={()=>setBox(prev => !prev)}
            value={sortBy}
            onChange={handleSortChange}
-            className="p-2 z-50 bg-black pr-8 text-white hover:bg-gray-800 duration-200 cursor-pointer hover:text-white border outline-none md:text-md text-sm border-gray-300 rounded-sm appearance-none"
+            className="p-2 bg-black pr-8 text-white hover:bg-gray-800 duration-200 cursor-pointer hover:text-white border outline-none md:text-md text-sm border-gray-300 rounded-sm appearance-none"
           >
             {options.map(option => (
               <option className="bg-black/[0.6]  hover:text-purple-700" key={option.id} value={option.value}>{option.text}</option>
