@@ -33,7 +33,7 @@ const UserProvider = ({ children }) => {
           if (userData && userData.photos && userData.photos.length > 0 && userData.photos[0].url) {
             const image = userData.photos[0].url;
             dispatch(setGData({ userData }));
-            dispatch(setImage({ image }));
+            if(image) dispatch(setImage({ image }));
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
