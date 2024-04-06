@@ -4,23 +4,26 @@ import Link from 'next/link'
 import React, { useEffect, useMemo, useState } from 'react'
 import service from '../appwrite/service'
 import OrderSkeleton from './OrderSkeleton'
+import Loader from './Loader'
 
-const OrderItem = ({ Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
+const OrderItem = ({setExtend,extendLoading,setExtendLoading,setCancelLoading,cancelLoading,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
 
     const [book, setBook] = useState(null);
 
     const [loading, setLoading] = useState(true);
 
-
     const ExtendOrder = async (data)=>{
-        console.log(data)
+        
+            
     }
 
     const CancelOrder = async () => {
         const res = confirm("Do you want to cancel")
+
         if (res) {
-            await service.cancelOrder(Id)
-            fetchData()
+            setCancelLoading(true)
+            await service.cancelOrder(Id);
+            setCancel(prevCancel => !prevCancel); 
         }
     }
 
@@ -69,9 +72,13 @@ const OrderItem = ({ Id, bookId, payment, paymentMethod, price, quantity, status
 
                 {
                     status === 'IN_TRANSIT' ?
-                        <button onClick={CancelOrder} className='md:hidden block bg-black text-white px-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Cancel</button>
+                        <button onClick={CancelOrder} className='md:hidden bg-black flex items-center text-white px-3 gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Cancel 
+                        {cancelLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+                        </button>
                     : status === 'DELIVERED' ?
-                        <button className='md:hidden block bg-black text-white px-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
+                        <button onClick={ExtendOrder} className='md:hidden bg-black text-white px-3 flex items-center gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Extend
+                        {extendLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+                        </button>
                     :""
                 }
 
@@ -83,7 +90,7 @@ const OrderItem = ({ Id, bookId, payment, paymentMethod, price, quantity, status
                     <div className="shrink-0 hover:scale-105 duration-200 aspect-square w-24 md:w-28">
                         <Image
                             className='drop-shadow-lg'
-                            alt="wish item"
+                            alt="wishitem"
                             src={book?.bookImg}
                             width={500}
                             height={500}
@@ -137,11 +144,13 @@ const OrderItem = ({ Id, bookId, payment, paymentMethod, price, quantity, status
                 <div className='relative md:block hidden'>
                     {
                         status === 'IN_TRANSIT' ?
-                            <button onClick={CancelOrder} className='absolute bottom-0 right-0 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Cancel
-
+                            <button onClick={CancelOrder} className='absolute bottom-0 flex items-center right-0 gap-3 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Cancel
+                                {cancelLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
                             </button>
                             : status === 'DELIVERED' ?
-                                <button className='absolute bottom-0 right-0 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Extend</button>
+                                <button onClick={ExtendOrder} className='absolute bottom-0 right-0 bg-black flex items-center gap-3 text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Extend
+                                {extendLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+                                </button>
                                 : ""
                     }
                 </div>

@@ -11,6 +11,11 @@ import { useSelector } from "react-redux"
 const Orders = ({ selectedLink }) => {
 
   const userData = useSelector(state => state.auth.userData)
+  const [cancel, setCancel] = useState(false);
+  const [extend, setExtend] = useState(false);
+
+  const [cancelLoading,setCancelLoading] =useState(false);
+  const [extendLoading,setExtendLoading] =useState(false);
 
 
   const [OrderList, setOrderList] = useState();
@@ -21,28 +26,29 @@ const Orders = ({ selectedLink }) => {
       const { documents } = await service.getOrders(userData.UserId)
       setOrderList(documents)
       setLoading(false);
+      setCancelLoading(false);
+      setExtendLoading(false);
     } catch (error) {
       console.error("Error fetching data from the server:", error);
       setLoading(false);
     }
-  }, [])
+  }, [cancel,extend])
 
   useEffect(() => {
     setLoading(true)
     fetchData();
-  }, [fetchData]);
+  }, [fetchData,cancel,extend]);
 
 
   return (
     selectedLink === 2 &&
    
-
     <div>
      
       {
         OrderList && OrderList.length > 0 ?
         OrderList?.map(b => (
-          <OrderItem key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate}
+          <OrderItem setExtend={setExtend} extendLoading={extendLoading} setExtendLoading={setExtendLoading} setCancelLoading={setCancelLoading} cancelLoading={cancelLoading} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate}
           />
         )):(
           <div className="w-full flex items-center flex-col justify-center h-screen -translate-y-20">
