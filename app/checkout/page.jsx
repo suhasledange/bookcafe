@@ -55,12 +55,12 @@ const Checkout = () => {
     };
 
 
-    const sendMail = async(res,data)=>{
+    const sendMail = async(res)=>{
         const subject = "Order Placed Successfuly!!!"
         const orderId = res.$id
         const orderDate = formatDate(res.DateOfOrder)
-        const bookName = data.bookName
-        const author = data.author
+        const bookName = res.bookName
+        const author = res.author
         const address = res.address
         const email = res.email
         const name = res.name
@@ -81,7 +81,6 @@ const Checkout = () => {
                 orderDate
             })
         })
-        console.log( await response.json())
     }
 
     const onSubmit = async (data) => {
@@ -111,9 +110,8 @@ const Checkout = () => {
                        const res = await service.createOrder(newData);
                        if(res){
                             await service.updateBookQuantity(newData)
-                           await sendMail(res,newData)
-                        
-                   }
+                            await sendMail(res)                        
+                         }
 
                 }
                 router.replace('/successOrder');

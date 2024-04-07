@@ -135,6 +135,8 @@ export class Service{
                 status:data.status,
                 DeliveredDate:null,
                 quantity:data.quantity,
+                bookName:data.bookName,
+                author:data.author
             });
     
             return order;
