@@ -9,7 +9,6 @@ import Button from "../components/Button"
 import { BsCart } from "react-icons/bs"
 import './checkout.css'
 import service from "../appwrite/service"
-import { NEXT_BODY_SUFFIX } from "next/dist/lib/constants"
 import formatDate from "../util/formatDate"
 const Checkout = () => {
 
@@ -94,6 +93,7 @@ const Checkout = () => {
             if (paymentMethod === 'payOnline') {
 
                 alert("Online payment not available yet")
+                return
 
             } else if (paymentMethod === 'cashOnDelivery') {
                

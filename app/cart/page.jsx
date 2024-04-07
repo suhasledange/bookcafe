@@ -5,14 +5,15 @@ import Image from "next/image";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContext } from "@/context/ToastContext";
+import Loader from "../components/Loader";
 
 const Cart = () => {
   const {cartItems} = useSelector((state => state.cart))
   const userData = useSelector(state => state.auth.userData)
-
+  const [loading,setLoading] = useState(false)
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])
@@ -21,21 +22,23 @@ const Cart = () => {
   const router = useRouter()
 
   const {notifyLogin,notifyProfile} = useContext(ToastContext)
+  
   const handleNavigate = async ()=>{
+    setLoading(true)
    
-
   if(userData){
       if(userData.phone!=="" && userData.address.length!==0){  
         router.push('/checkout')
-        
+        setLoading(false)
       }
       else{
+            setLoading(false)
             await notifyProfile()
             router.push('/profile')
-
           }
   }
   else{
+      setLoading(false)
       await notifyLogin()
       router.push('/login')
   }
@@ -90,7 +93,8 @@ const Cart = () => {
                                 </div>
                                 <div onClick={handleNavigate}>
 
-                                <Button className='flex items-center w-full justify-center py-3 text-md' text='Checkout'
+                                <Button className='flex items-center w-full justify-center py-3 gap-3 text-md' text='Checkout'
+                                loading={loading} className1="w-4 h-4"
                                 >
                                     Checkout 
                                 </Button>
