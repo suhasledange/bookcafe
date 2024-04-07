@@ -3,7 +3,7 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import './globals.css'
 import { ContextProvider } from '@/context/ToastContext'
-
+import Script from 'next/script'
 export const metadata = {
   title: 'BookCafe',
   description: 'Online Book Rental Service',
@@ -11,6 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <>
     <html lang="en">
       <body>
         <Providers>
@@ -22,5 +23,7 @@ export default function RootLayout({ children }) {
         </Providers>
         </body>
     </html>
+    <Script src="https://checkout.razorpay.com/v1/checkout.js"/>
+    </>
   )
 }

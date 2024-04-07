@@ -1,6 +1,7 @@
 import { conf } from '@/app/util/conf';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer'
+
 export async function POST(req){
 
     try {
@@ -12,7 +13,8 @@ export async function POST(req){
             author,
             address,
             name,
-            orderDate
+            orderDate,
+            Payment
             
         } = await req.json();
 
@@ -54,6 +56,10 @@ export async function POST(req){
                 <td><strong>Delivery Address:</strong></td>
                 <td>${address}</td>
             </tr>
+            <tr>
+            <td><strong>Payment Method:</strong></td>
+            <td>${Payment}</td>
+        </tr>
         </table>
 
         <p>If you have any questions or concerns regarding your order, feel free to reply to this email  <a href="mailto:bookcafe30@gmail.com">bookcafe30@gmail</a>. We're here to assist you every step of the way.</p>

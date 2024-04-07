@@ -136,7 +136,8 @@ export class Service{
                 DeliveredDate:null,
                 quantity:data.quantity,
                 bookName:data.bookName,
-                author:data.author
+                author:data.author,
+                razorPayId:data.razorPayId
             });
     
             return order;
