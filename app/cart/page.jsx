@@ -95,9 +95,7 @@ const Cart = () => {
 
                                 <Button className='flex items-center w-full justify-center py-3 gap-3 text-md' text='Checkout'
                                 loading={loading} className1="w-4 h-4"
-                                >
-                                    Checkout 
-                                </Button>
+                                />
 
                                   </div>
                             </div>
