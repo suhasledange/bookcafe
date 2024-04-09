@@ -18,11 +18,11 @@ const BookCard = ({ params }) => {
   const [similarbooks, setSimilarBooks] = useState();
   const [loading, setLoading] = useState(true);
   const [Sliderloading, setSliderLoading] = useState(true);
-  
 
-  const {notifyCart,
+
+  const { notifyCart,
     notifyWish,
-    notifyError} = useContext(ToastContext)
+    notifyError } = useContext(ToastContext)
 
 
   const fetchData = useMemo(
@@ -43,7 +43,6 @@ const BookCard = ({ params }) => {
     fetchDataFunction.then();
   }, [fetchData]);
 
-
   const getBookbygenre = useCallback(async () => {
     try {
       const res = await service.getBooksByGenre(String(book?.genre[0]));
@@ -52,7 +51,7 @@ const BookCard = ({ params }) => {
     } catch (error) {
       notifyError()
       console.error("Error fetching data from the server:", error);
-      
+
     }
   }, [book?.genre]);
 
@@ -105,17 +104,19 @@ const BookCard = ({ params }) => {
                     <div className="w-full">
                       <button
                         onClick={() => {
+                          
                           dispatch(addToCart({
                             Id: book.$id,
                             Img: book.bookImg,
                             bookName: book.bookName,
                             author: book.author,
                             price: book.rentPrice,
-                            availability:book.availability,
+                            availability: book.availability,
                             oneQuantityPrice: book.rentPrice,
-                            bookQuantity:book.bookQuantity,
+                            bookQuantity: book.bookQuantity,
                           }))
                           notifyCart()
+
                         }}
                         disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
 
@@ -201,7 +202,7 @@ const BookCard = ({ params }) => {
                       {genre}
                     </div>
                   ))}
-                  
+
 
                 </div>
 

@@ -199,8 +199,8 @@ const Checkout = () => {
     return (
         <>
             {onlineLoading &&
-            <div class="fixed inset-0 z-50 bg-black/[0.7]">
-                <div class="fixed inset-0 w-full h-full mx-auto">
+            <div className="fixed inset-0 z-50 bg-black/[0.7]">
+                <div className="fixed inset-0 w-full h-full mx-auto">
                         <div className="h-full flex items-center justify-center -translate-y-10 ">
                             <div className="bg-white p-5 rounded-sm space-y-5">
                                 <h1>Please do not press back or refresh the page.</h1>

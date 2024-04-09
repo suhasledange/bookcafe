@@ -11,9 +11,7 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
   const dispatch = useDispatch();
 
 
-  const {notifyCart,
-    notifyWish,
-    notifyError} = useContext(ToastContext)
+  const {notifyCart} = useContext(ToastContext)
 
 
   return (
@@ -44,6 +42,7 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
 
       <button
         onClick={() => {
+
           dispatch(addToCart({
             Id,
             Img,
@@ -55,6 +54,8 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
             bookQuantity:bookQuantity,
           }))
           notifyCart()
+
+
         }}
         disabled={!availability} className={`${availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-5 tracking-wider`}>{availability ? "Add To Cart" : "Out of Stock"}</button>
     </div>

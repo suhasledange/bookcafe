@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { useContext, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContext } from "@/context/ToastContext";
-import Loader from "../components/Loader";
 
 const Cart = () => {
   const {cartItems} = useSelector((state => state.cart))

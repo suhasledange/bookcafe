@@ -25,7 +25,6 @@ const LoginForm = () => {
 
   if(status) router.replace('/')
 
-
   const LoginWithGoogle = async()=>{
        await authService.LoginWithGoogle()
       }
