@@ -7,7 +7,7 @@ import OrderSkeleton from './OrderSkeleton'
 import Loader from './Loader'
 import formatDate from '../util/formatDate'
 
-const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate }) => {
+const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate,Due,request }) => {
 
     const [book, setBook] = useState(null);
 
@@ -24,7 +24,7 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
 
         if (res) {
             setCancelLoading(true)
-            await service.cancelOrder(Id,bookId);
+            await service.cancelOrder(Id);
             await setCancel(prevCancel => !prevCancel); 
             setCancelLoading(false)
         }
@@ -48,6 +48,8 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
         fetchDataFunction.then();
 
     }, [fetchData]);
+
+    console.log(status," ",request)
 
     if (loading) return <div>
         <OrderSkeleton />
@@ -114,13 +116,16 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
                                 {
                                     status === "Cancelled" || status === 'IN_TRANSIT' ?
                                             <div className="text-red-600 font-semibold">{status}</div>
-                                        :
+                                    : status === 'DELIVERED' ?
                                         <div>
                                             <div className='text-gray-700 font-semibold text-md'> Delivered Date : <span className='text-red-600 font-medium'> {formatDate(DeliveredDate)} </span></div>
 
                                             <div className='text-gray-700 font-semibold text-md'> Due Date : <span className='text-red-600 font-medium'> {formatDate(DueDate)} </span></div>
+                                            <div className='text-gray-700 font-semibold text-md'>Due : <span className='text-red-600 font-medium'>{Due} </span></div>
 
                                         </div>
+                                        :
+                                        <div className="text-red-600 font-semibold">{request}</div>
                                 }
                                 {
                                     payment === 'cancel' ? ""

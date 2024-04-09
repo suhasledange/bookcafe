@@ -65,7 +65,6 @@ const Orders = ({ selectedLink }) => {
     {id:5,value:"cancelled",text:"Cancelled"},
   ]
 
-
   return (
     selectedLink === 2 &&
    <div>
@@ -106,8 +105,7 @@ const Orders = ({ selectedLink }) => {
       {
         OrderList && OrderList.length > 0 ?
         OrderList?.map(b => (
-          <OrderItem setExtend={setExtend} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate}
-          />
+          <OrderItem setExtend={setExtend} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate} Due={b.Due} request={b.request} />
         )):(
           <div className="w-full flex items-center flex-col justify-center h-screen -translate-y-20">
 
