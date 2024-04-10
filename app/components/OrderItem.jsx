@@ -15,8 +15,6 @@ const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, p
     const [cancelLoading, setCancelLoading] = useState(false);
     const [optionsModal, setOptionsModal] = useState(false);
 
-    console.log(status)
-
     const CancelOrder = async () => {
         const res = confirm("Do you want to cancel")
 
