@@ -72,7 +72,6 @@ const Cart = () => {
                             {/* SUMMARY START */}
                             <div className="flex-[1]">
                                 <div className="text-lg font-bold">Summary</div>
-
                                 <div className="p-5 my-5 bg-black/[0.05]">
                                     <div className="flex justify-between">
                                         <div className="uppercase text-md md:text-lg font-medium text-black">
