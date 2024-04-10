@@ -170,6 +170,7 @@ const Checkout = () => {
             }
         } catch (error) {
             console.log('Error:', error);
+            setLoading(false)
         }
 
     }
