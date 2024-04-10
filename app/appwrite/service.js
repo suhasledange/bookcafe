@@ -79,8 +79,18 @@ export class Service{
             
         }
     }
-    async extendDate(){
-        
+    async returnBook(Id){
+        try {
+
+
+          return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+                payment:"cancel",
+                status:"Request",
+                request:"Returning"
+            });
+        } catch (error) {
+            throw error
+        }
     }
     async createUser(data){
         try {
@@ -100,7 +110,7 @@ export class Service{
     async cancelOrder(Id){
         try {
             
-            this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+           await this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
                 payment:"cancel",
                 status:"Request",
                 request:"Canceling"

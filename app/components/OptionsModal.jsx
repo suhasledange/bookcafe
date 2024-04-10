@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
 import formatDate from '../util/formatDate';
+import service from '../appwrite/service';
+import Loader from './Loader';
 
-const OptionsModal = ({ Due,DueDate,DeliveredDate, book, setOptionsModal, optionsModal }) => {
+const OptionsModal = ({  setoption,Id,Due,DueDate,DeliveredDate, book, setOptionsModal, optionsModal }) => {
     const [selectedOption, setSelectedOption] = useState('extend');
     const [days, setDays] = useState(1);
     const [pay,setPay] = useState(5);
     const [extendedday,setExtendeddays] = useState(null)
-    
+    const [loading,setLoading] = useState(false);
 
     const changeDate = useCallback(()=>{
         const date = new Date(DueDate);
@@ -16,13 +18,27 @@ const OptionsModal = ({ Due,DueDate,DeliveredDate, book, setOptionsModal, option
         setPay(days*5)
     },[days])
 
-
     useEffect(()=>{
         changeDate()
     },[days])
 
-    const handleReturnButtonClick = () => {
-        console.log("Returning...");
+    const handleReturnButtonClick = async () => {
+        if(Due === 0){
+            try {
+                setLoading(true)
+                const res = await service.returnBook(Id);
+                if(res) {
+                await setoption((prev)=>!prev)
+                setOptionsModal(false)
+            }
+
+            } catch (error) {
+                console.log("error returning",error)
+            }finally{
+                setLoading(false)
+            }
+        }
+        
     };
     const handleExtendButtonClick = () => {
         console.log("Extending...", days,pay);
@@ -124,7 +140,6 @@ const OptionsModal = ({ Due,DueDate,DeliveredDate, book, setOptionsModal, option
 
                         )}
 
-
                         {selectedOption === 'return' && (
                             <div className="mt-2">
 
@@ -133,7 +148,7 @@ const OptionsModal = ({ Due,DueDate,DeliveredDate, book, setOptionsModal, option
                                         <tbody className="text-left">
 
                                             <tr>
-                                                <td className="border px-4 py-2 font-semibold">Delivered Order</td>
+                                                <td className="border px-4 py-2 font-semibold">Delivered Date</td>
                                                 <td className="border px-4 py-2 font-light">{formatDate(DeliveredDate)}</td>
                                             </tr>
                                             <tr>
@@ -148,7 +163,11 @@ const OptionsModal = ({ Due,DueDate,DeliveredDate, book, setOptionsModal, option
                                     </table>
                                 </div>
 
-                                <button onClick={handleReturnButtonClick} className="mt-2 bg-black active:scale-95 duration-200 text-white px-4 py-2 rounded-sm focus:outline-none">Return Now</button>
+                                <div className='items-center justify-center flex'>
+                                <button onClick={handleReturnButtonClick} className="mt-2 flex items-center gap-3 justify-center bg-black active:scale-95 duration-200 text-white px-4 py-2 rounded-sm focus:outline-none">Return Now
+                                {loading && <Loader  className1="w-4 h-4 border-white"/>}
+                                </button>
+                            </div>
 
                             </div>
                         )}

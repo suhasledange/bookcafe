@@ -52,7 +52,7 @@ const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, p
     else return (
         <>
         {
-           optionsModal && <OptionsModal Due={Due} DueDate={DueDate} DeliveredDate={DeliveredDate} book={book} setOptionsModal={setOptionsModal} optionsModal={optionsModal}/>
+           optionsModal && <OptionsModal setoption={setoption} Id={Id} Due={Due} DueDate={DueDate} DeliveredDate={DeliveredDate} book={book} setOptionsModal={setOptionsModal} optionsModal={optionsModal}/>
         }
 
         <div className='border mb-5 p-3 md:p-5'>
