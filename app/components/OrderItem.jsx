@@ -49,7 +49,6 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
 
     }, [fetchData]);
 
-    console.log(status," ",request)
 
     if (loading) return <div>
         <OrderSkeleton />
