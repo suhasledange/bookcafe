@@ -15,6 +15,8 @@ const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, p
     const [cancelLoading, setCancelLoading] = useState(false);
     const [optionsModal, setOptionsModal] = useState(false);
 
+    console.log(status)
+
     const CancelOrder = async () => {
         const res = confirm("Do you want to cancel")
 
@@ -114,7 +116,7 @@ const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, p
 
                             <div className="flex flex-col gap-1">
                                 {
-                                    status === "Cancelled" || status === 'IN_TRANSIT' ?
+                                    status === "Cancelled" || status === 'IN_TRANSIT' || status === 'Returned' ?
                                         <div className="text-red-600 font-semibold">{status}</div>
                                         : status === 'DELIVERED' ?
                                             <div>
