@@ -6,18 +6,14 @@ import service from '../appwrite/service'
 import OrderSkeleton from './OrderSkeleton'
 import Loader from './Loader'
 import formatDate from '../util/formatDate'
+import OptionsModal from './OptionsModal'
 
-const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate,Due,request }) => {
+const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate, Due, request }) => {
 
     const [book, setBook] = useState(null);
-
     const [loading, setLoading] = useState(true);
-    const [cancelLoading,setCancelLoading] =useState(false);
-    const [extendLoading,setExtendLoading] =useState(false);
-    const ExtendOrder = async (data)=>{
-        
-
-    }
+    const [cancelLoading, setCancelLoading] = useState(false);
+    const [optionsModal, setOptionsModal] = useState(false);
 
     const CancelOrder = async () => {
         const res = confirm("Do you want to cancel")
@@ -25,7 +21,7 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
         if (res) {
             setCancelLoading(true)
             await service.cancelOrder(Id);
-            await setCancel(prevCancel => !prevCancel); 
+            await setCancel(prevCancel => !prevCancel);
             setCancelLoading(false)
         }
     }
@@ -54,6 +50,11 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
         <OrderSkeleton />
     </div>
     else return (
+        <>
+        {
+           optionsModal && <OptionsModal Due={Due} DueDate={DueDate} DeliveredDate={DeliveredDate} book={book} setOptionsModal={setOptionsModal} optionsModal={optionsModal}/>
+        }
+
         <div className='border mb-5 p-3 md:p-5'>
 
             <div className='flex justify-between mb-4'>
@@ -62,18 +63,18 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
                 {payment === 'cancel' ? ""
                     :
                     <div className='md:block hidden text-gray-700 font-semibold'>Payment : <span className={`font-medium ${payment === 'complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
-                } 
+                }
 
                 {
                     status === 'IN_TRANSIT' ?
-                        <button onClick={CancelOrder} className='md:hidden bg-black flex items-center text-white px-3 gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Cancel 
-                        {cancelLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+                        <button onClick={CancelOrder} className='md:hidden bg-black flex items-center text-white px-3 gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Cancel
+                            {cancelLoading ? <Loader className1="border-white w-4 h-4 " /> : ""}
                         </button>
-                    : status === 'DELIVERED' ?
-                        <button onClick={ExtendOrder} className='md:hidden bg-black text-white px-3 flex items-center gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Extend
-                        {extendLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
-                        </button>
-                    :""
+                        : status === 'DELIVERED' ? 
+                                <button onClick={()=>setOptionsModal(true)} className='md:hidden bg-black text-white px-3 flex items-center gap-3 text-sm active:scale-95 transform duration-200 p-[0.35rem]'>Options
+                                </button>
+
+                            : ""
                 }
 
             </div>
@@ -114,22 +115,21 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
                             <div className="flex flex-col gap-1">
                                 {
                                     status === "Cancelled" || status === 'IN_TRANSIT' ?
-                                            <div className="text-red-600 font-semibold">{status}</div>
-                                    : status === 'DELIVERED' ?
-                                        <div>
-                                            <div className='text-gray-700 font-semibold text-md'> Delivered Date : <span className='text-red-600 font-medium'> {formatDate(DeliveredDate)} </span></div>
+                                        <div className="text-red-600 font-semibold">{status}</div>
+                                        : status === 'DELIVERED' ?
+                                            <div>
+                                                <div className='text-gray-700 font-semibold text-md'> Delivered Date : <span className='text-red-600 font-medium'> {formatDate(DeliveredDate)} </span></div>
 
-                                            <div className='text-gray-700 font-semibold text-md'> Due Date : <span className='text-red-600 font-medium'> {formatDate(DueDate)} </span></div>
-                                            <div className='text-gray-700 font-semibold text-md'>Due : <span className='text-red-600 font-medium'>{Due} </span></div>
-
-                                        </div>
-                                        :
-                                        <div className="text-red-600 font-semibold">{request}</div>
+                                                <div className='text-gray-700 font-semibold text-md'> Due Date : <span className='text-red-600 font-medium'> {formatDate(DueDate)} </span></div>
+                                                <div className='text-gray-700 font-semibold text-md'>Due : <span className='text-red-600 font-medium'>{Due} </span></div>
+                                            </div>
+                                            :
+                                            <div className="text-red-600 font-semibold">{request}</div>
                                 }
                                 {
                                     payment === 'cancel' ? ""
                                         : <div className='md:hidden text-gray-700 font-semibold'>Payment  <span className={`font-medium ${payment === 'complete' ? "text-green-600" : "text-red-600"} `}>{payment}</span> </div>
-                                        
+
                                 }
                             </div>
 
@@ -142,20 +142,20 @@ const OrderItem = ({setExtend,setCancel, Id, bookId, payment, paymentMethod, pri
                     {
                         status === 'IN_TRANSIT' ?
                             <button onClick={CancelOrder} className='absolute bottom-0 flex items-center right-0 gap-3 bg-black text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Cancel
-                                {cancelLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+                                {cancelLoading ? <Loader className1="border-white w-4 h-4 " /> : ""}
                             </button>
                             : status === 'DELIVERED' ?
-                                <button onClick={ExtendOrder} className='absolute bottom-0 right-0 bg-black flex items-center gap-3 text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Extend
-                                {extendLoading ? <Loader className1="border-white w-4 h-4 "/> :""}
+
+                                <button onClick={()=>setOptionsModal(true)} className='absolute bottom-0 right-0 bg-black flex items-center gap-3 text-white px-[0.85rem] text-md active:scale-95 transform duration-200 p-[0.35rem]'>Options
                                 </button>
                                 : ""
                     }
                 </div>
 
-
             </div>
-
         </div>
+        </>
+
 
     )
 }

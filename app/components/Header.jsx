@@ -80,9 +80,9 @@ const Header = () => {
 
     return (
         <>
-            <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-3 bg-white flex flex-col items-center z-50 sticky top-0 transition-transform`} >
+            <header className={`shadow-sm w-full duration-200 py-3 md:py-2 h-full justify-center gap-3 bg-white flex flex-col items-center z-40 sticky top-0 transition-transform`} >
 
-                <Container className="bg-white z-50 max-w-screen-xl flex justify-between h-full items-center md:py-0 relative">
+                <Container className="bg-white z-40 max-w-screen-xl flex justify-between h-full items-center md:py-0 relative">
 
 
                     <div className='flex items-center justify-center gap-2'>
@@ -108,7 +108,7 @@ const Header = () => {
 
                     <div className={`md:hidden transform duration-200 ${mobileMenu ? "translate-x-0" : " -translate-x-full "} absolute top-[100%] mt-3 w-4/6 left-0 h-screen `}>
 
-                        <div className='h-screen z-50 bg-white flex flex-col pt-5 border-t px-4 items-start justify-start font-medium text-md tracking-wide text-gray-700 space-y-5'>
+                        <div className='h-screen z-40 bg-white flex flex-col pt-5 border-t px-4 items-start justify-start font-medium text-md tracking-wide text-gray-700 space-y-5'>
 
                             {
                                 links.map(link => (

@@ -79,6 +79,9 @@ export class Service{
             
         }
     }
+    async extendDate(){
+        
+    }
     async createUser(data){
         try {
                return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,ID.unique(),{

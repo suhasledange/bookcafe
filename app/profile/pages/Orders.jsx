@@ -14,7 +14,7 @@ const Orders = ({ selectedLink }) => {
   const userData = useSelector(state => state.auth.userData)
   
   const [cancel, setCancel] = useState(false);
-  const [extend, setExtend] = useState(false);
+  const [option, setoption] = useState(false);
 
   const [OrderList, setOrderList] = useState();
   const [sortBy, setSortBy] = useState("dateAsc");
@@ -45,11 +45,11 @@ const Orders = ({ selectedLink }) => {
     } catch (error) {
       console.error("Error fetching data from the server:", error);
     }
-  }, [cancel,extend,sortBy])
+  }, [cancel,option,sortBy])
 
   useEffect(() => {
     fetchData();
-  }, [fetchData,cancel,extend,sortBy]);
+  }, [fetchData,cancel,option,sortBy]);
 
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
@@ -105,7 +105,7 @@ const Orders = ({ selectedLink }) => {
       {
         OrderList && OrderList.length > 0 ?
         OrderList?.map(b => (
-          <OrderItem setExtend={setExtend} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate} Due={b.Due} request={b.request} />
+          <OrderItem setoption={setoption} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate} Due={b.Due} request={b.request} />
         )):(
           <div className="w-full flex items-center flex-col justify-center h-screen -translate-y-20">
 
