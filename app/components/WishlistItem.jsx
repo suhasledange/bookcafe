@@ -5,13 +5,44 @@ import { addToCart } from '@/store/cartSlice';
 import { removeFromWish } from '@/store/wishSlice';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
+import service from '../appwrite/service';
+import { useSelector } from "react-redux";
 
-
-const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
+const WishlistItem = ({ Id, Img, bookName, author, price,availability,bookQuantity }) => {
     const dispatch = useDispatch()
+    const {cartItems} = useSelector((state => state.cart))
+    const [book,setBook] = useState();
+
+    const canAddToCart = () => {
+    
+        const totalQuantityInCart = cartItems.reduce((total, item) => {
+          if (item.Id === Id) {
+            return total + item.quantity;
+          }
+          return total;
+        }, 0);
+    
+        return totalQuantityInCart < book?.bookQuantity;
+      };
+    
+      let isAvaiable = canAddToCart()
+    
+
+    const fetchBook = async ()=>{
+        try {
+            const res = await service.getBook(Id)
+            setBook(res);
+        } catch (error) {
+            throw error
+        }
+    }
+
+    useEffect(()=>{
+        fetchBook()
+    },[])
 
   const { notifyCart} = useContext(ToastContext)
 
@@ -53,20 +84,26 @@ const WishlistItem = ({ Id, Img, bookName, author, price,availability }) => {
 
                         <div className="flex items-center gap-1">
                             {
-                                availability ?
+                                book?.availability ?
                                 <button
                                 onClick={() => {
+
+                                    if(canAddToCart()){
                                     dispatch(addToCart({
                                         Id,
                                         Img,
                                         bookName,
                                         author,
                                         price: price,
-                                        oneQuantityPrice: price
+                                        availability:book?.availability,
+                                        oneQuantityPrice: price,
+                                        bookQuantity:book?.bookQuantity
                                     }))
                                     notifyCart()
+                                }
                                 }}
-                                className={` transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>Add To Cart</button>
+                                 disabled={!book?.availability || !canAddToCart()}
+                                className={`${isAvaiable ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-3 tracking-wider`}>Add To Cart</button>
 
                                : <h1 className='text-red-700 text-lg font-semibold'>Out of Stock</h1> 
                             }

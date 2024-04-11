@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux"
 import Container from "../components/Container"
 import { useRouter } from "next/navigation"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 import Button from "../components/Button"
@@ -30,10 +30,13 @@ const Checkout = () => {
         return cartItems.reduce((total, val) => total + val.price, 0)
     }, [cartItems])
 
+    
+    useEffect(()=>{
+        if (cartItems.length === 0 || userData === null) router.replace("/")
+    },[cartItems])
 
-    if (cartItems.length === 0 || userData === null) router.push("/")
+
     const [selectedAddress, setSelectedAddress] = useState(userData?.address ? userData.address[0] : null);
-
 
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({

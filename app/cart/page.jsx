@@ -10,13 +10,13 @@ import { useRouter } from "next/navigation";
 import { ToastContext } from "@/context/ToastContext";
 
 const Cart = () => {
+  
   const {cartItems} = useSelector((state => state.cart))
   const userData = useSelector(state => state.auth.userData)
   const [loading,setLoading] = useState(false)
   const subTotal = useMemo(()=>{
     return cartItems.reduce((total,val)=>total+val.price,0)
 },[cartItems])
-
 
   const router = useRouter()
 

@@ -11,13 +11,32 @@ import { addToWish } from "@/store/wishSlice";
 import { addToCart } from "@/store/cartSlice";
 import { FiShare2 } from "react-icons/fi";
 import { ToastContext } from "@/context/ToastContext";
-
+import { useSelector } from "react-redux";
 const BookCard = ({ params }) => {
   const [book, setBook] = useState(null);
+  const {cartItems} = useSelector((state => state.cart))
 
   const [similarbooks, setSimilarBooks] = useState();
   const [loading, setLoading] = useState(true);
   const [Sliderloading, setSliderLoading] = useState(true);
+
+  const canAddToWishList = ()=>{
+
+  }
+
+  const canAddToCart = () => {
+    
+    const totalQuantityInCart = cartItems.reduce((total, item) => {
+      if (item.Id === book?.$id) {
+        return total + item.quantity;
+      }
+      return total;
+    }, 0);
+
+    return totalQuantityInCart < book?.bookQuantity;
+  };
+
+  let isAvaiable = canAddToCart()
 
 
   const { notifyCart,
@@ -104,26 +123,28 @@ const BookCard = ({ params }) => {
                     <div className="w-full">
                       <button
                         onClick={() => {
-                          
-                          dispatch(addToCart({
-                            Id: book.$id,
-                            Img: book.bookImg,
-                            bookName: book.bookName,
-                            author: book.author,
-                            price: book.rentPrice,
-                            availability: book.availability,
-                            oneQuantityPrice: book.rentPrice,
-                            bookQuantity: book.bookQuantity,
-                          }))
-                          notifyCart()
 
+                          if(canAddToCart()){
+                            dispatch(addToCart({
+                              Id: book.$id,
+                              Img: book.bookImg,
+                              bookName: book.bookName,
+                              author: book.author,
+                              price: book.rentPrice,
+                              availability: book.availability,
+                              oneQuantityPrice: book.rentPrice,
+                              bookQuantity: book.bookQuantity,
+                            }))
+                            notifyCart() 
+                          }
                         }}
-                        disabled={!book?.availability} className={`${book?.availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
+                        disabled={!book?.availability || !canAddToCart()} className={`${isAvaiable ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
 
                     </div>
                     <div className="w-full ">
                       <button
                         onClick={() => {
+
                           dispatch(addToWish({
                             Id: book.$id,
                             Img: book.bookImg,
@@ -131,8 +152,10 @@ const BookCard = ({ params }) => {
                             author: book.author,
                             availability: book.availability,
                             price: book.rentPrice,
+                            bookQuantity: book.bookQuantity,
                           }))
                           notifyWish()
+
                         }}
                         className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl" /> Whislist</button>
 

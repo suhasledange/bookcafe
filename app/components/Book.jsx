@@ -5,14 +5,26 @@ import { useDispatch } from "react-redux"
 import { addToCart } from "@/store/cartSlice"
 import { useContext } from "react"
 import { ToastContext } from "@/context/ToastContext"
-
+import { useSelector } from "react-redux";
 const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity }) => {
 
   const dispatch = useDispatch();
-
-
   const {notifyCart} = useContext(ToastContext)
+  const {cartItems} = useSelector((state => state.cart))
 
+  const canAddToCart = () => {
+    
+    const totalQuantityInCart = cartItems.reduce((total, item) => {
+      if (item.Id === Id) {
+        return total + item.quantity;
+      }
+      return total;
+    }, 0);
+
+    return totalQuantityInCart < bookQuantity;
+  };
+
+  let isAvaiable = canAddToCart()
 
   return (
     <>
@@ -41,23 +53,28 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
       </div>
 
       <button
-        onClick={() => {
-
-          dispatch(addToCart({
-            Id,
-            Img,
-            bookName,
-            author,
-            price: rentPrice,
-            availability,
-            oneQuantityPrice: rentPrice,
-            bookQuantity:bookQuantity,
-          }))
-          notifyCart()
-
-
-        }}
-        disabled={!availability} className={`${availability ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-5 tracking-wider`}>{availability ? "Add To Cart" : "Out of Stock"}</button>
+          onClick={() => {
+            if (canAddToCart()) {
+              dispatch(
+                addToCart({
+                  Id,
+                  Img,
+                  bookName,
+                  author,
+                  price: rentPrice,
+                  availability,
+                  oneQuantityPrice: rentPrice,
+                  bookQuantity: bookQuantity,
+                })
+              );
+              notifyCart();
+            }
+          }}
+          disabled={!availability || !canAddToCart()}
+          className={`${isAvaiable ? "transition-transform active:scale-95" : "cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white p-[0.3rem] px-5 tracking-wider`}
+        >
+          {availability ? "Add To Cart" : "Out of Stock"}
+        </button>
     </div>
     </>
   )

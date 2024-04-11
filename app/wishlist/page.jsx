@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 import WishlistItem from "../components/WishlistItem";
 
 const Wishlist = () => {
+
   const {wishItems} = useSelector((state => state.wish))
   
-
   return (
     <Container className="max-w-screen-lg mt-8">
       
@@ -27,7 +27,7 @@ const Wishlist = () => {
                                 
                       {
                         wishItems?.map(item=>(
-                          <WishlistItem key={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.price} quantity={item.quantity} availability={item.availability} />   
+                          <WishlistItem key={item.Id} Id={item.Id} Img={item.Img} bookName={item.bookName} author={item.author} price={item.price} quantity={item.quantity} availability={item.availability} bookQuantity ={item.bookQuantity}/>   
                         ))
                       }
 

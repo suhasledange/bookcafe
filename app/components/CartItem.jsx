@@ -2,12 +2,31 @@
 import { removeFromCart, updateCart } from '@/store/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
+import service from '../appwrite/service';
 
 
 const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) => {
     const dispatch = useDispatch()
+    const [book,setBook] = useState();
+
+    const fetchBook = async ()=>{
+        try {
+            const res = await service.getBook(Id)
+            if(res?.bookQuantity <= 0){
+                dispatch(removeFromCart({ id: Id }))
+            }
+            setBook(res);
+        } catch (error) {
+            throw error
+        }
+    }
+
+    useEffect(()=>{
+        fetchBook()
+    },[])
 
     const updateCartItem = (e, key) => {
         let payload = {
@@ -62,7 +81,7 @@ const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) =
                                 onChange={(e) => updateCartItem(e, "quantity")}
                                 value={quantity}
                             >
-                                {Array.from({ length: bookQuantity }, (_, i) => i + 1).map((q, i) => (
+                                {Array.from({ length: book?.bookQuantity }, (_, i) => i + 1).map((q, i) => (
                                     <option key={i} value={q}>
                                         {q}
                                     </option>
