@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Container from '../components/Container'
 import LeftSection from './pages/LeftSection'
@@ -11,7 +11,16 @@ const Profile = () => {
   const userData = useSelector(state => state.auth.userData)
   
   const router = useRouter()
-  if (!userData) router.push('/')
+  
+  const checkUser = useCallback(() => {
+    if (!userData) {
+      router.replace('/')
+    }
+  }, [userData, router]);
+
+  useEffect(() => {
+    checkUser();
+  }, [checkUser]);
 
   const [selectedLink, setSelectedLink] = useState(1);
 

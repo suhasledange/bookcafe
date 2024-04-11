@@ -35,8 +35,8 @@ const authSlice = createSlice({
         },
         logoutSlice: (state) => {
             state.status = false;
-            state.userData = null;
             state.verify = "none";
+            state.userData = null;
             Cookies.remove("authState");
         },
         setPending: (state) => {

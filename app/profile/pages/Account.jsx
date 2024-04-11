@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Account = ({ selectedLink}) => {
   const userData = useSelector(state => state.auth.userData)
-  const photo = userData.Img;
+  const photo = userData?.Img;
   const [loading,setLoading] = useState(false)
   const [addresses, setAddresses] = useState(userData?.address || [""]);
   const dispatch = useDispatch()

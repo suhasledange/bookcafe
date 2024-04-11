@@ -24,10 +24,6 @@ const Header = () => {
     const userData = useSelector(state => state.auth.userData)
     const photo = userData?.Img;
 
-    const handleLogout = async () => {
-        await authService.logoutAccount()
-        dispatch(logoutSlice())
-    }
     const [profileMenu, setProfileMenu] = useState(false)
 
     const status = useSelector(state => state.auth.status)
@@ -66,6 +62,12 @@ const Header = () => {
 
     const ref = useRef(null);
     const ref1 = useRef(null)
+
+
+    const handleLogout = async () => {
+        await authService.logoutAccount()
+        dispatch(logoutSlice())
+    }
 
     const clearSearch = () => {
         setInputSearch("")

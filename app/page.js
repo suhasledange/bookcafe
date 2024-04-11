@@ -3,7 +3,6 @@ import { useEffect, useState, useCallback } from "react";
 import HomeSlider from "./components/HomeSlider/HomeSlider";
 import Slider from "./components/Slider";
 import service from "./appwrite/service";
-import Toast from "./components/Toast";
 
 export default function Home() {
 

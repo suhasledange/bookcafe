@@ -98,6 +98,8 @@ const Checkout = () => {
             setLoading(true)
             if (paymentMethod === 'payOnline') {
 
+                
+
                 const amount = data.totalPrice * 100
                 const userId = data.userId;
                 const pId = data.collectionId;
