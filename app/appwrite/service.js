@@ -16,9 +16,28 @@ export class Service{
 
     async getBooks(){
         try {
-            return this.databases.listDocuments(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE,[
-                Query.limit(50)
-            ]);
+
+        let allDocuments = [];
+        let page = 1;
+        let documents;
+
+        do {
+          
+            documents = await this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID_BOOKSTORE,
+                [
+                    Query.limit(50), 
+                    Query.offset((page - 1) * 50),
+                ]
+            );
+            
+            allDocuments = allDocuments.concat(documents);
+            
+            page++;
+        } while (documents.length === 0); 
+        return allDocuments[0];
+
         } catch (error) {
             throw error
         }
@@ -81,9 +100,8 @@ export class Service{
     }
     async returnBook(Id){
         try {
-
-
           return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+                DueDate:null,
                 payment:"cancel",
                 status:"Request",
                 request:"Returning"
@@ -92,6 +110,37 @@ export class Service{
             throw error
         }
     }
+
+    async returnWithDue(Id,DueRpId){
+        try {
+          return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+                DueDate:null,
+                payment:"cancel",
+                status:"Request",
+                Due:0,
+                request:"Returning",
+                DueRpId:DueRpId
+            });
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async extendBook(Id,extendRpId,extendedday){
+        try {
+
+            return this.databases.updateDocument(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,Id,{
+                DueDate:extendedday,
+                extend:true,
+                extendRpId:extendRpId
+            });
+
+        } catch (error) {
+            throw error
+        }
+    }
+
     async createUser(data){
         try {
                return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_USERDETAILS,ID.unique(),{

@@ -105,7 +105,7 @@ const Orders = ({ selectedLink }) => {
       {
         OrderList && OrderList.length > 0 ?
         OrderList?.map(b => (
-          <OrderItem setoption={setoption} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate} Due={b.Due} request={b.request} />
+          <OrderItem setoption={setoption} setCancel={setCancel} key={b.$id} Id={b.$id} bookId={b.bookId} payment={b.payment} paymentMethod={b.paymentMethod} price={b.price} quantity = {b.quantity} status={b.status} DateOfOrder={b.DateOfOrder} DeliveredDate={b.DeliveredDate} DueDate = {b.DueDate} Due={b.Due} request={b.request} extend={b.extend} />
         )):(
           <div className="w-full flex items-center flex-col justify-center h-screen -translate-y-20">
 

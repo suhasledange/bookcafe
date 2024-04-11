@@ -98,8 +98,6 @@ const Checkout = () => {
             setLoading(true)
             if (paymentMethod === 'payOnline') {
 
-                
-
                 const amount = data.totalPrice * 100
                 const userId = data.userId;
                 const pId = data.collectionId;
@@ -107,7 +105,7 @@ const Checkout = () => {
                 const email = data.email;
                 const contact = data.phone;
                 const address = data.address;
-
+                const paymentFor = 'BookRenting'
                 const response = await fetch('/api/razorpay', {
                     method: 'POST',
                     headers: {
@@ -120,7 +118,8 @@ const Checkout = () => {
                         name,
                         email,
                         contact,
-                        address
+                        address,
+                        paymentFor
                     })
                 })
 
@@ -155,6 +154,11 @@ const Checkout = () => {
 
                 const paymentObject = new window.Razorpay(options);
                 paymentObject.open();
+
+                 paymentObject.on("payment.cancel", function () {
+                    setLoading(false); 
+                    setOnlineLoading(false);
+                 });
 
                 paymentObject.on("payment.failed", function (response) {
                     alert("Payment failed. Please try again. Contact support for help");

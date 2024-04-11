@@ -18,8 +18,10 @@ export async function POST(req) {
         name,
         email,
         contact,
-        address
+        address,
+        paymentFor
     } = await req.json();
+
 
     const payment_capture = 1;
     const currency = "INR";
@@ -30,7 +32,7 @@ export async function POST(req) {
         receipt: shortid.generate(),
         payment_capture,
         notes: {
-            paymentFor: "BookRenting",
+            paymentFor: paymentFor,
             userId: userId,
             productId: pId,
             userName:name,

@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Container from './Container'
 import { BsCart } from "react-icons/bs";
 import { IoMenu } from "react-icons/io5";

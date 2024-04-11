@@ -8,7 +8,7 @@ import Loader from './Loader'
 import formatDate from '../util/formatDate'
 import OptionsModal from './OptionsModal'
 
-const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate, Due, request }) => {
+const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, price, quantity, status, DateOfOrder, DeliveredDate, DueDate, Due, request,extend }) => {
 
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ const OrderItem = ({ setoption, setCancel, Id, bookId, payment, paymentMethod, p
     else return (
         <>
         {
-           optionsModal && <OptionsModal setoption={setoption} Id={Id} Due={Due} DueDate={DueDate} DeliveredDate={DeliveredDate} book={book} setOptionsModal={setOptionsModal} optionsModal={optionsModal}/>
+           optionsModal && <OptionsModal extend={extend} setoption={setoption} Id={Id} Due={Due} DueDate={DueDate} DeliveredDate={DeliveredDate} book={book} setOptionsModal={setOptionsModal} />
         }
 
         <div className='border mb-5 p-3 md:p-5'>

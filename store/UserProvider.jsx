@@ -72,6 +72,7 @@ const UserProvider = ({ children }) => {
         authService.logoutAccount();
       }
     } catch (error) {
+      dispatch(logoutSlice());
       console.log('Error getting user data:', error);
     } finally {
       setLoading(false);
