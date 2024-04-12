@@ -10,6 +10,7 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
 
   const dispatch = useDispatch();
   const {notifyCart} = useContext(ToastContext)
+  
   const {cartItems} = useSelector((state => state.cart))
 
   const canAddToCart = () => {

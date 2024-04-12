@@ -1,5 +1,5 @@
-const { conf } = require("../util/conf");
 import { Client, Databases,ID,Query } from "appwrite";
+import { conf } from "../util/conf";
 
 export class Service{
 
@@ -245,5 +245,7 @@ export class Service{
     }
 
 }
+
 const service = new Service()
 export default service
+
