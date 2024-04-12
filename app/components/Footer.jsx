@@ -29,7 +29,7 @@ const Footer = () => {
   ]
 
   return (
-      <footer className="bg-black text-white pt-14 pb-3 mt-16">
+      <footer className="bg-black/[0.96] text-white pt-14 mt-16">
 
         <Container className="flex justify-between flex-col md:flex-row gap-[50px] md:gap-0 max-w-screen-xl px-3 md:px-0">
 
@@ -126,11 +126,12 @@ const Footer = () => {
           </div>
         </Container>
 
-        <Container className="mt-10">
+        <Container className="mt-10 py-1 bg-black">
           <div className="text-[12px] text-white/[0.5] hover:text-white cursor-pointer text-center">
             © 2024 BookCafe, Inc. All Rights Reserved
           </div>
         </Container>
+
       </footer>
 
    
