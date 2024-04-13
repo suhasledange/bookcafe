@@ -17,7 +17,7 @@ const LoginForm = () => {
   
   const dispatch = useDispatch()
   const status = useSelector(state => state.auth.status)
-  const { notifyCrendentials} = useContext(ToastContext)
+  const { notifyToast} = useContext(ToastContext)
 
   const [loading,setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
@@ -55,7 +55,7 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-        notifyCrendentials()
+        notifyToast("Invalid Crendentials",2000)
     } finally {
       reset();
       setLoading(false);

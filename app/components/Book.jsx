@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity }) => {
 
   const dispatch = useDispatch();
-  const {notifyCart} = useContext(ToastContext)
+  const {notifyToast} = useContext(ToastContext)
   
   const {cartItems} = useSelector((state => state.cart))
 
@@ -68,7 +68,7 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
                   bookQuantity: bookQuantity,
                 })
               );
-              notifyCart();
+              notifyToast("Book added to cart",1500);
             }
           }}
           disabled={!availability || !canAddToCart()}

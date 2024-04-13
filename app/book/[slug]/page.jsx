@@ -20,9 +20,6 @@ const BookCard = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [Sliderloading, setSliderLoading] = useState(true);
 
-  const canAddToWishList = ()=>{
-
-  }
 
   const canAddToCart = () => {
     
@@ -39,9 +36,7 @@ const BookCard = ({ params }) => {
   let isAvaiable = canAddToCart()
 
 
-  const { notifyCart,
-    notifyWish,
-    notifyError } = useContext(ToastContext)
+  const { notifyToast } = useContext(ToastContext)
 
 
   const fetchData = useMemo(
@@ -68,7 +63,6 @@ const BookCard = ({ params }) => {
       setSimilarBooks(res);
       setSliderLoading(false)
     } catch (error) {
-      notifyError()
       console.error("Error fetching data from the server:", error);
 
     }
@@ -135,7 +129,7 @@ const BookCard = ({ params }) => {
                               oneQuantityPrice: book.rentPrice,
                               bookQuantity: book.bookQuantity,
                             }))
-                            notifyCart() 
+                            notifyToast("Book added to cart",1500) 
                           }
                         }}
                         disabled={!book?.availability || !canAddToCart()} className={`${isAvaiable ? "transition-transform active:scale-95" : " cursor-not-allowed"} hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}>{book?.availability ? "Add To Cart" : "Out of Stock"}</button>
@@ -154,7 +148,7 @@ const BookCard = ({ params }) => {
                             price: book.rentPrice,
                             bookQuantity: book.bookQuantity,
                           }))
-                          notifyWish()
+                          notifyToast("Book added to wishlist",1500)
 
                         }}
                         className={`flex items-center justify-center gap-2 transition-transform active:scale-95 hover:bg-black/[0.8] duration-150 bg-black text-white py-2 w-full px-3 tracking-wider`}><IoMdHeartEmpty className="text-xl" /> Whislist</button>

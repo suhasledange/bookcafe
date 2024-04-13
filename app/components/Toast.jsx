@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const Toast = ({ message,time=1000 }) => {
+const Toast = ({ message,time }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {

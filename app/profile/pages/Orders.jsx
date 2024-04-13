@@ -21,7 +21,7 @@ const Orders = ({ selectedLink }) => {
   
   const fetchData = useCallback(async () => {
     try {
-      let ordersResponse = await service.getOrders(userData.UserId);
+      let ordersResponse = await service.getOrders(userData?.UserId);
       let orders = Array.from(ordersResponse.documents);
       switch (sortBy) {
         case "dateDesc":

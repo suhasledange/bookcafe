@@ -6,61 +6,26 @@ export const ToastContext = createContext()
 
 export const ContextProvider = ({ children }) => {
 
-  const [showToastCart, setShowToast] = useState(false);
-  const [showToastWish, setShowToast1] = useState(false);
-  const [showToastCredentials, setShowCrendentials] = useState(false);
-  const [showLogin,setShowLogin] = useState(false);
-  const [showprofile,setShowprofile] = useState(false);
+  const [showToast,setShowtoast] = useState(false);
+  const [message,setShowMessage] = useState('');
+  const [Time,setTime] = useState();
 
-  const [errorMsg, setShowError] = useState(false)
+  const notifyToast = (message,time) =>{
 
-  const notifyLogin = ()=>{
-    setShowLogin(true);
-    setTimeout(()=> setShowLogin(false),2000)
-  }
-  const notifyProfile = ()=>{
-    setShowprofile(true);
-    setTimeout(()=> setShowprofile(false),2500)
-  }
-
-  const notifyCart = () => {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 1000);
-  }
-  const notifyWish = () => {
-    setShowToast1(true);
-    setTimeout(() => setShowToast1(false), 1000);
-  }
-  const notifyError = () => {
-    setShowError(true);
-    setTimeout(() => setShowError(false), 3000);
-
-  }
-  const notifyCrendentials = () => {
-    setShowCrendentials(true);
-    setTimeout(() => setShowCrendentials(false), 2000);
+    setShowMessage(message);
+    setTime(time)
+    setShowtoast(true);
+    setTimeout(()=>setShowtoast(false),1500)
 
   }
 
   return (
     <ToastContext.Provider value={{
-      notifyCart,
-      notifyWish,
-      notifyError,
-      notifyCrendentials,
-      notifyLogin,
-      notifyProfile,
-      showToastCart,
-      showToastWish,
-      errorMsg
+      notifyToast,
     }}>
       {children}
-        {showToastCart && <Toast message="Book added to cart" />}
-        {showToastWish && <Toast message="Book added to wishlist" />}
-        {showToastCredentials &&  <Toast time={2000} message="Invalid Crendentials" />}
-        {showLogin &&  <Toast time={2000} message="Please Login to proceed" />}
-        {showprofile &&  <Toast time={2500} message="Please update your profile to proceed" />}
-        {errorMsg && <Toast time={3000} message="Error fetching data from the server. Please try again later!!!" />}
+        {showToast && <Toast message={message} time={Time}/>}
+
     </ToastContext.Provider>
   )
 }

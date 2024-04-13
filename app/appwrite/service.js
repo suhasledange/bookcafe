@@ -214,6 +214,17 @@ export class Service{
         }
     }
 
+    async getDueOrders(userId){
+        try {
+            return await this.databases.listDocuments(conf.DATABASE_ID,conf.COLLECTION_ID_ORDERLIST,[
+                Query.search('UserId',userId),
+                Query.greaterThan("Due", 0)
+            ])
+        } catch (error) {
+            console.log('error getting order list',error)
+        }
+    }
+
     async updateUserData(data){
         try {
 
