@@ -114,8 +114,8 @@ const Footer = () => {
                   Join Us
                 </div>
               
-                <div className="text-white/[0.5] flex items-center gap-2">
-                    Join Us on <Link href="/" className="text-white/[0.8] underline underline-offset-4"> WhatsApp</Link>
+                <div className="text-white/[0.5] flex items-center gap-3 flex-wrap">
+                    Join Us on <Link href="/" > <IoLogoWhatsapp className="text-2xl hover:text-white duration-200"/> </Link>
                 </div>
 
                 </div>

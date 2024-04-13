@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux"
 import Container from "../components/Container"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 import Button from "../components/Button"
@@ -12,6 +12,7 @@ import service from "../appwrite/service"
 import formatDate from "../util/formatDate"
 import { conf } from "../util/conf"
 import Loader from "../components/Loader"
+import { ToastContext } from "@/context/ToastContext"
 const Checkout = () => {
 
     const { cartItems } = useSelector((state => state.cart))
@@ -21,6 +22,7 @@ const Checkout = () => {
     const[onlineLoading,setOnlineLoading] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('payOnline');
 
+    const {notifyToast} = useContext(ToastContext)
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
@@ -140,11 +142,12 @@ const Checkout = () => {
                         setOnlineLoading(true);
                         const rpId = response.razorpay_payment_id;
                         const payment = 'complete'
-
                         await sendToDB(payment, rpId, data)
                         router.replace(`/successOrder/${response.razorpay_payment_id}`);
-                        setLoading(false)
                         setOnlineLoading(false);
+
+
+                        console.log(response)
 
                     },
                     prefill: {
@@ -159,26 +162,24 @@ const Checkout = () => {
                 paymentObject.open();
 
                  paymentObject.on("payment.cancel", function () {
-                    setLoading(false); 
-                    setOnlineLoading(false);
-                 });
-
-                paymentObject.on("payment.failed", function (response) {
-                    alert("Payment failed. Please try again. Contact support for help");
+                    notifyToast("Payment Cancelled!!!",2000)
                 });
 
+                paymentObject.on("payment.failed", function (response) {
+                    notifyToast("Payment failed. Please try again",2000);
+                });
 
             } else if (paymentMethod === 'cashOnDelivery') {
 
                 const payment = 'pending'
                 const rpId = 'COD'
                 await sendToDB(payment, rpId, data)
-
                 router.replace('/successOrder');
-                setLoading(false)
             }
         } catch (error) {
             console.log('Error:', error);
+        }
+        finally{
             setLoading(false)
         }
 
