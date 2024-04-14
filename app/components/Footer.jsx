@@ -30,12 +30,12 @@ const Footer = () => {
 
   return (
       <footer className="bg-black/[0.96] text-white pt-14 mt-16">
+ 
+          <Container className="flex justify-between flex-col md:flex-row max-w-screen-xl px-3 md:px-0">
 
-        <Container className="flex justify-between flex-col md:flex-row gap-[50px] md:gap-0 max-w-screen-xl px-3 md:px-0">
+          <div className="flex flex-col md:flex-row gap-20">
 
-          <div className="flex gap-[50px] md:gap-[75px] lg:gap-[100px] flex-col md:flex-row">
-
-            <div className="flex flex-col gap-3 shrink-0">
+            <div className="flex flex-col gap-3">
               <Link href="/" className="text-xl text-white font-bold">BookCafe</Link>
               <div className="text-sm font-light text-white/[0.5]">
                 <p>Welcome to BookCafe!</p>
@@ -61,7 +61,7 @@ const Footer = () => {
 
             </div>
 
-            <div className="flex gap-[50px] md:gap-[75px] lg:gap-[100px] shrink-0">
+            <div className="flex gap-16">
               <div className="flex flex-col gap-3">
                 <div className="font-oswald font-medium uppercase text-sm">
                   Out Information
@@ -97,7 +97,7 @@ const Footer = () => {
 
             </div>
 
-            <div className="flex md:flex-col flex-row gap-8">
+            <div className="flex md:flex-col flex-row gap-10">
 
                 <div className=" flex flex-col gap-3">
                 <div className="font-oswald font-medium uppercase text-sm">
@@ -124,13 +124,13 @@ const Footer = () => {
                 </div>
 
           </div>
-        </Container>
+        </Container> 
 
         <Container className="mt-10 py-1 bg-black">
-          <div className="text-[12px] text-white/[0.5] hover:text-white cursor-pointer text-center">
+          <div className="text-[12px] text-white/[0.5] hover:text-white/[0.7] duration-200 cursor-pointer text-center">
             © 2024 BookCafe, Inc. All Rights Reserved
           </div>
-        </Container>
+        </Container> 
 
       </footer>
 
