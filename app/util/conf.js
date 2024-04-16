@@ -5,6 +5,8 @@ export const conf = {
     COLLECTION_ID_BOOKSTORE:String(process.env.COLLECTION_ID_BOOKSTORE),
     COLLECTION_ID_USERDETAILS:String(process.env.COLLECTION_ID_USERDETAILS),
     COLLECTION_ID_ORDERLIST:String(process.env.COLLECTION_ID_ORDERLIST),
+    COLLECTION_ID_FEEDBACK:String(process.env.COLLECTION_ID_FEEDBACK),
+
     BUCKET_ID_IMG:String(process.env.BUCKET_ID_IMG),
     BUCKET_ID_USER:String(process.env.BUCKET_ID_USER),
     

@@ -14,6 +14,7 @@ export class Service{
         this.databases = new Databases(this.client);
     }
 
+
     async getBooks(){
         try {
 
@@ -148,6 +149,19 @@ export class Service{
                 extend:true,
                 extendRpId:extendRpId
             });
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async submitFeedback({name,email,message}){
+        try {
+            return await this.databases.createDocument(conf.DATABASE_ID,conf.COLLECTION_ID_FEEDBACK,ID.unique(),{
+                    name:name,
+                    email:email,
+                    message:message
+            })
 
         } catch (error) {
             throw error

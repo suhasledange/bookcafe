@@ -100,7 +100,6 @@ const HomeSlider = () => {
               height: '100%',
             }} src='/HomeSlide1.svg' alt='X' width={500} height={500} />
           </div>
-
           </div>
         </div>
       </SwiperSlide> 
