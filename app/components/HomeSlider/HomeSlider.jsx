@@ -77,11 +77,11 @@ const HomeSlider = () => {
         clickable:true,
       }}
         // navigation={true}
-      modules={[ Navigation, Pagination]}
+      modules={[ Autoplay,Navigation, Pagination]}
       className="mySwiper"
       >
      
-     {/* <SwiperSlide>
+     <SwiperSlide>
         <div className="flex items-center ml-5 md:ml-0 md:justify-evenly w-full mx-auto ">
         <div className=" text-left">
             <h1 className="font-bold md:text-5xl text-3xl">Feed Your Mind</h1>
@@ -103,7 +103,7 @@ const HomeSlider = () => {
 
           </div>
         </div>
-      </SwiperSlide>  */}
+      </SwiperSlide> 
 
 
       {
@@ -177,7 +177,7 @@ const HomeSlider = () => {
 
 
 
-      {/* <SwiperSlide>
+      <SwiperSlide>
         <div className="flex items-center ml-5 md:ml-0 md:justify-evenly w-full mx-auto ">
         <div className=" text-left">
             <h1 className="font-bold md:text-5xl text-3xl">Your Campus Library</h1>
@@ -199,7 +199,7 @@ const HomeSlider = () => {
 
           </div>
         </div>
-      </SwiperSlide> */}
+      </SwiperSlide>
 
    
     </Swiper>
