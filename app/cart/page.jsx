@@ -57,7 +57,7 @@ const Cart = () => {
         <>
           <div className="text-center max-w-3xl mx-auto mt-8 md:mt-0">
             <div className="text-2xl md:text-3xl mb-3 font-semibold leading-tight">
-              Shopping Cart
+              Cart
             </div>
           </div>
 
