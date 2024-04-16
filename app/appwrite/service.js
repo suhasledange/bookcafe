@@ -68,6 +68,19 @@ export class Service{
         }
     }
 
+    async getLatestBook(){
+        try {
+
+            return await this.databases.listDocuments(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE,[
+                Query.limit(1),
+                Query.orderDesc("$createdAt")
+            ])
+
+        } catch (error) {
+            throw error
+        }
+    }
+
     async getBooksBySearch(res){
         try {
             return this.databases.listDocuments(
