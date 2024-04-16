@@ -8,4 +8,4 @@ const Faq = () => {
   )
 }
 
-export default page
+export default Faq
