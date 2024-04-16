@@ -8,4 +8,4 @@ const Guide = () => {
   )
 }
 
-export default page
+export default Guide
