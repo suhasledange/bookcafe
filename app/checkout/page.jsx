@@ -74,6 +74,7 @@ const Checkout = () => {
     const pincodeRegex = /^[1-9][0-9]{5}$/;
     
     if (!pincodeRegex.test(pincode)) {
+        notifyToast("Invalid Pincode",1500)
         setPincodeError("Please enter a valid pincode.");
         return false;
     }
@@ -87,6 +88,7 @@ const Checkout = () => {
        
         const validPincodes = ["422608", "422605"]; 
         if (!validPincodes.includes(pincode)) {
+            notifyToast("Not avaliable at your location",1500)
             setPincodeError("Not available at you location.");
             return false;
         }
