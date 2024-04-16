@@ -77,12 +77,11 @@ const HomeSlider = () => {
         clickable:true,
       }}
         // navigation={true}
-      modules={[ Autoplay,Navigation, Pagination]}
+      modules={[ Navigation, Pagination]}
       className="mySwiper"
       >
      
-
-     <SwiperSlide>
+     {/* <SwiperSlide>
         <div className="flex items-center ml-5 md:ml-0 md:justify-evenly w-full mx-auto ">
         <div className=" text-left">
             <h1 className="font-bold md:text-5xl text-3xl">Feed Your Mind</h1>
@@ -104,7 +103,7 @@ const HomeSlider = () => {
 
           </div>
         </div>
-      </SwiperSlide> 
+      </SwiperSlide>  */}
 
 
       {
@@ -112,7 +111,7 @@ const HomeSlider = () => {
 
         <SwiperSlide>
 
-        <div className="flex items-center justify-center gap-4 w-full mx-auto shrink ">
+        <div className="flex items-center md:justify-center gap-4 w-full mx-auto shrink ">
         
              
           <Link href={`/book/${book.$id}`} className=" hover:scale-105 duration-200 drop-shadow-xl md:w-72 md:h-72 w-56 h-56 md:py-5 py-3 ">
@@ -132,8 +131,7 @@ const HomeSlider = () => {
             <h1 className="font-bold md:text-3xl text-2xl">{book.bookName}</h1>
             <h1 className="font-medium text-md mb-3">{book.author}</h1>
             <p className="font-semibold text-gray-700">  &#8377;{book.rentPrice}</p>           
-            <div className="flex gap-3 mt-5 items-center">
-
+            <div className="flex gap-5 mt-5 items-start md:items-center md:flex-row flex-col">
             <button
           onClick={() => {
             if (canAddToCart()) {
@@ -159,9 +157,9 @@ const HomeSlider = () => {
           {book?.availability ? "Add To Cart" : "Out of Stock"}
         </button>
 
-        <Link href={`/book/${book.$id}`}>
-            <Button className="md:text-md text-sm" text="Read More" />
-            </Link>
+        <Link className="" href={`/book/${book.$id}`}>
+            <button className="border-2 border-black md:text-md text-sm p-[0.3rem] px-3 bg-transparent text-black active:scale-95 transform hover:text-white hover:bg-black duration-200">Read More</button>
+          </Link>
 
               </div> 
         
@@ -179,7 +177,7 @@ const HomeSlider = () => {
 
 
 
-      <SwiperSlide>
+      {/* <SwiperSlide>
         <div className="flex items-center ml-5 md:ml-0 md:justify-evenly w-full mx-auto ">
         <div className=" text-left">
             <h1 className="font-bold md:text-5xl text-3xl">Your Campus Library</h1>
@@ -201,7 +199,7 @@ const HomeSlider = () => {
 
           </div>
         </div>
-      </SwiperSlide>
+      </SwiperSlide> */}
 
    
     </Swiper>

@@ -21,7 +21,7 @@ const Slider = ({books,title="",loading}) => {
         }
     };
   return (
-    <Container className="max-w-screen-xl md:px-0 px-3 overflow-hidden">
+    <Container className="max-w-screen-xl overflow-hidden">
 
     <div className="mt-16">
             <div className="relative w-full border-b pb-3 text-2xl font-bold mb-10">

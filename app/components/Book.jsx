@@ -28,7 +28,6 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
   let isAvaiable = canAddToCart()
 
   return (
-    <>
    
     <div className="overflow-hidden w-44 bg-white mx-auto py-3 flex flex-col items-center justify-center">
       <Link
@@ -77,7 +76,6 @@ const Book = ({ Id, author, Img, availability, bookName, rentPrice,bookQuantity 
           {availability ? "Add To Cart" : "Out of Stock"}
         </button>
     </div>
-    </>
   )
 }
 export default Book
