@@ -25,7 +25,7 @@ const HomeSlider = () => {
   const dispatch = useDispatch();
   const {notifyToast} = useContext(ToastContext)
   const {cartItems} = useSelector((state => state.cart))
-
+  const status = useSelector(state => state.auth.status)
   const canAddToCart = () => {
     
     const totalQuantityInCart = cartItems.reduce((total, item) => {
