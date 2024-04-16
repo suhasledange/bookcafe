@@ -23,6 +23,7 @@ const Cart = () => {
   const { notifyToast } = useContext(ToastContext);
 
   const handleNavigate = async () => {
+    
     try {
       setLoading(true);
       if (userData) {
@@ -47,6 +48,7 @@ const Cart = () => {
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
