@@ -70,17 +70,36 @@ const Checkout = () => {
   };
 
 
-  const validatePincode = () => {
-    const validPincodes = ["422608", "422605"]; 
-    if (!validPincodes.includes(pincode)) {
-        setPincodeError("Not available at you location.");
+  const checkPinCode = ()=>{
+    const pincodeRegex = /^[1-9][0-9]{5}$/;
+    
+    if (!pincodeRegex.test(pincode)) {
+        setPincodeError("Please enter a valid pincode.");
         return false;
     }
-    setPincodeError(""); 
-    return true;
+    return true
+  }
+
+  const validatePincode = () => {
+
+
+    if(checkPinCode()){
+       
+        const validPincodes = ["422608", "422605"]; 
+        if (!validPincodes.includes(pincode)) {
+            setPincodeError("Not available at you location.");
+            return false;
+        }
+        else{
+            setPincodeError(""); 
+            return true;
+        }
+    }
+    else{
+        return false
+    }
+    
 };
-
-
 
   const handleAddressChange = (address) => {
     setSelectedAddress(address);
