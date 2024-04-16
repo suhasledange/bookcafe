@@ -17,6 +17,7 @@ import service from "@/app/appwrite/service";
 import { ToastContext } from "@/context/ToastContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
+import HomeSkeleton from "./HomeSkeleton";
 
 const HomeSlider = () => {
   
@@ -51,11 +52,9 @@ const HomeSlider = () => {
 
   },[])
 
-    useEffect(()=>{
-      fetchdata()
-    },[fetchdata])
-
-    console.log(book)
+  useEffect(() => {
+      fetchdata();  
+  }, [fetchdata]);
   
   return (
     <Container className='max-w-full h-[25rem] md:h-[20rem]'>
@@ -109,8 +108,9 @@ const HomeSlider = () => {
 
 
       {
-        book &&
-    <SwiperSlide>
+        book ? 
+
+        <SwiperSlide>
 
         <div className="flex items-center justify-center gap-4 w-full mx-auto shrink ">
         
@@ -168,6 +168,11 @@ const HomeSlider = () => {
         </div>
         </div>
       </SwiperSlide>
+
+      :
+          <SwiperSlide>
+              <HomeSkeleton/>
+          </SwiperSlide>
 
     }
 
