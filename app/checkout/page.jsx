@@ -83,7 +83,6 @@ const Checkout = () => {
 
   const validatePincode = () => {
 
-
     if(checkPinCode()){
        
         const validPincodes = ["422608", "422605"]; 
