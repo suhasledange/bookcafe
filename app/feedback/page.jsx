@@ -7,7 +7,7 @@ import { ToastContext } from '@/context/ToastContext';
 import service from '../appwrite/service';
 import Loader from '../components/Loader';
 
-const page = () => {
+const Feedback = () => {
 
     const [loading,setLoading] = useState(false)
 
@@ -118,4 +118,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Feedback
