@@ -24,7 +24,7 @@ const Footer = () => {
     { id: 2, text: "My Account", link: "/profile" },
     { id: 3, text: "Renting Guide", link: "/guide" },
     { id: 4, text: "Feedback", link: "/feedback" },
-    { id: 5, text: "FAQ", link: "/faq" },
+    // { id: 5, text: "FAQ", link: "/faq" },
   ];
 
   return (

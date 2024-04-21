@@ -1,10 +1,11 @@
+import Container from '@/app/components/Container'
 import React from 'react'
 
 const Faq = () => {
   return (
-    <div>
+    <Container className=" max-w-screen-xl">
       faq
-    </div>
+    </Container>
   )
 }
 

@@ -37,7 +37,7 @@ const Feedback = () => {
 
   return (
     <Container className=" max-w-screen-xl py-10">
-       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
+       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto">
        <div className='mb-8 text-center'>
         <h1 className='text-3xl font-bold mb-1'>How can we improve?</h1>
         <p className='text-sm text-gray-700 '>Your feedback is important to us.</p>
