@@ -1,9 +1,10 @@
+import Container from "@/app/components/Container"
 
 const Contact = () => {
   return (
-    <div>
-        contact
-    </div>
+    <Container className="py-10 max-w-screen-xl">
+        Contact US
+    </Container>
   )
 }
 
