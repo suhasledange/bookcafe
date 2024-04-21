@@ -191,7 +191,7 @@ const BookCard = ({ params }) => {
                         incl. of taxes
                       </div> */}
                       <div className="text-md font-medium text-red-700/[0.8] mb-8">
-                        {`(14 days of return period)`}
+                        {`(${book?.rentPeriod} days of return period)`}
                       </div>
                     </div>
                   ) : (
@@ -220,9 +220,7 @@ const BookCard = ({ params }) => {
                     </div>
                   ))}
 
-
                 </div>
-
                 <div>
                   <div className="text-lg font-bold mb-5">Description</div>
                   <div className="text-sm text-gray-800 mb-5 h-[15rem] overflow-y-auto pl-1 pr-3 py-1 text-justify">
