@@ -347,7 +347,8 @@ const Checkout = () => {
                   <input
                     type="text"
                     id="pincode"
-                    value={pincode}
+                    value={pincode} 
+                    placeholder="enter 422608 for testing"
                     onChange={handlePincodeChange}
                     className="mt-1 p-2 outline-black border rounded-sm border-gray-300 w-full"
                   />
