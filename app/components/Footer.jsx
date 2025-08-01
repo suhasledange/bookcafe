@@ -43,7 +43,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="mb-5 text-white/[0.5]">
-              <p> bookcafe30@gmail.com </p>
+              <p> bookcafe@gmail.com </p>
             </div>
 
             <div className="flex gap-4 justify-start">

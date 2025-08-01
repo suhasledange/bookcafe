@@ -71,8 +71,7 @@ export class AuthService{
             throw error
         }
     }
-
-
 }
+
 const authService = new AuthService();
 export default authService;

@@ -41,11 +41,11 @@ export async function POST(req) {
             <td>${ExtendDate}</td>
         </tr>
     </table>
-        <p>You now have more time to enjoy your reading without any worries. If you have any further questions or need assistance, feel free to reach out  at <a href="mailto:support@example.com">bookcafe30@gmail.com</a>. We're here to help!</p>
+        <p>You now have more time to enjoy your reading without any worries. If you have any further questions or need assistance, feel free to reach out  at <a href="mailto:support@example.com">bookcafe@gmail.com</a>. We're here to help!</p>
         <p> We hope you continue to have a pleasant reading experience with us.</p>
 
         <p>Best regards,</p>
-        <p><br>BOOKCAFE<br>Contact Information <BR>9389603522 <br>7588535092</p>
+        <p><br>BOOKCAFE<br>Contact Information <BR>93803522 <br>75855092</p>
         `,
         });
 

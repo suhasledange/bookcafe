@@ -62,10 +62,10 @@ export async function POST(req){
         </tr>
         </table>
 
-        <p>If you have any questions or concerns regarding your order, feel free to reply to this email  <a href="mailto:bookcafe30@gmail.com">bookcafe30@gmail</a>. We're here to assist you every step of the way.</p>
+        <p>If you have any questions or concerns regarding your order, feel free to reply to this email  <a href="mailto:bookcafe@gmail.com">bookcafe30@gmail</a>. We're here to assist you every step of the way.</p>
         <p> Thank you for your order!</p>
         <p>Warm regards,</p>
-        <p><br>BOOKCAFE<br>Contact Information <BR>9389603522 <br>7588535092</p>
+        <p><br>BOOKCAFE<br>Contact Information <BR>99603522 <br>75535092</p>
         `,
       });
 
