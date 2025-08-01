@@ -43,9 +43,23 @@ export class Service{
             throw error
         }
     }
+    async getBooksByIds(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) return [];
+
+    try {
+        return await this.databases.listDocuments(
+            conf.DATABASE_ID,
+            conf.COLLECTION_ID_BOOKSTORE,
+            [Query.equal("$id", ids)]
+        );
+    } catch (error) {
+        throw error;
+    }
+}
 
     async getBook(DocId){
         try {
+             if (!DocId?.length) return [];
 
             return this.databases.getDocument(conf.DATABASE_ID,conf.COLLECTION_ID_BOOKSTORE,DocId)
 

@@ -7,49 +7,49 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import service from '../appwrite/service';
 
+const CartItem = ({ Id, Img, bookName, author, price, bookQuantity, quantity }) => {
 
-const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) => {
-    const dispatch = useDispatch()
-    const [book,setBook] = useState();
 
-    const fetchBook = async ()=>{
+    const dispatch = useDispatch();
+    const [book, setBook] = useState();
+
+    const fetchBook = async () => {
         try {
-            const res = await service.getBook(Id)
-            if(res?.bookQuantity <= 0){
-                dispatch(removeFromCart({ id: Id }))
+            const res = await service.getBook(Id);
+            if (res?.bookQuantity <= 0) {
+                dispatch(removeFromCart({ id: Id }));
             }
             setBook(res);
         } catch (error) {
-            throw error
+            console.error("Error fetching book:", error);
         }
-    }
+    };
 
-    useEffect(()=>{
-        fetchBook()
-    },[])
+    useEffect(() => {
+        fetchBook();
+    }, []);
 
     const updateCartItem = (e, key) => {
         let payload = {
             key,
             val: key === 'quantity' ? parseInt(e.target.value) : e.target.value,
             id: Id
-        }
-        dispatch(updateCart(payload))
-    }
-
+        };
+        dispatch(updateCart(payload));
+    };
 
     return (
         <div className="flex py-5 gap-3 md:gap-5 border-b">
-            <Link href={`/book/${Id}`} >
-            <div className="shrink-0 hover:scale-105 duration-200 cursor-pointer aspect-square w-14 md:w-32">
-                <Image
-                className=' drop-shadow-lg'
-                alt="cart item"
-                src={Img}
-                width={500}
-                height={500}
-                />
-            </div>
+            <Link href={`/book/${Id}`}>
+                <div className="shrink-0 hover:scale-105 duration-200 cursor-pointer aspect-square w-14 md:w-32">
+                    <Image
+                        className="drop-shadow-lg"
+                        alt="cart item"
+                        src={Img}
+                        width={500}
+                        height={500}
+                    />
+                </div>
             </Link>
 
             <div className="w-full flex flex-col">
@@ -73,7 +73,6 @@ const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) =
 
                 <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center gap-2 md:gap-10 text-black/[0.5] text-sm md:text-md">
-
                         <div className="flex items-center gap-1">
                             <div className="font-semibold">Quantity:</div>
                             <select
@@ -81,7 +80,10 @@ const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) =
                                 onChange={(e) => updateCartItem(e, "quantity")}
                                 value={quantity}
                             >
-                                {Array.from({ length: book?.bookQuantity }, (_, i) => i + 1).map((q, i) => (
+                                {Array.from(
+                                    { length: book?.bookQuantity || 1 }, // ✅ use correct key
+                                    (_, i) => i + 1
+                                ).map((q, i) => (
                                     <option key={i} value={q}>
                                         {q}
                                     </option>
@@ -89,6 +91,7 @@ const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) =
                             </select>
                         </div>
                     </div>
+
                     <RiDeleteBin6Line
                         onClick={() => dispatch(removeFromCart({ id: Id }))}
                         className="cursor-pointer text-black/[0.5] hover:text-black text-xl md:text-2xl"
@@ -96,7 +99,7 @@ const CartItem = ({ Id, Img, bookName, author, price,bookQuantity, quantity }) =
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CartItem
+export default CartItem;

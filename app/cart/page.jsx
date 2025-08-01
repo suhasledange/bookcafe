@@ -1,11 +1,12 @@
 "use client";
+
 import Link from "next/link";
 import Container from "../components/Container";
 import Image from "next/image";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContext } from "@/context/ToastContext";
 import service from "../appwrite/service";
@@ -13,49 +14,89 @@ import service from "../appwrite/service";
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const userData = useSelector((state) => state.auth.userData);
+  const [bookDetails, setBookDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { notifyToast } = useContext(ToastContext);
 
-  const subTotal = useMemo(() => {
-    return cartItems.reduce((total, val) => total + val.price, 0);
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const ids = cartItems.map((item) => item.Id);
+        const { documents } = await service.getBooksByIds(ids);
+
+        const merged = documents.map((book) => {
+          const cartItem = cartItems.find((item) => item.Id === book.$id);
+
+          return {
+            ...book,
+            Id: cartItem?.Id,
+            quantity: cartItem?.quantity,
+          };
+        });
+
+        setBookDetails(merged);
+      } catch (error) {
+        console.error("Error fetching book details:", error);
+      }
+    };
+
+    if (cartItems.length > 0) {
+      fetchBooks();
+    } else {
+      setBookDetails([]);
+    }
   }, [cartItems]);
 
 
-  const router = useRouter();
-
-  const { notifyToast } = useContext(ToastContext);
+  const subTotal = useMemo(() => {
+    return cartItems.reduce((total, item) => {
+      const book = bookDetails.find((b) => b.$id === item.Id);
+      if (book) {
+        return total + book.rentPrice * item.quantity;
+      }
+      return total;
+    }, 0);
+  }, [cartItems, bookDetails]);
 
   const handleNavigate = async () => {
-    
+    setLoading(true);
     try {
-      setLoading(true);
-      if (userData) {
-        if (userData.phone !== "" && userData.address.length !== 0) {
-          const {documents} = await service.getDueOrders(userData.UserId);
-          if(documents.length){
-            await notifyToast("Please return overdue book",2000);
-          }
-          else{
-            router.push("/checkout");
-          }
-        } else {
-          await notifyToast("Please update address and phone",2000);
-          router.push("/profile");
-        }
-      } else {
-        await notifyToast("Please login to proceed",2000);
+      if (!userData) {
+        await notifyToast("Please login to proceed", 2000);
         router.push("/login");
+        return;
       }
+
+      const hasPhone = userData.phone?.trim() !== "";
+      const hasAddress =
+        Array.isArray(userData.address) && userData.address.length > 0;
+
+      if (!hasPhone || !hasAddress) {
+        await notifyToast("Please update address and phone", 2000);
+        router.push("/profile");
+        return;
+      }
+
+      const { documents } = await service.getDueOrders(userData.UserId);
+      if (documents.length > 0) {
+        await notifyToast("Please return overdue book", 2000);
+        return;
+      }
+
+      router.push("/checkout");
     } catch (error) {
-      console.log("User Not Found",error)
+      console.log("Error during checkout navigation:", error);
+      await notifyToast("Something went wrong", 2000);
     } finally {
       setLoading(false);
     }
-
   };
+
 
   return (
     <Container className="max-w-screen-xl mt-8">
-      {cartItems.length > 0 && (
+      {bookDetails.length > 0 ? (
         <>
           <div className="text-center max-w-3xl mx-auto mt-8 md:mt-0">
             <div className="text-2xl md:text-3xl mb-3 font-semibold leading-tight">
@@ -64,24 +105,22 @@ const Cart = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-12 py-10">
-            {/* CART ITEMS START */}
             <div className="flex-[2]">
               <div className="text-lg font-bold">Cart Items</div>
-              {cartItems?.map((item) => (
+              {bookDetails?.map((book) => (
                 <CartItem
-                  key={item.Id}
-                  Id={item.Id}
-                  Img={item.Img}
-                  bookName={item.bookName}
-                  author={item.author}
-                  price={item.price}
-                  bookQuantity={item.bookQuantity}
-                  quantity={item.quantity}
+                  key={book.Id}
+                  Id={book.Id}
+                  Img={book.bookImg}
+                  bookName={book.bookName}
+                  author={book.author}
+                  price={book.rentPrice}
+                  bookQuantity={book.bookQuantity}
+                  quantity={book.quantity}
                 />
               ))}
             </div>
-            {/* CART ITEMS END */}
-            {/* SUMMARY START */}
+
             <div className="flex-[1]">
               <div className="text-lg font-bold">Summary</div>
               <div className="p-5 my-5 bg-black/[0.05]">
@@ -90,7 +129,7 @@ const Cart = () => {
                     Subtotal
                   </div>
                   <div className="text-md md:text-lg font-medium text-black">
-                    &#8377;{subTotal}
+                    ₹{subTotal}
                   </div>
                 </div>
                 <div className="text-sm md:text-md py-5 border-t mt-5">
@@ -99,6 +138,7 @@ const Cart = () => {
                   include delivery costs and international transaction fees.
                 </div>
               </div>
+
               <div onClick={handleNavigate}>
                 <Button
                   className="flex items-center w-full justify-center py-3 gap-3 text-md"
@@ -110,9 +150,7 @@ const Cart = () => {
             </div>
           </div>
         </>
-      )}
-
-      {cartItems.length < 1 && (
+      ) : (
         <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
           <Image
             placeholder="blur"

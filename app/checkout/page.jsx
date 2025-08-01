@@ -13,23 +13,54 @@ import formatDate from "../util/formatDate";
 import { conf } from "../util/conf";
 import Loader from "../components/Loader";
 import { ToastContext } from "@/context/ToastContext";
+
 const Checkout = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart); // cartItems = [{id, quantity}]
   const userData = useSelector((state) => state.auth.userData);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [onlineLoading, setOnlineLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("payOnline");
-
   const { notifyToast } = useContext(ToastContext);
+
+  const [detailedCartItems, setDetailedCartItems] = useState([]);
+
+useEffect(() => {
+    const fetchBooks = async () => {
+      const ids = cartItems.map((item) => item.Id);
+      if (ids.length === 0) return;
+
+      try {
+        const response = await service.getBooksByIds(ids);
+        const books = response.documents; 
+
+        const mergedBooks = books.map((book) => {
+          const cartItem = cartItems.find((item) => item.Id === book.$id);
+
+          return { ...book, quantity: cartItem.quantity };
+        });
+
+        setDetailedCartItems(mergedBooks);
+      } catch (error) {
+        console.error("Error fetching book details:", error);
+      }
+    };
+
+    if (cartItems.length > 0) {
+      fetchBooks();
+    }
+  }, [cartItems]);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
 
   const subTotal = useMemo(() => {
-    return cartItems.reduce((total, val) => total + val.price, 0);
-  }, [cartItems]);
+    return detailedCartItems.reduce(
+      (total, val) => total + val.rentPrice * val.quantity,
+      0
+    );
+  }, [detailedCartItems]);
 
   useEffect(() => {
     if (cartItems.length === 0 || userData === null) router.replace("/");
@@ -61,46 +92,39 @@ const Checkout = () => {
     },
   });
 
-
-  const [pincode, setPincode] = useState(""); 
-  const [pincodeError, setPincodeError] = useState(""); 
+  const [pincode, setPincode] = useState("");
+  const [pincodeError, setPincodeError] = useState("");
 
   const handlePincodeChange = (event) => {
-      setPincode(event.target.value);
+    setPincode(event.target.value);
   };
 
-
-  const checkPinCode = ()=>{
+  const checkPinCode = () => {
     const pincodeRegex = /^[1-9][0-9]{5}$/;
-    
+
     if (!pincodeRegex.test(pincode)) {
-        notifyToast("Invalid Pincode",1500)
-        setPincodeError("Please enter a valid pincode.");
-        return false;
+      notifyToast("Invalid Pincode", 1500);
+      setPincodeError("Please enter a valid pincode.");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const validatePincode = () => {
-
-    if(checkPinCode()){
-       
-        const validPincodes = ["422608", "422605"]; 
-        if (!validPincodes.includes(pincode)) {
-            notifyToast("Not avaliable at your location",1500)
-            setPincodeError("Not available at you location.");
-            return false;
-        }
-        else{
-            setPincodeError(""); 
-            return true;
-        }
+    if (checkPinCode()) {
+      const validPincodes = ["422608", "422605"];
+      if (!validPincodes.includes(pincode)) {
+        notifyToast("Not available at your location", 1500);
+        setPincodeError("Not available at your location.");
+        return false;
+      } else {
+        setPincodeError("");
+        return true;
+      }
+    } else {
+      return false;
     }
-    else{
-        return false
-    }
-    
-};
+  };
 
   const handleAddressChange = (address) => {
     setSelectedAddress(address);
@@ -117,7 +141,7 @@ const Checkout = () => {
     const name = res.name;
     const Payment = payment === "complete" ? "Online" : "CashOnDelivery";
 
-    const response = await fetch("/api/sendEmail", {
+    await fetch("/api/sendEmail", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -137,10 +161,8 @@ const Checkout = () => {
   };
 
   const onSubmit = async (data) => {
-
-
-    if(!validatePincode()){
-        return
+    if (!validatePincode()) {
+      return;
     }
 
     data.address = selectedAddress;
@@ -149,7 +171,7 @@ const Checkout = () => {
     try {
       setLoading(true);
       if (paymentMethod === "payOnline") {
-        const amount = data.totalPrice * 100;
+        const amount = subTotal * 100;
         const userId = data.userId;
         const pId = data.collectionId;
         const name = data.name;
@@ -183,7 +205,6 @@ const Checkout = () => {
           amount: order.amount,
           order_id: order.id,
           description: "BookCafe Online Rentel Service",
-          // image: logoBase64,
           handler: async function (response) {
             setOnlineLoading(true);
             const rpId = response.razorpay_payment_id;
@@ -191,8 +212,6 @@ const Checkout = () => {
             await sendToDB(payment, rpId, data);
             router.replace(`/successOrder/${response.razorpay_payment_id}`);
             setOnlineLoading(false);
-
-            console.log(response);
           },
           prefill: {
             name: order.notes.userName,
@@ -223,20 +242,20 @@ const Checkout = () => {
     } finally {
       setLoading(false);
     }
-
   };
 
   const sendToDB = async (payment, rpId, data) => {
-    for await (const book of cartItems) {
+    for await (const book of detailedCartItems) {
       const newData = { ...data };
-      newData.price = book.price;
-      newData.bookId = book.Id;
+      newData.price = book.rentPrice;
+      newData.bookId = book.$id; 
       newData.quantity = book.quantity;
       newData.bookQuantity = book.bookQuantity;
       newData.availability = book.availability;
       newData.bookName = book.bookName;
       newData.author = book.author;
-      (newData.payment = payment), (newData.razorPayId = rpId);
+      newData.payment = payment;
+      newData.razorPayId = rpId;
 
       const res = await service.createOrder(newData);
       if (res) {
@@ -347,7 +366,7 @@ const Checkout = () => {
                   <input
                     type="text"
                     id="pincode"
-                    value={pincode} 
+                    value={pincode}
                     placeholder="enter 422608 for testing"
                     onChange={handlePincodeChange}
                     className="mt-1 p-2 outline-black border rounded-sm border-gray-300 w-full"
@@ -397,7 +416,7 @@ const Checkout = () => {
               <div className="p-1 flex items-center justify-between mb-3 border-b-2 border-black pb-3">
                 <h1 className="text-sm font-medium flex items-center justify-start gap-2">
                   {" "}
-                  <BsCart className="text-lg" /> {cartItems.length} item(s) in
+                  <BsCart className="text-lg" /> {detailedCartItems.length} item(s) in
                   Cart
                 </h1>
                 <Link
@@ -407,9 +426,9 @@ const Checkout = () => {
                   Edit Cart
                 </Link>
               </div>
-              {cartItems?.map((book) => (
+              {detailedCartItems?.map((book) => (
                 <div
-                  key={book?.Id}
+                  key={book?.$id}
                   className="border-b-2 p-1 pb-2 space-y-1 mb-4"
                 >
                   <div className="flex items-center gap-3 justify-between">
@@ -420,7 +439,9 @@ const Checkout = () => {
                         x{book?.quantity}
                       </span>{" "}
                     </h1>
-                    <h2 className="text-sm">&#8377;{book?.price}</h2>
+                    <h2 className="text-sm">
+                      &#8377;{book?.rentPrice * book?.quantity}
+                    </h2>
                   </div>
 
                   <div>
