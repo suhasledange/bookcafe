@@ -9,13 +9,13 @@ import Button from "../components/Button";
 import { BsCart } from "react-icons/bs";
 import "./checkout.css";
 import service from "../appwrite/service";
-import formatDate from "../util/formatDate";
 import { conf } from "../util/conf";
 import Loader from "../components/Loader";
 import { ToastContext } from "@/context/ToastContext";
+import sendMail from "../util/sendMail";
 
 const Checkout = () => {
-  const { cartItems } = useSelector((state) => state.cart); // cartItems = [{id, quantity}]
+  const { cartItems } = useSelector((state) => state.cart); 
   const userData = useSelector((state) => state.auth.userData);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -130,35 +130,6 @@ useEffect(() => {
     setSelectedAddress(address);
   };
 
-  const sendMail = async (res, payment) => {
-    const subject = "Order Placed Successfuly!!!";
-    const orderId = res.$id;
-    const orderDate = formatDate(res.DateOfOrder);
-    const bookName = res.bookName;
-    const author = res.author;
-    const address = res.address;
-    const email = res.email;
-    const name = res.name;
-    const Payment = payment === "complete" ? "Online" : "CashOnDelivery";
-
-    await fetch("/api/sendEmail", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        subject,
-        email,
-        orderId,
-        bookName,
-        author,
-        address,
-        name,
-        orderDate,
-        Payment,
-      }),
-    });
-  };
 
   const onSubmit = async (data) => {
     if (!validatePincode()) {
@@ -170,6 +141,7 @@ useEffect(() => {
 
     try {
       setLoading(true);
+      
       if (paymentMethod === "payOnline") {
         const amount = subTotal * 100;
         const userId = data.userId;
