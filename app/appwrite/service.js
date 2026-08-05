@@ -71,13 +71,20 @@ export class Service{
     async getBooksByGenre(genre) {
         try {
         
-            return this.databases.listDocuments(
-                conf.DATABASE_ID,
-                conf.COLLECTION_ID_BOOKSTORE,
-                [
-                    Query.search('genre',genre)
-                ]
-            );
+           const response = await this.databases.listDocuments(
+            conf.DATABASE_ID,
+            conf.COLLECTION_ID_BOOKSTORE
+    );
+
+    const books = response.documents.filter(book =>
+    book.genre.includes(genre)
+    );
+
+return {
+    ...response,
+    documents: books
+};
+
         } catch (error) {
             throw error;
         }

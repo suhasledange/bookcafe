@@ -30,7 +30,7 @@ const SignupForm = () => {
         if(userId) router.push('/checkemail')
 
     } catch (error) {
-      console.log('invalid')
+      console.log(error,'invalid')
     } finally {
       reset();
       setLoading(false);
